@@ -26,7 +26,8 @@ public class Ticket {
 
     private String caminhoFoto; // Para armazenar o caminho da foto do problema
 
-    private Long alunoId;
+    @Column(nullable = false)
+    private String raAluno; // RA do aluno é obrigatório
 
     public enum Status {
         ABERTO, EM_ANDAMENTO, SOLUCIONADO, CANCELADO
