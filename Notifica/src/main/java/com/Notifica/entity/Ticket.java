@@ -1,6 +1,7 @@
 package com.Notifica.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Data;
 import java.time.LocalDateTime;
 
@@ -12,6 +13,7 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NotBlank(message = "A descrição do problema é obrigatória")
     @Column(nullable = false)
     private String descricaoProblema;
 
@@ -26,6 +28,7 @@ public class Ticket {
 
     private String caminhoFoto; // Para armazenar o caminho da foto do problema
 
+    @NotBlank(message = "O RA do aluno é obrigatório")
     @Column(nullable = false)
     private String raAluno; // RA do aluno é obrigatório
 
@@ -37,5 +40,12 @@ public class Ticket {
     protected void onCreate() {
         this.dataCriacao = LocalDateTime.now();
         this.status = Status.ABERTO;
+    }
+    
+    public void atualizarStatus(Status novoStatus) {
+        if (novoStatus == Status.SOLUCIONADO) {
+            this.dataSolucao = LocalDateTime.now(); // Registra a data de solução ao mudar para SOLUCIONADO
+        }
+        this.status = novoStatus;
     }
 }
