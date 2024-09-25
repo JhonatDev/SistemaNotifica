@@ -7,7 +7,7 @@ import lombok.Setter;
 @Entity
 @Getter
 @Setter
-public class Funcionario {
+public class Usuarios {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,7 +25,7 @@ public class Funcionario {
 
     // Enum para definir o tipo de usuário
     public enum TipoUsuario {
-        ADMIN(1), FUNCIONARIO(2);
+        ADMIN(1), Usuarios(2);
 
         private final int codigo;
 
