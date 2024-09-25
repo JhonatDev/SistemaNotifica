@@ -15,8 +15,8 @@ public class usuáriosController {
     private UsuariosService UsuariosService;
 
     @PostMapping
-    public ResponseEntity<Usuarios> criarFuncionario(@RequestParam String username, @RequestParam String password) {
-        Usuarios Usuarios = UsuariosService.criarUsuarios(username, password);
+    public ResponseEntity<Usuarios> criarUsuarios(@RequestParam String username, @RequestParam String password, @RequestParam Usuarios.TipoUsuario tipoUsuario) {
+        Usuarios Usuarios = UsuariosService.criarUsuarios(username, password, tipoUsuario);
         return ResponseEntity.ok(Usuarios);
     }
 

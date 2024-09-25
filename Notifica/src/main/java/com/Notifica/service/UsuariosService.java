@@ -15,10 +15,12 @@ public class UsuariosService {
     
     private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-    public Usuarios criarUsuarios(String username, String password) {
+    public Usuarios criarUsuarios(String username, String password, Usuarios.TipoUsuario tipoUsuario) {
         Usuarios Usuarios = new Usuarios();
         Usuarios.setUsername(username);
-        
+
+        Usuarios.setTipoUsuario(tipoUsuario);
+
         String hashedPassword = passwordEncoder.encode(password);  //hash da senha
         Usuarios.setPassword(hashedPassword);
 
