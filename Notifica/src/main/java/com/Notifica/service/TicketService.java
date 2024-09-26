@@ -27,8 +27,8 @@ public class TicketService {
         return ticketRepository.findAll();
     }
 
-    public List<Ticket> listarTicketsPorAluno(Long alunoId) {
-        return ticketRepository.findByAlunoId(alunoId);
+    public List<Ticket> listarTicketsPorAluno(String raAluno) {
+        return ticketRepository.findByRaAluno(raAluno);
     }
 
     public Optional<Ticket> obterTicketPorId(Long id) {

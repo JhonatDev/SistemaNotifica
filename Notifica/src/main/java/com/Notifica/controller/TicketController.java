@@ -29,9 +29,9 @@ public class TicketController {
         return ResponseEntity.ok(tickets);
     }
 
-    @GetMapping("/aluno/{alunoId}")
-    public ResponseEntity<List<Ticket>> listarTicketsPorAluno(@PathVariable Long alunoId) {
-        List<Ticket> tickets = ticketService.listarTicketsPorAluno(alunoId);
+    @GetMapping("/aluno/{raAluno}")
+    public ResponseEntity<List<Ticket>> listarTicketsPorAluno(@PathVariable String raAluno) {
+        List<Ticket> tickets = ticketService.listarTicketsPorAluno(raAluno);
         return ResponseEntity.ok(tickets);
     }
 

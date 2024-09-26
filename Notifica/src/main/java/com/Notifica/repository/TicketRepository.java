@@ -9,5 +9,5 @@ import java.util.List;
 
 @Repository
 public interface TicketRepository extends JpaRepository<Ticket, Long> {
-    List<Ticket> findByAlunoId(Long alunoId);
+    List<Ticket> findByRaAluno(String raAluno);
 }
