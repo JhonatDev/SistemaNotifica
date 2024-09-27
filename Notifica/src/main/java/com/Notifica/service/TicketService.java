@@ -19,6 +19,8 @@ public class TicketService {
     public Ticket criarTicket(Ticket ticket) {
     	if (ticket.getDescricaoProblema() == null || ticket.getDescricaoProblema().isEmpty()) {
             throw new IllegalArgumentException("A descrição do ticket é obrigatória.");
+        } else if (ticket.getRaAluno() == null || ticket.getRaAluno().isEmpty()) {
+            throw new IllegalArgumentException("O RA do aluno é obrigatório.");
         }
         return ticketRepository.save(ticket);
     }
