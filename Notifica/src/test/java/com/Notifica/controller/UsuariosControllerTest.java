@@ -3,7 +3,7 @@ package com.Notifica.controller;
 import com.Notifica.entity.Usuarios;
 import com.Notifica.service.UsuariosService;
 
-import com.Notifica.controller.usuáriosController;
+import com.Notifica.controller.UsuariosController;
 import Notifica.service.SecurityConfig;
 
 import org.junit.jupiter.api.Test;
@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
-@WebMvcTest(usuáriosController.class)
+@WebMvcTest(UsuariosController.class)
 @Import(SecurityConfig.class) // Certifique-se de que isso está correto
 public class UsuariosControllerTest {
    
@@ -44,7 +44,7 @@ public class UsuariosControllerTest {
 
         Mockito.when(usuariosService.criarUsuario(any(String.class), any(String.class), any(Usuarios.TipoUsuario.class))).thenReturn(usuarios);
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/Usuarios")
+        mockMvc.perform(MockMvcRequestBuilders.post("/usuarios/criar")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"username\": \"Test Usuarios\", \"password\": \"Test Usuarios\", \"tipoUsuario\": \"ADMIN\"}")) // Ajuste o campo
                 .andExpect(status().isCreated())
@@ -53,8 +53,19 @@ public class UsuariosControllerTest {
                 .andExpect(jsonPath("$.username").value("Test Usuarios")) // Ajuste o campo
                 .andExpect(jsonPath("$.password").value("Test Usuarios")) // Ajuste o campo
                 .andExpect(jsonPath("$.tipoUsuario").value("ADMIN")); // Ajuste o campo
+
     }
 
+    @Test
+    public void testCriarUsuariosInternalServerError() throws Exception {
+        Mockito.when(usuariosService.criarUsuario(any(String.class), any(String.class), any(Usuarios.TipoUsuario.class))).thenThrow(new RuntimeException("Erro interno"));
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/usuarios/criar")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content("{\"username\": \"Test Usuarios\", \"password\": \"Test Usuarios\", \"tipoUsuario\": \"ADMIN\"}")) // Ajuste o campo
+                .andExpect(status().isInternalServerError());
+    }
+        
     @Test
     public void testObterUsuariosPorId() throws Exception {
         Usuarios usuarios = new Usuarios();
@@ -63,10 +74,9 @@ public class UsuariosControllerTest {
         usuarios.setPassword("Test Usuarios");
         usuarios.setTipoUsuario(Usuarios.TipoUsuario.ADMIN);
 
-        Mockito.when(usuariosService.obterUsuarioPorId(1L)).thenReturn(usuarios);
+        Mockito.when(usuariosService.obterUsuarioPorId(any(Long.class))).thenReturn(usuarios);
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/Usuarios/1")
-                .contentType(MediaType.APPLICATION_JSON))
+        mockMvc.perform(MockMvcRequestBuilders.get("/usuarios/obter/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(1L))
@@ -74,5 +84,24 @@ public class UsuariosControllerTest {
                 .andExpect(jsonPath("$.password").value("Test Usuarios")) // Ajuste o campo
                 .andExpect(jsonPath("$.tipoUsuario").value("ADMIN")); // Ajuste o campo
     }
+
+    @Test
+    public void testObterUsuariosPorIdNotFound() throws Exception {
+        Mockito.when(usuariosService.obterUsuarioPorId(any(Long.class))).thenReturn(null);
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/usuarios/obter/1"))
+                .andExpect(status().isNotFound());
+    }
+
+    @Test
+    public void testObterUsuariosPorIdInternalServerError() throws Exception {
+        Mockito.when(usuariosService.obterUsuarioPorId(any(Long.class))).thenThrow(new RuntimeException("Erro interno"));
+
+        mockMvc.perform(MockMvcRequestBuilders.get("/usuarios/obter/1"))
+                .andExpect(status().isInternalServerError());
+    }
+
+
+
 }
 

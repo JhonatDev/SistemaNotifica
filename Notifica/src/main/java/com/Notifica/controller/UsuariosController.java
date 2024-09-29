@@ -16,30 +16,26 @@ public class UsuariosController {
     private UsuariosService usuariosService;
 
     @PostMapping("/criar")
-    public ResponseEntity<?> criarUsuarios(
-            @RequestParam String username,
-            @RequestParam String password,
-            @RequestParam Usuarios.TipoUsuario tipoUsuario) {
+    public ResponseEntity<Usuarios> criarUsuarios(@RequestBody Usuarios usuario) {
         try {
-            Usuarios usuario = usuariosService.criarUsuario(username, password, tipoUsuario);
-            return ResponseEntity.ok("Usuário criado com sucesso! Detalhes: " + usuario);
+            Usuarios novoUsuario = usuariosService.criarUsuario(usuario.getUsername(), usuario.getPassword(), usuario.getTipoUsuario());
+            return ResponseEntity.status(HttpStatus.CREATED).body(novoUsuario); // Retornando o objeto criado
         } catch (Exception e) {
-
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao criar o usuário: " + e.getMessage());
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 
     @GetMapping("/obter/{id}")
-    public ResponseEntity<?> obterUsuariosPorId(@PathVariable Long id) {
+    public ResponseEntity<Usuarios> obterUsuariosPorId(@PathVariable Long id) {
         try {
             Usuarios usuario = usuariosService.obterUsuarioPorId(id);
             if (usuario != null) {
-                return ResponseEntity.ok("Usuário encontrado com sucesso! Detalhes: " + usuario);
+                return ResponseEntity.ok(usuario); // Retornando o objeto encontrado
             } else {
-                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Usuário não encontrado para o ID: " + id);
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
             }
         } catch (Exception e) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao obter o usuário com ID: " + id);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
 }

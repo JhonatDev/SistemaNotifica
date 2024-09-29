@@ -21,7 +21,7 @@ public class SecurityConfig {
         http
             .csrf().disable() // Desativando CSRF para o teste
             .authorizeRequests()
-            .requestMatchers("/tickets/**", "/Usuarios/**").permitAll() // Permitir acesso ao endpoint sem autenticação
+            .requestMatchers("/tickets/**", "/usuarios/**").permitAll() // Permitir acesso ao endpoint sem autenticação
             .anyRequest().authenticated();
     
         return http.build();

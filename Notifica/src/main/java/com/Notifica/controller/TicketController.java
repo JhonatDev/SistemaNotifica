@@ -42,7 +42,7 @@ public class TicketController {
     @GetMapping("/{id}")
     public ResponseEntity<Ticket> obterTicketPorId(@PathVariable Long id) {
         Optional<Ticket> ticket = ticketService.obterTicketPorId(id);
-        return ticket.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
+        return new ResponseEntity<>(ticket.orElseThrow(NoSuchElementException::new), HttpStatus.OK);
     }
 
     @PatchMapping("/{id}/status")
