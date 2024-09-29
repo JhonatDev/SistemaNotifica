@@ -21,7 +21,7 @@ public class UsuariosController {
             @RequestParam String password,
             @RequestParam Usuarios.TipoUsuario tipoUsuario) {
         try {
-            Usuarios usuario = usuariosService.criarUsuarios(username, password, tipoUsuario);
+            Usuarios usuario = usuariosService.criarUsuario(username, password, tipoUsuario);
             return ResponseEntity.ok("Usuário criado com sucesso! Detalhes: " + usuario);
         } catch (Exception e) {
 
@@ -32,7 +32,7 @@ public class UsuariosController {
     @GetMapping("/obter/{id}")
     public ResponseEntity<?> obterUsuariosPorId(@PathVariable Long id) {
         try {
-            Usuarios usuario = usuariosService.obterUsuariosPorId(id);
+            Usuarios usuario = usuariosService.obterUsuarioPorId(id);
             if (usuario != null) {
                 return ResponseEntity.ok("Usuário encontrado com sucesso! Detalhes: " + usuario);
             } else {

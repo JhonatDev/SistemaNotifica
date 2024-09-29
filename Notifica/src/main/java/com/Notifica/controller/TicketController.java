@@ -23,20 +23,20 @@ public class TicketController {
     @PostMapping
     public ResponseEntity<Ticket> criarTicket(@RequestBody Ticket ticket) {
         Ticket novoTicket = ticketService.criarTicket(ticket);
-        return ResponseEntity.ok(novoTicket);
+        return new ResponseEntity<>(novoTicket, HttpStatus.CREATED);
     }
 
     @GetMapping
     public ResponseEntity<List<Ticket>> listarTickets() {
         List<Ticket> tickets = ticketService.listarTickets();
-        return ResponseEntity.ok(tickets);
+        return new ResponseEntity<>(tickets, HttpStatus.OK);
     }
 
 
     @GetMapping("/aluno/{raAluno}")
     public ResponseEntity<List<Ticket>> listarTicketsPorAluno(@PathVariable String raAluno) {
         List<Ticket> tickets = ticketService.listarTicketsPorAluno(raAluno);
-        return ResponseEntity.ok(tickets);
+        return new ResponseEntity<>(tickets, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
@@ -48,13 +48,13 @@ public class TicketController {
     @PatchMapping("/{id}/status")
     public ResponseEntity<Ticket> atualizarStatus(@PathVariable Long id, @RequestParam Ticket.Status status) {
         Ticket ticketAtualizado = ticketService.atualizarStatus(id, status);
-        return ResponseEntity.ok(ticketAtualizado);
+        return new ResponseEntity<>(ticketAtualizado, HttpStatus.OK);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarTicket(@PathVariable Long id) {
         ticketService.deletarTicket(id);
-        return ResponseEntity.noContent().build();
+        return new  ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }
