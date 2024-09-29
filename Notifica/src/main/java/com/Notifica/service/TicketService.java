@@ -9,7 +9,6 @@ import com.Notifica.repository.TicketRepository;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
-
 @Service
 public class TicketService {
 
@@ -17,7 +16,7 @@ public class TicketService {
     private TicketRepository ticketRepository;
 
     public Ticket criarTicket(Ticket ticket) {
-    	if (ticket.getDescricaoProblema() == null || ticket.getDescricaoProblema().isEmpty()) {
+        if (ticket.getDescricaoProblema() == null || ticket.getDescricaoProblema().isEmpty()) {
             throw new IllegalArgumentException("A descrição do ticket é obrigatória.");
         } else if (ticket.getRaAluno() == null || ticket.getRaAluno().isEmpty()) {
             throw new IllegalArgumentException("O RA do aluno é obrigatório.");
