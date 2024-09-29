@@ -9,6 +9,7 @@ import com.Notifica.entity.Ticket;
 import com.Notifica.service.TicketService;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Objects;
 
@@ -22,36 +23,38 @@ public class TicketController {
     @PostMapping
     public ResponseEntity<Ticket> criarTicket(@RequestBody Ticket ticket) {
         Ticket novoTicket = ticketService.criarTicket(ticket);
-        return new ResponseEntity<>(novoTicket, HttpStatus.CREATED);
+        return ResponseEntity.ok(novoTicket);
     }
 
     @GetMapping
     public ResponseEntity<List<Ticket>> listarTickets() {
         List<Ticket> tickets = ticketService.listarTickets();
-        return new ResponseEntity<>(tickets, HttpStatus.OK);
+        return ResponseEntity.ok(tickets);
     }
+
 
     @GetMapping("/aluno/{raAluno}")
     public ResponseEntity<List<Ticket>> listarTicketsPorAluno(@PathVariable String raAluno) {
         List<Ticket> tickets = ticketService.listarTicketsPorAluno(raAluno);
-        return new ResponseEntity<>(tickets, HttpStatus.OK);
+        return ResponseEntity.ok(tickets);
     }
 
     @GetMapping("/{id}")
     public ResponseEntity<Ticket> obterTicketPorId(@PathVariable Long id) {
         Optional<Ticket> ticket = ticketService.obterTicketPorId(id);
-        return new ResponseEntity<>(ticket.orElse(null), HttpStatus.OK);
+        return ticket.map(ResponseEntity::ok).orElseGet(() -> ResponseEntity.notFound().build());
     }
 
     @PatchMapping("/{id}/status")
     public ResponseEntity<Ticket> atualizarStatus(@PathVariable Long id, @RequestParam Ticket.Status status) {
         Ticket ticketAtualizado = ticketService.atualizarStatus(id, status);
-        return new ResponseEntity<>(ticketAtualizado, HttpStatus.OK);
+        return ResponseEntity.ok(ticketAtualizado);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarTicket(@PathVariable Long id) {
         ticketService.deletarTicket(id);
-        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return ResponseEntity.noContent().build();
     }
+
 }
