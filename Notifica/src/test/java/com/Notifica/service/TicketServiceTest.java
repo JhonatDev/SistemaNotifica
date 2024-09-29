@@ -204,5 +204,166 @@ public class TicketServiceTest {
         verify(ticketRepository, times(1)).save(ticket);
     }
 
+    @Test
+    public void testAtualizarStatusTicketInexistente() {
+        // define o comportamento do mock para o método findById
+        when(ticketRepository.findById(1L)).thenReturn(Optional.empty());
+
+        // Chama o método a ser testado e verifica se a exceção é lançada
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            ticketService.atualizarStatus(1L, Ticket.Status.EM_ANDAMENTO);
+        });
+
+        // Verifica a mensagem da exceção
+        assertEquals("Ticket não encontrado.", exception.getMessage());
+
+        // Verifica se o método findById foi chamado uma vez
+        verify(ticketRepository, times(1)).findById(1L);
+    }
+
+    @Test
+    public void testAtualizarStatusTicketCancelado() {
+        // Cria o ticket que será atualizado
+        Ticket ticket = new Ticket();
+        ticket.setId(1L);
+        ticket.setDescricaoProblema("Problema teste");
+        ticket.setLocal("Local teste");
+        ticket.setRaAluno("123456");
+        ticket.setCaminhoFoto("caminho/foto");
+        ticket.setStatus(Ticket.Status.ABERTO);
+
+        // define o comportamento do mock para o método findById
+        when(ticketRepository.findById(1L)).thenReturn(Optional.of(ticket));
+
+        // define o comportamento do mock para o método save
+        when(ticketRepository.save(ticket)).thenReturn(ticket);
+
+        // Chama o método a ser testado
+        Ticket ticketAtualizado = ticketService.atualizarStatus(1L, Ticket.Status.CANCELADO);
+
+        // Verifica se o status foi atualizado corretamente
+        assertEquals(Ticket.Status.CANCELADO, ticketAtualizado.getStatus());
+
+        // Verifica se os outros atributos do ticket não foram alterados
+        assertEquals("Problema teste", ticketAtualizado.getDescricaoProblema());
+        assertEquals("Local teste", ticketAtualizado.getLocal());
+        assertEquals("123456", ticketAtualizado.getRaAluno());
+        assertEquals("caminho/foto", ticketAtualizado.getCaminhoFoto());
+
+        // Verifica se o método findById foi chamado uma vez
+        verify(ticketRepository, times(1)).findById(1L);
+
+        // Verifica se o método save foi chamado uma vez
+        verify(ticketRepository, times(1)).save(ticket);
+    }
+
+    @Test
+    public void testAtualizarStatusTicketSolucionado() {
+        //mock do ticket que será atualizado
+        Ticket ticket = new Ticket();
+        ticket.setId(1L);
+        ticket.setDescricaoProblema("Problema teste");
+        ticket.setLocal("Local teste");
+        ticket.setRaAluno("123456");
+        ticket.setCaminhoFoto("caminho/foto");
+        Ticket.Status status = Ticket.Status.ABERTO;
+        ticket.setStatus(status);
+
+        // define o comportamento do mock para o método findById
+        when(ticketRepository.findById(1L)).thenReturn(Optional.of(ticket));
+
+        // define o comportamento do mock para o método save
+        when(ticketRepository.save(ticket)).thenReturn(ticket);
+
+        // Chama o método a ser testado
+        Ticket ticketAtualizado = ticketService.atualizarStatus(1L, Ticket.Status.SOLUCIONADO);
+
+        // Verifica se o resultado é o esperado
+        assertEquals(Ticket.Status.SOLUCIONADO, ticketAtualizado.getStatus());
+        assertTrue(ticketAtualizado.getDataSolucao() != null);
+
+        // Verifica se o método findById foi chamado,tem que ser chamado uma vez
+        verify(ticketRepository, times(1)).findById(1L);
+
+        // Verifica se o método save foi chamado,tem que ser chamado uma vez
+        verify(ticketRepository, times(1)).save(ticket);
+
+    }
+
+    @Test
+    public void testAtualizarStatusTicketSolucionadoSemDataSolucao() {
+        //mock do ticket que será atualizado
+        Ticket ticket = new Ticket();
+        ticket.setId(1L);
+        ticket.setDescricaoProblema("Problema teste");
+        ticket.setLocal("Local teste");
+        ticket.setRaAluno("123456");
+        ticket.setCaminhoFoto("caminho/foto");
+        Ticket.Status status = Ticket.Status.ABERTO;
+        ticket.setStatus(status);
+
+        // define o comportamento do mock para o método findById
+        when(ticketRepository.findById(1L)).thenReturn(Optional.of(ticket));
+
+        // define o comportamento do mock para o método save
+        when(ticketRepository.save(ticket)).thenReturn(ticket);
+
+        // Chama o método a ser testado
+        Ticket ticketAtualizado = ticketService.atualizarStatus(1L, Ticket.Status.SOLUCIONADO);
+
+        // Verifica se o resultado é o esperado
+        assertEquals(Ticket.Status.SOLUCIONADO, ticketAtualizado.getStatus());
+        assertTrue(ticketAtualizado.getDataSolucao() != null);
+
+        // Verifica se o método findById foi chamado,tem que ser chamado uma vez
+        verify(ticketRepository, times(1)).findById(1L);
+
+        // Verifica se o método save foi chamado,tem que ser chamado uma vez
+        verify(ticketRepository, times(1)).save(ticket);
+
+    }
+
+    @Test
+    public void testAtualizarStatusTicketSolucionadoComDataSolucao() {
+        //mock do ticket que será atualizado
+        Ticket ticket = new Ticket();
+        ticket.setId(1L);
+        ticket.setDescricaoProblema("Problema teste");
+        ticket.setLocal("Local teste");
+        ticket.setRaAluno("123456");
+        ticket.setCaminhoFoto("caminho/foto");
+        Ticket.Status status = Ticket.Status.ABERTO;
+        ticket.setStatus(status);
+        ticket.setDataSolucao(null);
+
+        // define o comportamento do mock para o método findById
+        when(ticketRepository.findById(1L)).thenReturn(Optional.of(ticket));
+
+        // define o comportamento do mock para o método save
+        when(ticketRepository.save(ticket)).thenReturn(ticket);
+
+        // Chama o método a ser testado
+        Ticket ticketAtualizado = ticketService.atualizarStatus(1L, Ticket.Status.SOLUCIONADO);
+
+        // Verifica se o resultado é o esperado
+        assertEquals(Ticket.Status.SOLUCIONADO, ticketAtualizado.getStatus());
+        assertTrue(ticketAtualizado.getDataSolucao() != null);
+
+        // Verifica se o método findById foi chamado
+        verify(ticketRepository, times(1)).findById(1L);
+
+        // Verifica se o método save foi chamado
+        verify(ticketRepository, times(1)).save(ticket);
+
+    }
+
+    @Test
+    public void testDeletarTicket() {
+        // Chama o método a ser testado
+        ticketService.deletarTicket(1L);
+
+        // Verifica se o método deleteById foi chamado,tem que ser chamado uma vez
+        verify(ticketRepository, times(1)).deleteById(1L);
+    }
 
 }

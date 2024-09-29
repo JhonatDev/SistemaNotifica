@@ -47,7 +47,7 @@ public class TicketService {
             }
             return ticketRepository.save(ticket);
         } else {
-            throw new RuntimeException("Ticket não encontrado.");
+            throw new IllegalArgumentException("Ticket não encontrado.");
         }
     }
 

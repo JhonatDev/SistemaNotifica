@@ -11,24 +11,33 @@ import com.Notifica.repository.UsuariosRepository;
 public class UsuariosService {
 
     @Autowired
-    private UsuariosRepository UsuariosRepository;
+    private UsuariosRepository usuariosRepository;
     
-    private final BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+    @Autowired  // Injeta o BCryptPasswordEncoder mock
+    private BCryptPasswordEncoder passwordEncoder;
 
-    public Usuarios criarUsuarios(String username, String password, Usuarios.TipoUsuario tipoUsuario) {
-        Usuarios Usuarios = new Usuarios();
-        Usuarios.setUsername(username);
+    public Usuarios criarUsuario(String username, String password, Usuarios.TipoUsuario tipoUsuario) {
+        Usuarios usuario = new Usuarios();
+        usuario.setUsername(username);
+        usuario.setTipoUsuario(tipoUsuario);
 
-        Usuarios.setTipoUsuario(tipoUsuario);
+        if (username == null || username.isEmpty()) {
+            throw new IllegalArgumentException("O nome de usuário não pode ser vazio.");
+        } else if (password == null || password.isEmpty()) {
+            throw new IllegalArgumentException("A senha não pode ser vazia.");
+        } else if (tipoUsuario == null) {
+            throw new IllegalArgumentException("O tipo de usuário não pode ser nulo.");
+        }
 
-        String hashedPassword = passwordEncoder.encode(password);  //hash da senha
-        Usuarios.setPassword(hashedPassword);
+        // Usa o mock do BCryptPasswordEncoder
+        String hashedPassword = passwordEncoder.encode(password);
+        usuario.setPassword(hashedPassword);
 
-        return UsuariosRepository.save(Usuarios);
+        return usuariosRepository.save(usuario);
     }
 
-    public Usuarios obterUsuariosPorId(Long id) {
-        return UsuariosRepository.findById(id)
-            .orElseThrow(() -> new RuntimeException("Usuarios não encontrado."));
+    public Usuarios obterUsuarioPorId(Long id) {
+        return usuariosRepository.findById(id)
+            .orElseThrow(() -> new RuntimeException("Usuário não encontrado."));
     }
 }
