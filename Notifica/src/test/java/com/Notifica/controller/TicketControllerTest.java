@@ -41,7 +41,7 @@ public class TicketControllerTest {
 
         Mockito.when(ticketService.criarTicket(any(Ticket.class))).thenReturn(ticket);
 
-        mockMvc.perform(MockMvcRequestBuilders.post("/tickets")
+        mockMvc.perform(MockMvcRequestBuilders.post("/tickets/criar")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"descricaoProblema\": \"Test Ticket\"}")) // Ajuste o campo
                 .andExpect(status().isCreated())
@@ -58,7 +58,7 @@ public class TicketControllerTest {
 
         Mockito.when(ticketService.listarTickets()).thenReturn(List.of(ticket));
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/tickets"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/tickets/listar"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$[0].id").value(1L))
@@ -88,7 +88,7 @@ public class TicketControllerTest {
 
         Mockito.when(ticketService.obterTicketPorId(1L)).thenReturn(java.util.Optional.of(ticket));
 
-        mockMvc.perform(MockMvcRequestBuilders.get("/tickets/1"))
+        mockMvc.perform(MockMvcRequestBuilders.get("/tickets/obterTicketPorId/1"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(1L))
@@ -103,7 +103,7 @@ public class TicketControllerTest {
 
         Mockito.when(ticketService.atualizarStatus(1L, Ticket.Status.CANCELADO)).thenReturn(ticket);
 
-        mockMvc.perform(MockMvcRequestBuilders.patch("/tickets/1/CANCELADO"))
+        mockMvc.perform(MockMvcRequestBuilders.patch("/tickets/atualizarStatus/1/CANCELADO"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(1L))
@@ -114,7 +114,7 @@ public class TicketControllerTest {
     public void testDeletarTicket() throws Exception {
         Mockito.doNothing().when(ticketService).deletarTicket(1L); // Mock do método de deletar
 
-        mockMvc.perform(MockMvcRequestBuilders.delete("/tickets/1"))
+        mockMvc.perform(MockMvcRequestBuilders.delete("/tickets/deletarTicket/1"))
                 .andExpect(status().isNoContent());
     }
 }

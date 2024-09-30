@@ -21,13 +21,13 @@ public class TicketController {
     @Autowired
     private TicketService ticketService;
 
-    @PostMapping
+    @PostMapping("/criar")
     public ResponseEntity<Ticket> criarTicket(@RequestBody Ticket ticket) {
         Ticket novoTicket = ticketService.criarTicket(ticket);
         return new ResponseEntity<>(novoTicket, HttpStatus.CREATED);
     }
 
-    @GetMapping
+    @GetMapping("/listar")
     public ResponseEntity<List<Ticket>> listarTickets() {
         List<Ticket> tickets = ticketService.listarTickets();
         return new ResponseEntity<>(tickets, HttpStatus.OK);
@@ -40,20 +40,20 @@ public class TicketController {
         return new ResponseEntity<>(tickets, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/obterTicketPorId/{id}")
     public ResponseEntity<Ticket> obterTicketPorId(@PathVariable Long id) {
         Optional<Ticket> ticket = ticketService.obterTicketPorId(id);
         return new ResponseEntity<>(ticket.orElseThrow(NoSuchElementException::new), HttpStatus.OK);
     }
 
-    @PatchMapping("/{id}/{status}")
+    @PatchMapping("/atualizarStatus/{id}/{status}")
     public ResponseEntity<Ticket> atualizarStatus(@PathVariable Long id, @PathVariable Ticket.Status status) {
         Ticket ticket = ticketService.atualizarStatus(id, status);
         return new ResponseEntity<>(ticket, HttpStatus.OK);
     }
         
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/deletarTicket/{id}")
     public ResponseEntity<Void> deletarTicket(@PathVariable Long id) {
         ticketService.deletarTicket(id);
         return new  ResponseEntity<>(HttpStatus.NO_CONTENT);
