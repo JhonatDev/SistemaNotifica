@@ -359,11 +359,32 @@ public class TicketServiceTest {
 
     @Test
     public void testDeletarTicket() {
+        
+        // define o comportamento do mock para o método findById
+        when(ticketRepository.findById(1L)).thenReturn(Optional.of(new Ticket()));
+
         // Chama o método a ser testado
         ticketService.deletarTicket(1L);
 
-        // Verifica se o método deleteById foi chamado,tem que ser chamado uma vez
-        verify(ticketRepository, times(1)).deleteById(1L);
+        // Verifica se o método findById foi chamado,tem que ser chamado uma vez
+        verify(ticketRepository, times(1)).findById(1L);
+    }
+
+    @Test
+    public void testDeletarTicketInexistente() {
+        // define o comportamento do mock para o método findById
+        when(ticketRepository.findById(1L)).thenReturn(Optional.empty());
+
+        // Chama o método a ser testado e verifica se a exceção é lançada
+        IllegalArgumentException exception = assertThrows(IllegalArgumentException.class, () -> {
+            ticketService.deletarTicket(1L);
+        });
+
+        // Verifica a mensagem da exceção
+        assertEquals("Ticket não encontrado.", exception.getMessage());
+
+        // Verifica se o método findById foi chamado uma vez
+        verify(ticketRepository, times(1)).findById(1L);
     }
 
 }

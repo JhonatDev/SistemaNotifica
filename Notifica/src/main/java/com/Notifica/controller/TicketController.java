@@ -56,7 +56,7 @@ public class TicketController {
     @DeleteMapping("/deletarTicket/{id}")
     public ResponseEntity<Void> deletarTicket(@PathVariable Long id) {
         ticketService.deletarTicket(id);
-        return new  ResponseEntity<>(HttpStatus.NO_CONTENT);
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
 }

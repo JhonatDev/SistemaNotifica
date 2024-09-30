@@ -50,7 +50,12 @@ public class TicketService {
         }
     }
 
-    public void deletarTicket(Long id) {
-        ticketRepository.deleteById(id);
+    public void deletarTicket(Long id) {//deletar ticket avisa o usuario que o ticket foi deletado e o ticket nao voi deletado
+        Optional<Ticket> ticketOpt = ticketRepository.findById(id);
+        if (ticketOpt.isPresent()) {
+            ticketRepository.deleteById(id);
+        } else {
+            throw new IllegalArgumentException("Ticket não encontrado.");
+        }
     }
 }
