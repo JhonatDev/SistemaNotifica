@@ -103,7 +103,7 @@ public class TicketControllerTest {
 
         Mockito.when(ticketService.atualizarStatus(1L, Ticket.Status.CANCELADO)).thenReturn(ticket);
 
-        mockMvc.perform(MockMvcRequestBuilders.patch("/tickets/1/status?status=CANCELADO"))
+        mockMvc.perform(MockMvcRequestBuilders.patch("/tickets/1/CANCELADO"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id").value(1L))

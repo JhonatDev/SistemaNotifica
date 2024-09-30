@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import com.Notifica.entity.Ticket;
 import com.Notifica.service.TicketService;
 
+import java.io.ObjectInputFilter.Status;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
@@ -45,11 +46,12 @@ public class TicketController {
         return new ResponseEntity<>(ticket.orElseThrow(NoSuchElementException::new), HttpStatus.OK);
     }
 
-    @PatchMapping("/{id}/status")
-    public ResponseEntity<Ticket> atualizarStatus(@PathVariable Long id, @RequestParam Ticket.Status status) {
-        Ticket ticketAtualizado = ticketService.atualizarStatus(id, status);
-        return new ResponseEntity<>(ticketAtualizado, HttpStatus.OK);
+    @PatchMapping("/{id}/{status}")
+    public ResponseEntity<Ticket> atualizarStatus(@PathVariable Long id, @PathVariable Ticket.Status status) {
+        Ticket ticket = ticketService.atualizarStatus(id, status);
+        return new ResponseEntity<>(ticket, HttpStatus.OK);
     }
+        
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarTicket(@PathVariable Long id) {
