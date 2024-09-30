@@ -16,7 +16,9 @@ public class Ticket {
     @NotBlank(message = "A descrição do problema é obrigatória")
     @Column(nullable = false)
     private String descricaoProblema;
-
+    
+    @NotBlank(message = "O local do problema é obrigatório")
+    @Column(nullable = false)
     private String local;
 
     @Enumerated(EnumType.STRING)
