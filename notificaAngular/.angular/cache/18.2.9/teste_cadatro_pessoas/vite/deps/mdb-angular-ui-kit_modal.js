@@ -14,7 +14,7 @@ import {
   getRtlScrollAxisType,
   normalizePassiveListenerOptions,
   supportsScrollBehavior
-} from "./chunk-QAZUUQSF.js";
+} from "./chunk-6LEWV7PV.js";
 import {
   CommonModule,
   DOCUMENT,

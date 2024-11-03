@@ -506,13 +506,6 @@ function _isTestEnvironment() {
 }
 
 export {
-  coerceBooleanProperty,
-  coerceNumberProperty,
-  coerceArray,
-  coerceCssPixelValue,
-  coerceElement,
-  ContentObserver,
-  ObserversModule,
   Platform,
   normalizePassiveListenerOptions,
   RtlScrollAxisType,
@@ -521,6 +514,13 @@ export {
   _getShadowRoot,
   _getFocusedElementPierceShadowDom,
   _getEventTarget,
-  _isTestEnvironment
+  _isTestEnvironment,
+  coerceBooleanProperty,
+  coerceNumberProperty,
+  coerceArray,
+  coerceCssPixelValue,
+  coerceElement,
+  ContentObserver,
+  ObserversModule
 };
-//# sourceMappingURL=chunk-QAZUUQSF.js.map
+//# sourceMappingURL=chunk-6LEWV7PV.js.map

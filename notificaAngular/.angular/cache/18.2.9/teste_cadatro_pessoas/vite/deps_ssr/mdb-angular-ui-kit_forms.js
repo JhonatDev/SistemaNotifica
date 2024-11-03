@@ -1,16 +1,16 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
+  FormsModule,
+  NgControl
+} from "./chunk-EMAP2XRB.js";
+import {
   ContentObserver,
   Platform,
   coerceBooleanProperty,
   coerceElement,
   coerceNumberProperty,
   normalizePassiveListenerOptions
-} from "./chunk-A6RVE4FT.js";
-import {
-  FormsModule,
-  NgControl
-} from "./chunk-EMAP2XRB.js";
+} from "./chunk-WW7LGNJR.js";
 import {
   CommonModule,
   DOCUMENT
