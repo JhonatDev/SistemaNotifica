@@ -1,0 +1,10 @@
+com\Notifica\service\UsuariosService.class
+com\Notifica\entity\Usuarios.class
+com\Notifica\entity\Usuarios$TipoUsuario.class
+com\Notifica\service\TicketService.class
+com\Notifica\entity\Ticket$Status.class
+com\Notifica\NotificaApplication.class
+com\Notifica\entity\Ticket.class
+com\Notifica\controller\TicketController.class
+com\Notifica\repository\TicketRepository.class
+com\Notifica\repository\UsuariosRepository.class

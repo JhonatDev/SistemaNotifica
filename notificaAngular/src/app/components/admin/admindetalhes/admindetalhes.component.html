@@ -1,0 +1,65 @@
+<div class="conteiner">
+  <!-- mostrar criacao de novo ticket se funcao for Criar -->
+  <h2 *ngIf="funcao === 'Criar'">Criar Novo Ticket</h2>
+  <!-- mostrar edicao de ticket se funcao for EDITAR -->
+  <h2 *ngIf="funcao === 'Atualizar'">Atualizar Ticket</h2>
+  <form class="conteinerTicket" (ngSubmit)="criarTicket()">
+    <label for="resumoProblema">Resumo do Problema:</label>
+    <input id="resumoProblema" [(ngModel)]="TicketList.resumoProblema" name="resumoProblema" required />
+
+    <label for="local">Local:</label>
+    <select id="local" [(ngModel)]="TicketList.local" name="local" required>
+      <option value="BIBLIOTECA">Biblioteca</option>
+      <option value="LABORATORIO">Laboratório</option>
+      <option value="SALA">Sala</option>
+      <option value="OUTRO">Outro</option>
+    </select>
+
+    <!-- Mostrar o campo "Outro Local" apenas se "local" for "OUTRO" -->
+    <div *ngIf="TicketList.local === 'OUTRO'">
+      <label for="outroLocal">Outro Local:</label>
+      <input id="outroLocal" [(ngModel)]="TicketList.outroLocal" name="outroLocal" required />
+    </div>
+
+    <label for="tipoProblema">Tipo de Problema:</label>
+    <select id="tipoProblema" [(ngModel)]="TicketList.tipoProblema" (change)="listarSubTipoProblema()" name="tipoProblema" required>
+      <option value="OUTRO">Outro</option>
+      <option value="ELETRICO">Elétrico</option>
+      <option value="INFRAESTRUTURA">Infraestrutura</option>
+      <option value="MOBILIARIO">Mobiliário</option>
+      <option value="REDE">Rede</option>
+      <option value="TECNOLOGIA">Tecnologia</option>
+    </select>
+
+    <!-- Mostrar o campo "Outro Tipo de Problema" apenas se "tipoProblema" for "OUTRO" -->
+    <div *ngIf="TicketList.tipoProblema === 'OUTRO'">
+      <label for="outroTipoProblema">Outro Tipo de Problema:</label>
+      <input id="outroTipoProblema" [(ngModel)]="TicketList.outrovtipoProblema" name="outroTipoProblema" required />
+    </div>
+
+    <label for="subtipoProblema">Subtipo de Problema:</label>
+    <select id="subtipoProblema" [(ngModel)]="TicketList.subtipoProblema" ng-reflect-model="novoTicket.subtipoProblema" name="subtipoProblema" required>
+      <option value="OUTRO">Outro</option>
+      <option *ngFor="let subtipoProblema of SubTipoProblemalist" [value]="subtipoProblema.subtipoProblema">
+        {{subtipoProblema.subtipoProblema}}
+      </option>
+    </select>
+
+    <!-- Mostrar o campo "Outro Subtipo de Problema" apenas se "subtipoProblema" for "OUTRO" -->
+     <div *ngIf="TicketList.subtipoProblema === 'OUTRO'">
+      <label for="outroSubtipoProblema">Outro Subtipo de Problema:</label>
+      <input id="outroSubtipoProblema" [(ngModel)]="TicketList.outroSubtipoProblema" name="outroSubtipoProblema" required />
+    </div>
+
+    <label for="caminhoFoto">Foto:</label>
+    <input id="caminhoFoto" type="file" accept="image/*" (change)="onFileChange($event)"/>
+
+    <label for="raAluno">RA do Aluno:</label>
+    <input id="raAluno" [(ngModel)]="TicketList.raAluno" name="raAluno" required />
+
+    <!-- mostrar botao de criar ticket se funcao for Criar -->
+    <button *ngIf="funcao === 'Criar'" type="submit">Criar Ticket</button>
+    <!-- mostrar botao de editar ticket se funcao for Atualizar -->
+    <button *ngIf="funcao === 'Atualizar'"  type="submit">atualizar Ticket</button>
+  </form>
+</div>

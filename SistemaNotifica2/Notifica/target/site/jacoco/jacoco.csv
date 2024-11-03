@@ -1,0 +1,11 @@
+GROUP,PACKAGE,CLASS,INSTRUCTION_MISSED,INSTRUCTION_COVERED,BRANCH_MISSED,BRANCH_COVERED,LINE_MISSED,LINE_COVERED,COMPLEXITY_MISSED,COMPLEXITY_COVERED,METHOD_MISSED,METHOD_COVERED
+Notifica,com.Notifica.service,UsuariosService,0,67,2,8,0,15,2,7,0,4
+Notifica,com.Notifica.service,TicketService,0,98,2,12,0,22,2,12,0,7
+Notifica,com.Notifica.controller,TicketController,0,70,0,0,0,13,0,7,0,7
+Notifica,com.Notifica.controller,UsuariosController,0,45,0,2,0,11,0,4,0,3
+Notifica,com.Notifica.entity,Ticket.Status,0,27,0,0,0,2,0,1,0,1
+Notifica,com.Notifica.entity,Usuarios,0,3,0,0,0,1,0,1,0,1
+Notifica,com.Notifica.entity,Ticket,17,0,2,0,7,0,3,0,2,0
+Notifica,com.Notifica.entity,Usuarios.TipoUsuario,3,25,0,0,1,5,1,2,1,2
+Notifica,com.Notifica,SecurityConfig,0,33,0,0,0,8,0,3,0,3
+Notifica,com.Notifica,NotificaApplication,5,3,0,0,2,1,1,1,1,1

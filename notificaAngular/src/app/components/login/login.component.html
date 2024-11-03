@@ -1,0 +1,36 @@
+
+
+<div class="container mt-5">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <h4 class="card-title text-center">Login</h4>
+            <form>
+              <div class="form-outline mb-4">
+                <input type="text" id="login" class="form-control" [(ngModel)] = "login" name="login" title="Enter your login" placeholder="Login" required/>
+                <label class="form-label" for="login">Login</label>
+              </div>
+
+              <div class="form-outline mb-4">
+                <input type="password" id="senha" class="form-control" [(ngModel)] = "senha" name="senha" required/>
+                <label class="form-label" for="senha">Senha</label>
+              </div>
+
+              <button type="submit" class="btn btn-primary btn-block mb-4" (click)="onLogin()">Login</button>
+
+              <button type="button" class="btn btn-primary btn-block mb-4" (click)="ontest1()">test1</button>
+
+              <button type="button" class="btn btn-primary btn-block mb-4" (click)="ontest2()">test2</button>
+
+              <button type="button" class="btn btn-primary btn-block mb-4" (click)="ontest3()">test3</button>
+
+              <button type="button" class="btn btn-primary btn-block mb-4" (click)="ontest4()">test4</button>
+
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+

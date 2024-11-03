@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>Usuarios.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Notifica</a> &gt; <a href="index.source.html" class="el_package">com.Notifica.entity</a> &gt; <span class="el_source">Usuarios.java</span></div><h1>Usuarios.java</h1><pre class="source lang-java linenums">package com.Notifica.entity;
+
+import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
+
+@Entity
+@Getter
+@Setter
+<span class="fc" id="L10">public class Usuarios {</span>
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column(nullable = false, unique = true)
+    private String username;
+
+    @Column(nullable = false)
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private TipoUsuario tipoUsuario; // Novo campo para o tipo de usuário
+
+    // Enum para definir o tipo de usuário
+<span class="fc" id="L27">    public enum TipoUsuario {</span>
+<span class="fc" id="L28">        ADMIN(1), Usuarios(2);</span>
+
+        private final int codigo;
+
+<span class="fc" id="L32">        TipoUsuario(int codigo) {</span>
+<span class="fc" id="L33">            this.codigo = codigo;</span>
+<span class="fc" id="L34">        }</span>
+
+        public int getCodigo() {
+<span class="nc" id="L37">            return codigo;</span>
+        }
+    }
+}
+
+
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

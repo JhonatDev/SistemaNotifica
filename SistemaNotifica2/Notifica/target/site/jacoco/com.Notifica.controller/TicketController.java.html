@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>TicketController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Notifica</a> &gt; <a href="index.source.html" class="el_package">com.Notifica.controller</a> &gt; <span class="el_source">TicketController.java</span></div><h1>TicketController.java</h1><pre class="source lang-java linenums">package com.Notifica.controller;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import com.Notifica.entity.Ticket;
+import com.Notifica.service.TicketService;
+
+import java.io.ObjectInputFilter.Status;
+import java.util.List;
+import java.util.NoSuchElementException;
+import java.util.Optional;
+import java.util.Objects;
+
+@RestController
+@RequestMapping(&quot;/tickets&quot;)
+<span class="fc" id="L19">public class TicketController {</span>
+
+    @Autowired
+    private TicketService ticketService;
+
+    @PostMapping(&quot;/criar&quot;)
+    public ResponseEntity&lt;Ticket&gt; criarTicket(@RequestBody Ticket ticket) {
+<span class="fc" id="L26">        Ticket novoTicket = ticketService.criarTicket(ticket);</span>
+<span class="fc" id="L27">        return new ResponseEntity&lt;&gt;(novoTicket, HttpStatus.CREATED);</span>
+    }
+
+    @GetMapping(&quot;/listar&quot;)
+    public ResponseEntity&lt;List&lt;Ticket&gt;&gt; listarTickets() {
+<span class="fc" id="L32">        List&lt;Ticket&gt; tickets = ticketService.listarTickets();</span>
+<span class="fc" id="L33">        return new ResponseEntity&lt;&gt;(tickets, HttpStatus.OK);</span>
+    }
+
+
+    @GetMapping(&quot;/aluno/{raAluno}&quot;)
+    public ResponseEntity&lt;List&lt;Ticket&gt;&gt; listarTicketsPorAluno(@PathVariable String raAluno) {
+<span class="fc" id="L39">        List&lt;Ticket&gt; tickets = ticketService.listarTicketsPorAluno(raAluno);</span>
+<span class="fc" id="L40">        return new ResponseEntity&lt;&gt;(tickets, HttpStatus.OK);</span>
+    }
+
+    @GetMapping(&quot;/obterTicketPorId/{id}&quot;)
+    public ResponseEntity&lt;Ticket&gt; obterTicketPorId(@PathVariable Long id) {
+<span class="fc" id="L45">        Optional&lt;Ticket&gt; ticket = ticketService.obterTicketPorId(id);</span>
+<span class="fc" id="L46">        return new ResponseEntity&lt;&gt;(ticket.orElseThrow(NoSuchElementException::new), HttpStatus.OK);</span>
+    }
+
+    @PatchMapping(&quot;/atualizarStatus/{id}/{status}&quot;)
+    public ResponseEntity&lt;Ticket&gt; atualizarStatus(@PathVariable Long id, @PathVariable Ticket.Status status) {
+<span class="fc" id="L51">        Ticket ticket = ticketService.atualizarStatus(id, status);</span>
+<span class="fc" id="L52">        return new ResponseEntity&lt;&gt;(ticket, HttpStatus.OK);</span>
+    }
+        
+
+    @DeleteMapping(&quot;/deletarTicket/{id}&quot;)
+    public ResponseEntity&lt;Void&gt; deletarTicket(@PathVariable Long id) {
+<span class="fc" id="L58">        ticketService.deletarTicket(id);</span>
+<span class="fc" id="L59">        return new ResponseEntity&lt;&gt;(HttpStatus.NO_CONTENT);</span>
+    }
+
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
