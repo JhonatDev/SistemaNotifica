@@ -1,0 +1,19 @@
+/**
+ * @license
+ * Copyright Google LLC All Rights Reserved.
+ *
+ * Use of this source code is governed by an MIT-style license that can be
+ * found in the LICENSE file at https://angular.dev/license
+ */
+import domino from './bundled-domino';
+/**
+ * Apply the necessary shims to make DOM globals (such as `Element`, `HTMLElement`, etc.) available
+ * on the environment.
+ */
+export function applyShims() {
+    // Make all Domino types available in the global env.
+    // NB: Any changes here should also be done in `packages/platform-server/src/domino_adapter.ts`.
+    Object.assign(globalThis, domino.impl);
+    globalThis['KeyboardEvent'] = domino.impl.Event;
+}
+//# sourceMappingURL=data:application/json;base64,eyJ2ZXJzaW9uIjozLCJmaWxlIjoic2hpbXMuanMiLCJzb3VyY2VSb290IjoiIiwic291cmNlcyI6WyIuLi8uLi8uLi8uLi8uLi8uLi8uLi9wYWNrYWdlcy9wbGF0Zm9ybS1zZXJ2ZXIvaW5pdC9zcmMvc2hpbXMudHMiXSwibmFtZXMiOltdLCJtYXBwaW5ncyI6IkFBQUE7Ozs7OztHQU1HO0FBRUgsT0FBTyxNQUFNLE1BQU0sa0JBQWtCLENBQUM7QUFFdEM7OztHQUdHO0FBQ0gsTUFBTSxVQUFVLFVBQVU7SUFDeEIscURBQXFEO0lBQ3JELGdHQUFnRztJQUNoRyxNQUFNLENBQUMsTUFBTSxDQUFDLFVBQVUsRUFBRSxNQUFNLENBQUMsSUFBSSxDQUFDLENBQUM7SUFDdEMsVUFBa0IsQ0FBQyxlQUFlLENBQUMsR0FBRyxNQUFNLENBQUMsSUFBSSxDQUFDLEtBQUssQ0FBQztBQUMzRCxDQUFDIiwic291cmNlc0NvbnRlbnQiOlsiLyoqXG4gKiBAbGljZW5zZVxuICogQ29weXJpZ2h0IEdvb2dsZSBMTEMgQWxsIFJpZ2h0cyBSZXNlcnZlZC5cbiAqXG4gKiBVc2Ugb2YgdGhpcyBzb3VyY2UgY29kZSBpcyBnb3Zlcm5lZCBieSBhbiBNSVQtc3R5bGUgbGljZW5zZSB0aGF0IGNhbiBiZVxuICogZm91bmQgaW4gdGhlIExJQ0VOU0UgZmlsZSBhdCBodHRwczovL2FuZ3VsYXIuZGV2L2xpY2Vuc2VcbiAqL1xuXG5pbXBvcnQgZG9taW5vIGZyb20gJy4vYnVuZGxlZC1kb21pbm8nO1xuXG4vKipcbiAqIEFwcGx5IHRoZSBuZWNlc3Nhcnkgc2hpbXMgdG8gbWFrZSBET00gZ2xvYmFscyAoc3VjaCBhcyBgRWxlbWVudGAsIGBIVE1MRWxlbWVudGAsIGV0Yy4pIGF2YWlsYWJsZVxuICogb24gdGhlIGVudmlyb25tZW50LlxuICovXG5leHBvcnQgZnVuY3Rpb24gYXBwbHlTaGltcygpOiB2b2lkIHtcbiAgLy8gTWFrZSBhbGwgRG9taW5vIHR5cGVzIGF2YWlsYWJsZSBpbiB0aGUgZ2xvYmFsIGVudi5cbiAgLy8gTkI6IEFueSBjaGFuZ2VzIGhlcmUgc2hvdWxkIGFsc28gYmUgZG9uZSBpbiBgcGFja2FnZXMvcGxhdGZvcm0tc2VydmVyL3NyYy9kb21pbm9fYWRhcHRlci50c2AuXG4gIE9iamVjdC5hc3NpZ24oZ2xvYmFsVGhpcywgZG9taW5vLmltcGwpO1xuICAoZ2xvYmFsVGhpcyBhcyBhbnkpWydLZXlib2FyZEV2ZW50J10gPSBkb21pbm8uaW1wbC5FdmVudDtcbn1cbiJdfQ==
