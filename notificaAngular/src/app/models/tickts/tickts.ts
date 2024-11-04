@@ -12,4 +12,6 @@ export class Tickts {
   caminhoFoto!: string;
   raAluno!: string;
   outroLocal: any;
+  funcionarioResponsavel!: string;
+  foto!: any;
 }

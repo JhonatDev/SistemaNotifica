@@ -2,12 +2,15 @@ import { Component, inject} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LoginService } from '../../service/login/login.service';
-import { Router } from '@angular/router';
+import { Router } from '@angular/router'; 
+import { AdminlistComponent } from '../admin/adminlist/adminlist.component';
+import { AdmindetalhesComponent } from '../admin/admindetalhes/admindetalhes.component';
+import { SharedService } from '../../service/shared.service';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, AdminlistComponent],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
@@ -17,20 +20,18 @@ export class LoginComponent {
 
   router = inject(Router);
 
-  constructor(private loginService: LoginService) {}
+  constructor(private loginService: LoginService, private sharedService: SharedService) {}
 
   onLogin() {
-    alert('Fazendo login1...usuário: ' + this.login + ' senha: ' + this.senha);
     this.loginService.login({ username: this.login, password: this.senha })
       .subscribe({
         next: (response) => {
           console.log('Login bem-sucedido:', response);
-          alert('Login bem-sucedido!');
 
           if (response.tipoUsuario === 'ADMIN') {
-            this.router.navigate(['admin/pessoas']);
-          } else {
-            this.router.navigate(['pessoas']);
+            this.router.navigate(['admin/principal']);
+          } else if (response.tipoUsuario === 'Usuarios') {
+            this.router.navigate(['aluno/principal']);
           }
         },
         error: (error) => {
@@ -41,19 +42,6 @@ export class LoginComponent {
       });
   }
 
-  ontest1() {
-    this.router.navigate(['admin/pessoas']);
-  }
-
-  ontest2() {
-    this.router.navigate(['admin/principal']);
-  }
-
-  ontest3() {
-    this.router.navigate(['admin/principal/criar']);
-  }
-
-  ontest4() {
-    this.router.navigate(['admin/pessoas/edit/1']);
-  }
 }
+
+

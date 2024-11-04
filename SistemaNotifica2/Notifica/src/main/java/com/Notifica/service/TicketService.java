@@ -41,6 +41,7 @@ public class TicketService {
             throw new IllegalArgumentException("Outro subtipo do problema não pode ser preenchido pos o subtipo do problema não é outro");
         }
 
+        //pegar imagem do ticket que esta em base64 e salvar localmente no servidor
     }
 
     // Métodos para criar, listar, buscar, atualizar e deletar tickets
@@ -124,6 +125,7 @@ public class TicketService {
         }
         ticket.setStatus(Ticket.Status.ABERTO);
         ticket.setFuncionarioResponsavel(null);
+        ticket.setDataSolucao(null);
         return ticketRepository.save(ticket);
     }
 
@@ -161,6 +163,26 @@ public class TicketService {
         }
 
         return ticketRepository.findByStatus(status);
+    }
+
+    // buscar tickets por RA e status
+    public List<Ticket> buscarTicketsPorRaEStatus(String raAluno, Ticket.Status status) {
+        if (raAluno == null || raAluno.isEmpty()) {
+            throw new IllegalArgumentException("RA do aluno é obrigatório");
+        } else if (status == null) {
+            throw new IllegalArgumentException("Status do ticket é obrigatório");
+        }
+
+        return ticketRepository.findByRaAlunoAndStatus(raAluno, status);
+    }
+
+    // buscar tickets por RA
+    public List<Ticket> buscarTicketsPorRa(String raAluno) {
+        if (raAluno == null || raAluno.isEmpty()) {
+            throw new IllegalArgumentException("RA do aluno é obrigatório");
+        }
+
+        return ticketRepository.findByRaAluno(raAluno);
     }
 
 }

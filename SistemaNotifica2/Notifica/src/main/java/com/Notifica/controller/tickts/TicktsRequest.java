@@ -8,6 +8,8 @@ public record TicktsRequest(
         String subtipoProblema,
         String outroSubtipoProblema,
         String caminhoFoto,
-        String raAluno
+        String raAluno,
+        String funcionarioResponsavel,
+        byte[] foto
 ) {
 }

@@ -7,6 +7,7 @@ import { TicktsService } from '../../../service/tickts/tickts.service';
 import { Tickts } from '../../../models/tickts/tickts';
 import { SubTipoProblemaService } from '../../../service/SubTipoProblema/sub-tipo-problema.service';
 import { SubTipoProblema } from '../../../models/SubTipoProblema/subtipoproblema';
+import { SharedService } from '../../../service/shared.service';
 
 @Component({
   selector: 'app-admindetalhes',
@@ -31,13 +32,12 @@ export class AdmindetalhesComponent {
   modalRef!: MdbModalRef<any>;
 
   SubTipoProblemalist: any[] = [];
+  selectedImage: File | null = null;
 
-  constructor(private ticktsService: TicktsService, private subTipoProblemaService: SubTipoProblemaService) { }
+  constructor(private ticktsService: TicktsService, private subTipoProblemaService: SubTipoProblemaService, private SharedService: SharedService) { }
 
-  onFileChange(event: any) {
-
-    //salvar o imagem no banco em VARBINARY
-
+  onImageSelected(event: Event): void {
+    
   }
 
   ngOnInit(): void {
@@ -46,6 +46,7 @@ export class AdmindetalhesComponent {
 
   //criar um novo ticket
   criarTicket() {
+    this.TicketList.raAluno = this.SharedService.ultimoLogin;
     console.log('Novo ticket:', this.TicketList);
     this.ticktsService.criar(this.TicketList).subscribe({
       next: (response) => {
@@ -78,7 +79,6 @@ export class AdmindetalhesComponent {
 
   // listar subtipos de problemas
   listarSubTipoProblema() {
-    alert('Tipo de problema: ' + this.TicketList.tipoProblema);
     if (this.TicketList.tipoProblema == 'OUTRO') {
       return;
     }

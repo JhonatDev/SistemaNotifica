@@ -7,15 +7,17 @@ import {
   NgModule,
   Output,
   Renderer2,
-  fromEvent,
   setClassMetadata,
-  take,
   ɵɵclassProp,
   ɵɵdefineDirective,
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵdirectiveInject
-} from "./chunk-C5GA6LKA.js";
+} from "./chunk-KZE4DZCA.js";
+import {
+  fromEvent,
+  take
+} from "./chunk-PF6LNL77.js";
 
 // node_modules/mdb-angular-ui-kit/fesm2022/mdb-angular-ui-kit-collapse.mjs
 var TRANSITION_TIME = 350;

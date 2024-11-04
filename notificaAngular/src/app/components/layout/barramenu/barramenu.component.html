@@ -21,12 +21,35 @@
         #centered="mdbCollapse"
       >
         <!-- Left links -->
-        <ul class="navbar-nav mb-2 mb-lg-0">
-          <li class="nav-item">
-            <a class="nav-link" aria-current="page" href="/admin/pessoas">Home</a>
+        <ul class="navbar-nav mb-2 mb-lg-0"> 
+          <!--se o usuário tipoDeUsuário for ADMIN-->
+          <li *ngIf="tipoDeUsuario == 'ADMIN'" class="nav-item">
+            <a class="nav-link" href="/admin/principal">principal</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/admin/pessoas">Pessoas</a>
+          <li *ngIf="tipoDeUsuario == 'ADMIN'" class="nav-item">
+            <a class="nav-link" href="/admin/principal/cancelados">cancelados</a>
+          </li>
+          <li *ngIf="tipoDeUsuario == 'ADMIN'" class="nav-item">
+            <a class="nav-link" href="/admin/principal/pendentes">pendentes</a>
+          </li>
+          <li *ngIf="tipoDeUsuario == 'ADMIN'" class="nav-item">
+            <a class="nav-link" href="/admin/principal/andamento">em andamento</a>
+          </li>
+          <li *ngIf="tipoDeUsuario == 'ADMIN'" class="nav-item">
+            <a class="nav-link" href="/admin/principal/concluidos">concluidos</a>
+          </li>
+          <!--se o usuário tipoDeUsuário for USUARIO-->
+          <li *ngIf="tipoDeUsuario == 'Usuarios'" class="nav-item">
+            <a class="nav-link" href="/aluno/principal">principal</a>
+          </li>
+          <li *ngIf="tipoDeUsuario == 'Usuarios'" class="nav-item">
+            <a class="nav-link" href="/aluno/principal/pendentes">pendentes</a>
+          </li>
+          <li *ngIf="tipoDeUsuario == 'Usuarios'" class="nav-item">
+            <a class="nav-link" href="/aluno/principal/andamento">em andamento</a>
+          </li>
+          <li *ngIf="tipoDeUsuario == 'Usuarios'" class="nav-item">
+            <a class="nav-link" href="/aluno/principal/concluidos">concluidos</a>
           </li>
           <li class="nav-item">
             <a class="nav-link" href="/login">Sair</a>

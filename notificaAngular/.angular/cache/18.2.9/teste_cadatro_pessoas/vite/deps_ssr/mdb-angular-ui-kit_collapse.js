@@ -8,7 +8,6 @@ import {
   NgModule,
   Output,
   Renderer2,
-  require_cjs,
   require_operators,
   setClassMetadata,
   ɵɵclassProp,
@@ -16,7 +15,10 @@ import {
   ɵɵdefineInjector,
   ɵɵdefineNgModule,
   ɵɵdirectiveInject
-} from "./chunk-TW4XVQZD.js";
+} from "./chunk-Q3R2RZWL.js";
+import {
+  require_cjs
+} from "./chunk-2H3L6IVL.js";
 import {
   __toESM
 } from "./chunk-NQ4HTGF6.js";

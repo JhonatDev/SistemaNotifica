@@ -12,7 +12,9 @@ import com.Notifica.service.TicketService;
 import jakarta.validation.Valid;
 import lombok.val;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Objects;
@@ -59,9 +61,15 @@ public class TicketController {
 
     // Método para deletar um ticket
     @DeleteMapping("/deletar/{id}")
-    public ResponseEntity<String> deletarTicket(@Valid @PathVariable Long id) {
+    public ResponseEntity<Map<String, String>> deletarTicket(@Valid @PathVariable Long id) {
         ticketService.deletarTicket(id);
-        return new ResponseEntity<>("Ticket deletado com sucesso", HttpStatus.OK);
+    
+        // Criar um objeto JSON como resposta
+        Map<String, String> response = new HashMap<>();
+        response.put("message", "Ticket deletado com sucesso");
+
+        // Retornar a resposta como JSON
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
     // Métodos para iniciar, solucionar e cancelar um ticket
@@ -99,6 +107,20 @@ public class TicketController {
     public ResponseEntity<List<Ticket>> listarTicketsPorStatus(@Valid @PathVariable Ticket.Status status) {
         List<Ticket> ticketsPorStatus = ticketService.listarTicketsPorStatus(status);
         return new ResponseEntity<>(ticketsPorStatus, HttpStatus.OK);
+    }
+
+    // Método para buscar tickets por RA e status
+    @GetMapping("/buscarPorRaEStatus/{raAluno}/{status}")
+    public ResponseEntity<List<Ticket>> buscarTicketsPorRaEStatus(@Valid @PathVariable String raAluno, @Valid @PathVariable Ticket.Status status) {
+        List<Ticket> ticketsPorRaEStatus = ticketService.buscarTicketsPorRaEStatus(raAluno, status);
+        return new ResponseEntity<>(ticketsPorRaEStatus, HttpStatus.OK);
+    }
+
+    // Método para buscar tickets por RA
+    @GetMapping("/buscarPorRa/{raAluno}")
+    public ResponseEntity<List<Ticket>> buscarTicketsPorRa(@Valid @PathVariable String raAluno) {
+        List<Ticket> ticketsPorRa = ticketService.buscarTicketsPorRa(raAluno);
+        return new ResponseEntity<>(ticketsPorRa, HttpStatus.OK);
     }
 
 }

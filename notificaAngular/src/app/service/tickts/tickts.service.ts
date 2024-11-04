@@ -7,6 +7,7 @@ import { Tickts } from '../../models/tickts/tickts';
   providedIn: 'root'
 })
 export class TicktsService {
+  
 
   constructor(private http: HttpClient) {}
 
@@ -22,7 +23,35 @@ export class TicktsService {
     return this.http.put(`http://localhost:8080/tickets/atualizar/${id}`, tickts);
   }
 
-  deletar(id: number): Observable<any> {
-    return this.http.delete(`http://localhost:8080/tickets/deletar/${id}`);
+  deletar(id: number): Observable<string> {
+    return this.http.delete<string>(`http://localhost:8080/tickets/deletar/${id}`);
+  }
+
+  iniciar(id: number, funcionarioResponsavel: string): Observable<any> {
+    return this.http.put(`http://localhost:8080/tickets/iniciar/${funcionarioResponsavel}/${id}`, {});
+  }
+
+  reabrir(id: number): Observable<any> {
+    return this.http.put(`http://localhost:8080/tickets/voltarAberto/${id}`, {});
+  }
+
+  finalizar(id: number): Observable<any> {
+    return this.http.put(`http://localhost:8080/tickets/solucionar/${id}`, {});
+  }
+
+  cancelar(id: number): Observable<any> {
+    return this.http.put(`http://localhost:8080/tickets/cancelar/${id}`, {});
+  }
+
+  listarPorStatus(status: string): Observable<any> {
+    return this.http.get(`http://localhost:8080/tickets/listarPorStatus/${status}`);
+  }
+
+  listarPorUsuarioStatus(Usuario: string, status: string): Observable<any> {
+    return this.http.get(`http://localhost:8080/tickets/buscarPorRaEStatus/${Usuario}/${status}`);
+  }
+
+  listarPorUsuario(Usuario: string): Observable<any> {
+    return this.http.get(`http://localhost:8080/tickets/buscarPorRa/${Usuario}`);
   }
 }

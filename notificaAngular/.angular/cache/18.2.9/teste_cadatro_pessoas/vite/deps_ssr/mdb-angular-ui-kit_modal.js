@@ -1,27 +1,11 @@
 import { createRequire } from 'module';const require = createRequire(import.meta.url);
 import {
-  ContentObserver,
-  ObserversModule,
-  Platform,
-  RtlScrollAxisType,
-  _getEventTarget,
-  _getFocusedElementPierceShadowDom,
-  _getShadowRoot,
-  _isTestEnvironment,
-  coerceArray,
-  coerceCssPixelValue,
-  coerceElement,
-  coerceNumberProperty,
-  getRtlScrollAxisType,
-  normalizePassiveListenerOptions,
-  supportsScrollBehavior
-} from "./chunk-WW7LGNJR.js";
-import {
   CommonModule,
   DOCUMENT,
   Location,
-  NgClass
-} from "./chunk-6K3IK2DV.js";
+  NgClass,
+  isPlatformBrowser
+} from "./chunk-VZTX2A42.js";
 import {
   ANIMATION_MODULE_TYPE,
   APP_ID,
@@ -47,6 +31,7 @@ import {
   NgZone,
   Optional,
   Output,
+  PLATFORM_ID,
   QueryList,
   Renderer2,
   SkipSelf,
@@ -59,7 +44,6 @@ import {
   booleanAttribute,
   forwardRef,
   inject,
-  require_cjs,
   require_operators,
   setClassMetadata,
   untracked,
@@ -94,7 +78,10 @@ import {
   ɵɵstyleProp,
   ɵɵtemplate,
   ɵɵviewQuery
-} from "./chunk-TW4XVQZD.js";
+} from "./chunk-Q3R2RZWL.js";
+import {
+  require_cjs
+} from "./chunk-2H3L6IVL.js";
 import {
   __spreadProps,
   __spreadValues,
@@ -102,7 +89,7 @@ import {
 } from "./chunk-NQ4HTGF6.js";
 
 // node_modules/mdb-angular-ui-kit/fesm2022/mdb-angular-ui-kit-modal.mjs
-var import_rxjs7 = __toESM(require_cjs(), 1);
+var import_rxjs8 = __toESM(require_cjs(), 1);
 
 // node_modules/@angular/cdk/fesm2022/portal.mjs
 function throwNullPortalError() {
@@ -652,10 +639,191 @@ var PortalModule = class _PortalModule {
 })();
 
 // node_modules/mdb-angular-ui-kit/fesm2022/mdb-angular-ui-kit-modal.mjs
-var import_operators5 = __toESM(require_operators(), 1);
+var import_operators6 = __toESM(require_operators(), 1);
+
+// node_modules/@angular/cdk/fesm2022/platform.mjs
+var hasV8BreakIterator;
+try {
+  hasV8BreakIterator = typeof Intl !== "undefined" && Intl.v8BreakIterator;
+} catch {
+  hasV8BreakIterator = false;
+}
+var Platform = class _Platform {
+  constructor(_platformId) {
+    this._platformId = _platformId;
+    this.isBrowser = this._platformId ? isPlatformBrowser(this._platformId) : typeof document === "object" && !!document;
+    this.EDGE = this.isBrowser && /(edge)/i.test(navigator.userAgent);
+    this.TRIDENT = this.isBrowser && /(msie|trident)/i.test(navigator.userAgent);
+    this.BLINK = this.isBrowser && !!(window.chrome || hasV8BreakIterator) && typeof CSS !== "undefined" && !this.EDGE && !this.TRIDENT;
+    this.WEBKIT = this.isBrowser && /AppleWebKit/i.test(navigator.userAgent) && !this.BLINK && !this.EDGE && !this.TRIDENT;
+    this.IOS = this.isBrowser && /iPad|iPhone|iPod/.test(navigator.userAgent) && !("MSStream" in window);
+    this.FIREFOX = this.isBrowser && /(firefox|minefield)/i.test(navigator.userAgent);
+    this.ANDROID = this.isBrowser && /android/i.test(navigator.userAgent) && !this.TRIDENT;
+    this.SAFARI = this.isBrowser && /safari/i.test(navigator.userAgent) && this.WEBKIT;
+  }
+  static {
+    this.ɵfac = function Platform_Factory(__ngFactoryType__) {
+      return new (__ngFactoryType__ || _Platform)(ɵɵinject(PLATFORM_ID));
+    };
+  }
+  static {
+    this.ɵprov = ɵɵdefineInjectable({
+      token: _Platform,
+      factory: _Platform.ɵfac,
+      providedIn: "root"
+    });
+  }
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(Platform, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], () => [{
+    type: Object,
+    decorators: [{
+      type: Inject,
+      args: [PLATFORM_ID]
+    }]
+  }], null);
+})();
+var PlatformModule = class _PlatformModule {
+  static {
+    this.ɵfac = function PlatformModule_Factory(__ngFactoryType__) {
+      return new (__ngFactoryType__ || _PlatformModule)();
+    };
+  }
+  static {
+    this.ɵmod = ɵɵdefineNgModule({
+      type: _PlatformModule
+    });
+  }
+  static {
+    this.ɵinj = ɵɵdefineInjector({});
+  }
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(PlatformModule, [{
+    type: NgModule,
+    args: [{}]
+  }], null, null);
+})();
+var supportsPassiveEvents;
+function supportsPassiveEventListeners() {
+  if (supportsPassiveEvents == null && typeof window !== "undefined") {
+    try {
+      window.addEventListener("test", null, Object.defineProperty({}, "passive", {
+        get: () => supportsPassiveEvents = true
+      }));
+    } finally {
+      supportsPassiveEvents = supportsPassiveEvents || false;
+    }
+  }
+  return supportsPassiveEvents;
+}
+function normalizePassiveListenerOptions(options) {
+  return supportsPassiveEventListeners() ? options : !!options.capture;
+}
+var RtlScrollAxisType;
+(function(RtlScrollAxisType2) {
+  RtlScrollAxisType2[RtlScrollAxisType2["NORMAL"] = 0] = "NORMAL";
+  RtlScrollAxisType2[RtlScrollAxisType2["NEGATED"] = 1] = "NEGATED";
+  RtlScrollAxisType2[RtlScrollAxisType2["INVERTED"] = 2] = "INVERTED";
+})(RtlScrollAxisType || (RtlScrollAxisType = {}));
+var rtlScrollAxisType;
+var scrollBehaviorSupported;
+function supportsScrollBehavior() {
+  if (scrollBehaviorSupported == null) {
+    if (typeof document !== "object" || !document || typeof Element !== "function" || !Element) {
+      scrollBehaviorSupported = false;
+      return scrollBehaviorSupported;
+    }
+    if ("scrollBehavior" in document.documentElement.style) {
+      scrollBehaviorSupported = true;
+    } else {
+      const scrollToFunction = Element.prototype.scrollTo;
+      if (scrollToFunction) {
+        scrollBehaviorSupported = !/\{\s*\[native code\]\s*\}/.test(scrollToFunction.toString());
+      } else {
+        scrollBehaviorSupported = false;
+      }
+    }
+  }
+  return scrollBehaviorSupported;
+}
+function getRtlScrollAxisType() {
+  if (typeof document !== "object" || !document) {
+    return RtlScrollAxisType.NORMAL;
+  }
+  if (rtlScrollAxisType == null) {
+    const scrollContainer = document.createElement("div");
+    const containerStyle = scrollContainer.style;
+    scrollContainer.dir = "rtl";
+    containerStyle.width = "1px";
+    containerStyle.overflow = "auto";
+    containerStyle.visibility = "hidden";
+    containerStyle.pointerEvents = "none";
+    containerStyle.position = "absolute";
+    const content = document.createElement("div");
+    const contentStyle = content.style;
+    contentStyle.width = "2px";
+    contentStyle.height = "1px";
+    scrollContainer.appendChild(content);
+    document.body.appendChild(scrollContainer);
+    rtlScrollAxisType = RtlScrollAxisType.NORMAL;
+    if (scrollContainer.scrollLeft === 0) {
+      scrollContainer.scrollLeft = 1;
+      rtlScrollAxisType = scrollContainer.scrollLeft === 0 ? RtlScrollAxisType.NEGATED : RtlScrollAxisType.INVERTED;
+    }
+    scrollContainer.remove();
+  }
+  return rtlScrollAxisType;
+}
+var shadowDomIsSupported;
+function _supportsShadowDom() {
+  if (shadowDomIsSupported == null) {
+    const head = typeof document !== "undefined" ? document.head : null;
+    shadowDomIsSupported = !!(head && (head.createShadowRoot || head.attachShadow));
+  }
+  return shadowDomIsSupported;
+}
+function _getShadowRoot(element) {
+  if (_supportsShadowDom()) {
+    const rootNode = element.getRootNode ? element.getRootNode() : null;
+    if (typeof ShadowRoot !== "undefined" && ShadowRoot && rootNode instanceof ShadowRoot) {
+      return rootNode;
+    }
+  }
+  return null;
+}
+function _getFocusedElementPierceShadowDom() {
+  let activeElement = typeof document !== "undefined" && document ? document.activeElement : null;
+  while (activeElement && activeElement.shadowRoot) {
+    const newActiveElement = activeElement.shadowRoot.activeElement;
+    if (newActiveElement === activeElement) {
+      break;
+    } else {
+      activeElement = newActiveElement;
+    }
+  }
+  return activeElement;
+}
+function _getEventTarget(event) {
+  return event.composedPath ? event.composedPath()[0] : event.target;
+}
+function _isTestEnvironment() {
+  return (
+    // @ts-ignore
+    typeof __karma__ !== "undefined" && !!__karma__ || // @ts-ignore
+    typeof jasmine !== "undefined" && !!jasmine || // @ts-ignore
+    typeof jest !== "undefined" && !!jest || // @ts-ignore
+    typeof Mocha !== "undefined" && !!Mocha
+  );
+}
 
 // node_modules/@angular/cdk/fesm2022/a11y.mjs
-var import_rxjs3 = __toESM(require_cjs(), 1);
+var import_rxjs4 = __toESM(require_cjs(), 1);
 
 // node_modules/@angular/cdk/fesm2022/keycodes.mjs
 var SHIFT = 16;
@@ -676,7 +844,7 @@ function hasModifierKey(event, ...modifiers) {
 }
 
 // node_modules/@angular/cdk/fesm2022/a11y.mjs
-var import_operators2 = __toESM(require_operators(), 1);
+var import_operators3 = __toESM(require_operators(), 1);
 
 // node_modules/@angular/cdk/fesm2022/coercion/private.mjs
 var import_rxjs = __toESM(require_cjs(), 1);
@@ -687,9 +855,303 @@ function coerceObservable(data) {
   return data;
 }
 
-// node_modules/@angular/cdk/fesm2022/layout.mjs
+// node_modules/@angular/cdk/fesm2022/coercion.mjs
+function coerceNumberProperty(value, fallbackValue = 0) {
+  if (_isNumberValue(value)) {
+    return Number(value);
+  }
+  return arguments.length === 2 ? fallbackValue : 0;
+}
+function _isNumberValue(value) {
+  return !isNaN(parseFloat(value)) && !isNaN(Number(value));
+}
+function coerceArray(value) {
+  return Array.isArray(value) ? value : [value];
+}
+function coerceCssPixelValue(value) {
+  if (value == null) {
+    return "";
+  }
+  return typeof value === "string" ? value : `${value}px`;
+}
+function coerceElement(elementOrRef) {
+  return elementOrRef instanceof ElementRef ? elementOrRef.nativeElement : elementOrRef;
+}
+
+// node_modules/@angular/cdk/fesm2022/observers.mjs
 var import_rxjs2 = __toESM(require_cjs(), 1);
 var import_operators = __toESM(require_operators(), 1);
+function shouldIgnoreRecord(record) {
+  if (record.type === "characterData" && record.target instanceof Comment) {
+    return true;
+  }
+  if (record.type === "childList") {
+    for (let i = 0; i < record.addedNodes.length; i++) {
+      if (!(record.addedNodes[i] instanceof Comment)) {
+        return false;
+      }
+    }
+    for (let i = 0; i < record.removedNodes.length; i++) {
+      if (!(record.removedNodes[i] instanceof Comment)) {
+        return false;
+      }
+    }
+    return true;
+  }
+  return false;
+}
+var MutationObserverFactory = class _MutationObserverFactory {
+  create(callback) {
+    return typeof MutationObserver === "undefined" ? null : new MutationObserver(callback);
+  }
+  static {
+    this.ɵfac = function MutationObserverFactory_Factory(__ngFactoryType__) {
+      return new (__ngFactoryType__ || _MutationObserverFactory)();
+    };
+  }
+  static {
+    this.ɵprov = ɵɵdefineInjectable({
+      token: _MutationObserverFactory,
+      factory: _MutationObserverFactory.ɵfac,
+      providedIn: "root"
+    });
+  }
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(MutationObserverFactory, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], null, null);
+})();
+var ContentObserver = class _ContentObserver {
+  constructor(_mutationObserverFactory) {
+    this._mutationObserverFactory = _mutationObserverFactory;
+    this._observedElements = /* @__PURE__ */ new Map();
+    this._ngZone = inject(NgZone);
+  }
+  ngOnDestroy() {
+    this._observedElements.forEach((_, element) => this._cleanupObserver(element));
+  }
+  observe(elementOrRef) {
+    const element = coerceElement(elementOrRef);
+    return new import_rxjs2.Observable((observer) => {
+      const stream = this._observeElement(element);
+      const subscription = stream.pipe((0, import_operators.map)((records) => records.filter((record) => !shouldIgnoreRecord(record))), (0, import_operators.filter)((records) => !!records.length)).subscribe((records) => {
+        this._ngZone.run(() => {
+          observer.next(records);
+        });
+      });
+      return () => {
+        subscription.unsubscribe();
+        this._unobserveElement(element);
+      };
+    });
+  }
+  /**
+   * Observes the given element by using the existing MutationObserver if available, or creating a
+   * new one if not.
+   */
+  _observeElement(element) {
+    return this._ngZone.runOutsideAngular(() => {
+      if (!this._observedElements.has(element)) {
+        const stream = new import_rxjs2.Subject();
+        const observer = this._mutationObserverFactory.create((mutations) => stream.next(mutations));
+        if (observer) {
+          observer.observe(element, {
+            characterData: true,
+            childList: true,
+            subtree: true
+          });
+        }
+        this._observedElements.set(element, {
+          observer,
+          stream,
+          count: 1
+        });
+      } else {
+        this._observedElements.get(element).count++;
+      }
+      return this._observedElements.get(element).stream;
+    });
+  }
+  /**
+   * Un-observes the given element and cleans up the underlying MutationObserver if nobody else is
+   * observing this element.
+   */
+  _unobserveElement(element) {
+    if (this._observedElements.has(element)) {
+      this._observedElements.get(element).count--;
+      if (!this._observedElements.get(element).count) {
+        this._cleanupObserver(element);
+      }
+    }
+  }
+  /** Clean up the underlying MutationObserver for the specified element. */
+  _cleanupObserver(element) {
+    if (this._observedElements.has(element)) {
+      const {
+        observer,
+        stream
+      } = this._observedElements.get(element);
+      if (observer) {
+        observer.disconnect();
+      }
+      stream.complete();
+      this._observedElements.delete(element);
+    }
+  }
+  static {
+    this.ɵfac = function ContentObserver_Factory(__ngFactoryType__) {
+      return new (__ngFactoryType__ || _ContentObserver)(ɵɵinject(MutationObserverFactory));
+    };
+  }
+  static {
+    this.ɵprov = ɵɵdefineInjectable({
+      token: _ContentObserver,
+      factory: _ContentObserver.ɵfac,
+      providedIn: "root"
+    });
+  }
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ContentObserver, [{
+    type: Injectable,
+    args: [{
+      providedIn: "root"
+    }]
+  }], () => [{
+    type: MutationObserverFactory
+  }], null);
+})();
+var CdkObserveContent = class _CdkObserveContent {
+  /**
+   * Whether observing content is disabled. This option can be used
+   * to disconnect the underlying MutationObserver until it is needed.
+   */
+  get disabled() {
+    return this._disabled;
+  }
+  set disabled(value) {
+    this._disabled = value;
+    this._disabled ? this._unsubscribe() : this._subscribe();
+  }
+  /** Debounce interval for emitting the changes. */
+  get debounce() {
+    return this._debounce;
+  }
+  set debounce(value) {
+    this._debounce = coerceNumberProperty(value);
+    this._subscribe();
+  }
+  constructor(_contentObserver, _elementRef) {
+    this._contentObserver = _contentObserver;
+    this._elementRef = _elementRef;
+    this.event = new EventEmitter();
+    this._disabled = false;
+    this._currentSubscription = null;
+  }
+  ngAfterContentInit() {
+    if (!this._currentSubscription && !this.disabled) {
+      this._subscribe();
+    }
+  }
+  ngOnDestroy() {
+    this._unsubscribe();
+  }
+  _subscribe() {
+    this._unsubscribe();
+    const stream = this._contentObserver.observe(this._elementRef);
+    this._currentSubscription = (this.debounce ? stream.pipe((0, import_operators.debounceTime)(this.debounce)) : stream).subscribe(this.event);
+  }
+  _unsubscribe() {
+    this._currentSubscription?.unsubscribe();
+  }
+  static {
+    this.ɵfac = function CdkObserveContent_Factory(__ngFactoryType__) {
+      return new (__ngFactoryType__ || _CdkObserveContent)(ɵɵdirectiveInject(ContentObserver), ɵɵdirectiveInject(ElementRef));
+    };
+  }
+  static {
+    this.ɵdir = ɵɵdefineDirective({
+      type: _CdkObserveContent,
+      selectors: [["", "cdkObserveContent", ""]],
+      inputs: {
+        disabled: [2, "cdkObserveContentDisabled", "disabled", booleanAttribute],
+        debounce: "debounce"
+      },
+      outputs: {
+        event: "cdkObserveContent"
+      },
+      exportAs: ["cdkObserveContent"],
+      standalone: true,
+      features: [ɵɵInputTransformsFeature]
+    });
+  }
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(CdkObserveContent, [{
+    type: Directive,
+    args: [{
+      selector: "[cdkObserveContent]",
+      exportAs: "cdkObserveContent",
+      standalone: true
+    }]
+  }], () => [{
+    type: ContentObserver
+  }, {
+    type: ElementRef
+  }], {
+    event: [{
+      type: Output,
+      args: ["cdkObserveContent"]
+    }],
+    disabled: [{
+      type: Input,
+      args: [{
+        alias: "cdkObserveContentDisabled",
+        transform: booleanAttribute
+      }]
+    }],
+    debounce: [{
+      type: Input
+    }]
+  });
+})();
+var ObserversModule = class _ObserversModule {
+  static {
+    this.ɵfac = function ObserversModule_Factory(__ngFactoryType__) {
+      return new (__ngFactoryType__ || _ObserversModule)();
+    };
+  }
+  static {
+    this.ɵmod = ɵɵdefineNgModule({
+      type: _ObserversModule,
+      imports: [CdkObserveContent],
+      exports: [CdkObserveContent]
+    });
+  }
+  static {
+    this.ɵinj = ɵɵdefineInjector({
+      providers: [MutationObserverFactory]
+    });
+  }
+};
+(() => {
+  (typeof ngDevMode === "undefined" || ngDevMode) && setClassMetadata(ObserversModule, [{
+    type: NgModule,
+    args: [{
+      imports: [CdkObserveContent],
+      exports: [CdkObserveContent],
+      providers: [MutationObserverFactory]
+    }]
+  }], null, null);
+})();
+
+// node_modules/@angular/cdk/fesm2022/layout.mjs
+var import_rxjs3 = __toESM(require_cjs(), 1);
+var import_operators2 = __toESM(require_operators(), 1);
 var LayoutModule = class _LayoutModule {
   static {
     this.ɵfac = function LayoutModule_Factory(__ngFactoryType__) {
@@ -802,7 +1264,7 @@ var BreakpointObserver = class _BreakpointObserver {
     this._mediaMatcher = _mediaMatcher;
     this._zone = _zone;
     this._queries = /* @__PURE__ */ new Map();
-    this._destroySubject = new import_rxjs2.Subject();
+    this._destroySubject = new import_rxjs3.Subject();
   }
   /** Completes the active subject, signalling to all other observables to complete. */
   ngOnDestroy() {
@@ -827,9 +1289,9 @@ var BreakpointObserver = class _BreakpointObserver {
   observe(value) {
     const queries = splitQueries(coerceArray(value));
     const observables = queries.map((query) => this._registerQuery(query).observable);
-    let stateObservable = (0, import_rxjs2.combineLatest)(observables);
-    stateObservable = (0, import_rxjs2.concat)(stateObservable.pipe((0, import_operators.take)(1)), stateObservable.pipe((0, import_operators.skip)(1), (0, import_operators.debounceTime)(0)));
-    return stateObservable.pipe((0, import_operators.map)((breakpointStates) => {
+    let stateObservable = (0, import_rxjs3.combineLatest)(observables);
+    stateObservable = (0, import_rxjs3.concat)(stateObservable.pipe((0, import_operators2.take)(1)), stateObservable.pipe((0, import_operators2.skip)(1), (0, import_operators2.debounceTime)(0)));
+    return stateObservable.pipe((0, import_operators2.map)((breakpointStates) => {
       const response = {
         matches: false,
         breakpoints: {}
@@ -850,18 +1312,18 @@ var BreakpointObserver = class _BreakpointObserver {
       return this._queries.get(query);
     }
     const mql = this._mediaMatcher.matchMedia(query);
-    const queryObservable = new import_rxjs2.Observable((observer) => {
+    const queryObservable = new import_rxjs3.Observable((observer) => {
       const handler = (e) => this._zone.run(() => observer.next(e));
       mql.addListener(handler);
       return () => {
         mql.removeListener(handler);
       };
-    }).pipe((0, import_operators.startWith)(mql), (0, import_operators.map)(({
+    }).pipe((0, import_operators2.startWith)(mql), (0, import_operators2.map)(({
       matches
     }) => ({
       query,
       matches
-    })), (0, import_operators.takeUntil)(this._destroySubject));
+    })), (0, import_operators2.takeUntil)(this._destroySubject));
     const output = {
       observable: queryObservable,
       mql
@@ -1114,11 +1576,11 @@ function setMessageId(element, serviceId) {
 var DEFAULT_TYPEAHEAD_DEBOUNCE_INTERVAL_MS = 200;
 var Typeahead = class {
   constructor(initialItems, config) {
-    this._letterKeyStream = new import_rxjs3.Subject();
+    this._letterKeyStream = new import_rxjs4.Subject();
     this._items = [];
     this._selectedItemIndex = -1;
     this._pressedLetters = [];
-    this._selectedItem = new import_rxjs3.Subject();
+    this._selectedItem = new import_rxjs4.Subject();
     this.selectedItem = this._selectedItem;
     const typeAheadInterval = typeof config?.debounceInterval === "number" ? config.debounceInterval : DEFAULT_TYPEAHEAD_DEBOUNCE_INTERVAL_MS;
     if (config?.skipPredicate) {
@@ -1158,7 +1620,7 @@ var Typeahead = class {
     this._pressedLetters = [];
   }
   _setupKeyHandler(typeAheadInterval) {
-    this._letterKeyStream.pipe((0, import_operators2.tap)((letter) => this._pressedLetters.push(letter)), (0, import_operators2.debounceTime)(typeAheadInterval), (0, import_operators2.filter)(() => this._pressedLetters.length > 0), (0, import_operators2.map)(() => this._pressedLetters.join("").toLocaleUpperCase())).subscribe((inputString) => {
+    this._letterKeyStream.pipe((0, import_operators3.tap)((letter) => this._pressedLetters.push(letter)), (0, import_operators3.debounceTime)(typeAheadInterval), (0, import_operators3.filter)(() => this._pressedLetters.length > 0), (0, import_operators3.map)(() => this._pressedLetters.join("").toLocaleUpperCase())).subscribe((inputString) => {
       for (let i = 1; i < this._items.length + 1; i++) {
         const index = (this._selectedItemIndex + i) % this._items.length;
         const item = this._items[index];
@@ -1211,9 +1673,9 @@ var TreeKeyManager = class {
     this._skipPredicateFn = (_item) => false;
     this._trackByFn = (item) => item;
     this._items = [];
-    this._typeaheadSubscription = import_rxjs3.Subscription.EMPTY;
+    this._typeaheadSubscription = import_rxjs4.Subscription.EMPTY;
     this._hasInitialFocused = false;
-    this.change = new import_rxjs3.Subject();
+    this.change = new import_rxjs4.Subject();
     if (items instanceof QueryList) {
       this._items = items.toArray();
       items.changes.subscribe((newItems) => {
@@ -1222,7 +1684,7 @@ var TreeKeyManager = class {
         this._updateActiveItemIndex(this._items);
         this._initializeFocus();
       });
-    } else if ((0, import_rxjs3.isObservable)(items)) {
+    } else if ((0, import_rxjs4.isObservable)(items)) {
       items.subscribe((newItems) => {
         this._items = newItems;
         this._typeahead?.setItems(newItems);
@@ -1407,7 +1869,7 @@ var TreeKeyManager = class {
     if (!this._isCurrentItemExpanded()) {
       this._activeItem.expand();
     } else {
-      coerceObservable(this._activeItem.getChildren()).pipe((0, import_operators2.take)(1)).subscribe((children) => {
+      coerceObservable(this._activeItem.getChildren()).pipe((0, import_operators3.take)(1)).subscribe((children) => {
         const firstChild = children.find((child) => !this._skipPredicateFn(child));
         if (!firstChild) {
           return;
@@ -1433,11 +1895,11 @@ var TreeKeyManager = class {
     const parent = this._activeItem.getParent();
     let itemsToExpand;
     if (!parent) {
-      itemsToExpand = (0, import_rxjs3.of)(this._items.filter((item) => item.getParent() === null));
+      itemsToExpand = (0, import_rxjs4.of)(this._items.filter((item) => item.getParent() === null));
     } else {
       itemsToExpand = coerceObservable(parent.getChildren());
     }
-    itemsToExpand.pipe((0, import_operators2.take)(1)).subscribe((items) => {
+    itemsToExpand.pipe((0, import_operators3.take)(1)).subscribe((items) => {
       for (const item of items) {
         item.expand();
       }
@@ -2217,7 +2679,7 @@ var InputModalityDetector = class _InputModalityDetector {
   constructor(_platform, ngZone, document2, options) {
     this._platform = _platform;
     this._mostRecentTarget = null;
-    this._modality = new import_rxjs3.BehaviorSubject(null);
+    this._modality = new import_rxjs4.BehaviorSubject(null);
     this._lastTouchMs = 0;
     this._onKeydown = (event) => {
       if (this._options?.ignoreKeys?.some((keyCode) => keyCode === event.keyCode)) {
@@ -2243,8 +2705,8 @@ var InputModalityDetector = class _InputModalityDetector {
       this._mostRecentTarget = _getEventTarget(event);
     };
     this._options = __spreadValues(__spreadValues({}, INPUT_MODALITY_DETECTOR_DEFAULT_OPTIONS), options);
-    this.modalityDetected = this._modality.pipe((0, import_operators2.skip)(1));
-    this.modalityChanged = this.modalityDetected.pipe((0, import_operators2.distinctUntilChanged)());
+    this.modalityDetected = this._modality.pipe((0, import_operators3.skip)(1));
+    this.modalityChanged = this.modalityDetected.pipe((0, import_operators3.distinctUntilChanged)());
     if (_platform.isBrowser) {
       ngZone.runOutsideAngular(() => {
         document2.addEventListener("keydown", this._onKeydown, modalityEventListenerOptions);
@@ -2553,7 +3015,7 @@ var FocusMonitor = class _FocusMonitor {
       this._windowFocused = true;
       this._windowFocusTimeoutId = window.setTimeout(() => this._windowFocused = false);
     };
-    this._stopInputModalityDetector = new import_rxjs3.Subject();
+    this._stopInputModalityDetector = new import_rxjs4.Subject();
     this._rootNodeFocusAndBlurListener = (event) => {
       const target = _getEventTarget(event);
       for (let element = target; element; element = element.parentElement) {
@@ -2570,7 +3032,7 @@ var FocusMonitor = class _FocusMonitor {
   monitor(element, checkChildren = false) {
     const nativeElement = coerceElement(element);
     if (!this._platform.isBrowser || nativeElement.nodeType !== 1) {
-      return (0, import_rxjs3.of)();
+      return (0, import_rxjs4.of)();
     }
     const rootNode = _getShadowRoot(nativeElement) || this._getDocument();
     const cachedInfo = this._elementInfo.get(nativeElement);
@@ -2582,7 +3044,7 @@ var FocusMonitor = class _FocusMonitor {
     }
     const info = {
       checkChildren,
-      subject: new import_rxjs3.Subject(),
+      subject: new import_rxjs4.Subject(),
       rootNode
     };
     this._elementInfo.set(nativeElement, info);
@@ -2729,7 +3191,7 @@ var FocusMonitor = class _FocusMonitor {
         const window2 = this._getWindow();
         window2.addEventListener("focus", this._windowFocusListener);
       });
-      this._inputModalityDetector.modalityDetected.pipe((0, import_operators2.takeUntil)(this._stopInputModalityDetector)).subscribe((modality) => {
+      this._inputModalityDetector.modalityDetected.pipe((0, import_operators3.takeUntil)(this._stopInputModalityDetector)).subscribe((modality) => {
         this._setOrigin(
           modality,
           true
@@ -3027,8 +3489,8 @@ var A11yModule = class _A11yModule {
 })();
 
 // node_modules/@angular/cdk/fesm2022/scrolling.mjs
-var import_rxjs5 = __toESM(require_cjs(), 1);
-var import_operators3 = __toESM(require_operators(), 1);
+var import_rxjs6 = __toESM(require_cjs(), 1);
+var import_operators4 = __toESM(require_operators(), 1);
 
 // node_modules/@angular/cdk/fesm2022/bidi.mjs
 var DIR_DOCUMENT = new InjectionToken("cdk-dir-doc", {
@@ -3200,11 +3662,11 @@ var BidiModule = class _BidiModule {
 })();
 
 // node_modules/@angular/cdk/fesm2022/collections.mjs
-var import_rxjs4 = __toESM(require_cjs(), 1);
+var import_rxjs5 = __toESM(require_cjs(), 1);
 var DataSource = class {
 };
 function isDataSource(value) {
-  return value && typeof value.connect === "function" && !(value instanceof import_rxjs4.ConnectableObservable);
+  return value && typeof value.connect === "function" && !(value instanceof import_rxjs5.ConnectableObservable);
 }
 var ArrayDataSource = class extends DataSource {
   constructor(_data) {
@@ -3212,7 +3674,7 @@ var ArrayDataSource = class extends DataSource {
     this._data = _data;
   }
   connect() {
-    return (0, import_rxjs4.isObservable)(this._data) ? this._data : (0, import_rxjs4.of)(this._data);
+    return (0, import_rxjs5.isObservable)(this._data) ? this._data : (0, import_rxjs5.of)(this._data);
   }
   disconnect() {
   }
@@ -3373,8 +3835,8 @@ var FixedSizeVirtualScrollStrategy = class {
    * @param maxBufferPx The amount of buffer (in pixels) to render when rendering more.
    */
   constructor(itemSize, minBufferPx, maxBufferPx) {
-    this._scrolledIndexChange = new import_rxjs5.Subject();
-    this.scrolledIndexChange = this._scrolledIndexChange.pipe((0, import_operators3.distinctUntilChanged)());
+    this._scrolledIndexChange = new import_rxjs6.Subject();
+    this.scrolledIndexChange = this._scrolledIndexChange.pipe((0, import_operators4.distinctUntilChanged)());
     this._viewport = null;
     this._itemSize = itemSize;
     this._minBufferPx = minBufferPx;
@@ -3577,7 +4039,7 @@ var ScrollDispatcher = class _ScrollDispatcher {
   constructor(_ngZone, _platform, document2) {
     this._ngZone = _ngZone;
     this._platform = _platform;
-    this._scrolled = new import_rxjs5.Subject();
+    this._scrolled = new import_rxjs6.Subject();
     this._globalSubscription = null;
     this._scrolledCount = 0;
     this.scrollContainers = /* @__PURE__ */ new Map();
@@ -3616,13 +4078,13 @@ var ScrollDispatcher = class _ScrollDispatcher {
    */
   scrolled(auditTimeInMs = DEFAULT_SCROLL_TIME) {
     if (!this._platform.isBrowser) {
-      return (0, import_rxjs5.of)();
+      return (0, import_rxjs6.of)();
     }
-    return new import_rxjs5.Observable((observer) => {
+    return new import_rxjs6.Observable((observer) => {
       if (!this._globalSubscription) {
         this._addGlobalListener();
       }
-      const subscription = auditTimeInMs > 0 ? this._scrolled.pipe((0, import_operators3.auditTime)(auditTimeInMs)).subscribe(observer) : this._scrolled.subscribe(observer);
+      const subscription = auditTimeInMs > 0 ? this._scrolled.pipe((0, import_operators4.auditTime)(auditTimeInMs)).subscribe(observer) : this._scrolled.subscribe(observer);
       this._scrolledCount++;
       return () => {
         subscription.unsubscribe();
@@ -3646,7 +4108,7 @@ var ScrollDispatcher = class _ScrollDispatcher {
    */
   ancestorScrolled(elementOrElementRef, auditTimeInMs) {
     const ancestors = this.getAncestorScrollContainers(elementOrElementRef);
-    return this.scrolled(auditTimeInMs).pipe((0, import_operators3.filter)((target) => {
+    return this.scrolled(auditTimeInMs).pipe((0, import_operators4.filter)((target) => {
       return !target || ancestors.indexOf(target) > -1;
     }));
   }
@@ -3679,7 +4141,7 @@ var ScrollDispatcher = class _ScrollDispatcher {
   _addGlobalListener() {
     this._globalSubscription = this._ngZone.runOutsideAngular(() => {
       const window2 = this._getWindow();
-      return (0, import_rxjs5.fromEvent)(window2.document, "scroll").subscribe(() => this._scrolled.next());
+      return (0, import_rxjs6.fromEvent)(window2.document, "scroll").subscribe(() => this._scrolled.next());
     });
   }
   /** Cleans up the global scroll listener. */
@@ -3728,8 +4190,8 @@ var CdkScrollable = class _CdkScrollable {
     this.scrollDispatcher = scrollDispatcher;
     this.ngZone = ngZone;
     this.dir = dir;
-    this._destroyed = new import_rxjs5.Subject();
-    this._elementScrolled = new import_rxjs5.Observable((observer) => this.ngZone.runOutsideAngular(() => (0, import_rxjs5.fromEvent)(this.elementRef.nativeElement, "scroll").pipe((0, import_operators3.takeUntil)(this._destroyed)).subscribe(observer)));
+    this._destroyed = new import_rxjs6.Subject();
+    this._elementScrolled = new import_rxjs6.Observable((observer) => this.ngZone.runOutsideAngular(() => (0, import_rxjs6.fromEvent)(this.elementRef.nativeElement, "scroll").pipe((0, import_operators4.takeUntil)(this._destroyed)).subscribe(observer)));
   }
   ngOnInit() {
     this.scrollDispatcher.register(this);
@@ -3878,7 +4340,7 @@ var DEFAULT_RESIZE_TIME = 20;
 var ViewportRuler = class _ViewportRuler {
   constructor(_platform, ngZone, document2) {
     this._platform = _platform;
-    this._change = new import_rxjs5.Subject();
+    this._change = new import_rxjs6.Subject();
     this._changeListener = (event) => {
       this._change.next(event);
     };
@@ -3955,7 +4417,7 @@ var ViewportRuler = class _ViewportRuler {
    * @param throttleTime Time in milliseconds to throttle the stream.
    */
   change(throttleTime = DEFAULT_RESIZE_TIME) {
-    return throttleTime > 0 ? this._change.pipe((0, import_operators3.auditTime)(throttleTime)) : this._change;
+    return throttleTime > 0 ? this._change.pipe((0, import_operators4.auditTime)(throttleTime)) : this._change;
   }
   /** Use defaultView of injected document if available or fallback to global window reference */
   _getWindow() {
@@ -4050,7 +4512,7 @@ var CdkVirtualScrollable = class _CdkVirtualScrollable extends CdkScrollable {
 function rangesEqual(r1, r2) {
   return r1.start == r2.start && r1.end == r2.end;
 }
-var SCROLL_SCHEDULER = typeof requestAnimationFrame !== "undefined" ? import_rxjs5.animationFrameScheduler : import_rxjs5.asapScheduler;
+var SCROLL_SCHEDULER = typeof requestAnimationFrame !== "undefined" ? import_rxjs6.animationFrameScheduler : import_rxjs6.asapScheduler;
 var CdkVirtualScrollViewport = class _CdkVirtualScrollViewport extends CdkVirtualScrollable {
   /** The direction the viewport scrolls. */
   get orientation() {
@@ -4069,11 +4531,11 @@ var CdkVirtualScrollViewport = class _CdkVirtualScrollViewport extends CdkVirtua
     this._scrollStrategy = _scrollStrategy;
     this.scrollable = scrollable;
     this._platform = inject(Platform);
-    this._detachedSubject = new import_rxjs5.Subject();
-    this._renderedRangeSubject = new import_rxjs5.Subject();
+    this._detachedSubject = new import_rxjs6.Subject();
+    this._renderedRangeSubject = new import_rxjs6.Subject();
     this._orientation = "vertical";
     this.appendOnly = false;
-    this.scrolledIndexChange = new import_rxjs5.Observable((observer) => this._scrollStrategy.scrolledIndexChange.subscribe((index) => Promise.resolve().then(() => this.ngZone.run(() => observer.next(index)))));
+    this.scrolledIndexChange = new import_rxjs6.Observable((observer) => this._scrollStrategy.scrolledIndexChange.subscribe((index) => Promise.resolve().then(() => this.ngZone.run(() => observer.next(index)))));
     this.renderedRangeStream = this._renderedRangeSubject;
     this._totalContentSize = 0;
     this._totalContentWidth = "";
@@ -4088,7 +4550,7 @@ var CdkVirtualScrollViewport = class _CdkVirtualScrollViewport extends CdkVirtua
     this._renderedContentOffsetNeedsRewrite = false;
     this._isChangeDetectionPending = false;
     this._runAfterChangeDetection = [];
-    this._viewportChanges = import_rxjs5.Subscription.EMPTY;
+    this._viewportChanges = import_rxjs6.Subscription.EMPTY;
     this._injector = inject(Injector);
     this._isDestroyed = false;
     if (!_scrollStrategy && (typeof ngDevMode === "undefined" || ngDevMode)) {
@@ -4114,15 +4576,15 @@ var CdkVirtualScrollViewport = class _CdkVirtualScrollViewport extends CdkVirtua
       this._scrollStrategy.attach(this);
       this.scrollable.elementScrolled().pipe(
         // Start off with a fake scroll event so we properly detect our initial position.
-        (0, import_operators3.startWith)(null),
+        (0, import_operators4.startWith)(null),
         // Collect multiple events into one until the next animation frame. This way if
         // there are multiple scroll events in the same frame we only need to recheck
         // our layout once.
-        (0, import_operators3.auditTime)(0, SCROLL_SCHEDULER),
+        (0, import_operators4.auditTime)(0, SCROLL_SCHEDULER),
         // Usually `elementScrolled` is completed when the scrollable is destroyed, but
         // that may not be the case if a `CdkVirtualScrollableElement` is used so we have
         // to unsubscribe here just in case.
-        (0, import_operators3.takeUntil)(this._destroyed)
+        (0, import_operators4.takeUntil)(this._destroyed)
       ).subscribe(() => this._scrollStrategy.onContentScrolled());
       this._markChangeDetectionNeeded();
     }));
@@ -4143,7 +4605,7 @@ var CdkVirtualScrollViewport = class _CdkVirtualScrollViewport extends CdkVirtua
     }
     this.ngZone.runOutsideAngular(() => {
       this._forOf = forOf;
-      this._forOf.dataStream.pipe((0, import_operators3.takeUntil)(this._detachedSubject)).subscribe((data) => {
+      this._forOf.dataStream.pipe((0, import_operators4.takeUntil)(this._detachedSubject)).subscribe((data) => {
         const newLength = data.length;
         if (newLength !== this._dataLength) {
           this._dataLength = newLength;
@@ -4514,7 +4976,7 @@ var CdkVirtualForOf = class _CdkVirtualForOf {
     if (isDataSource(value)) {
       this._dataSourceChanges.next(value);
     } else {
-      this._dataSourceChanges.next(new ArrayDataSource((0, import_rxjs5.isObservable)(value) ? value : Array.from(value || [])));
+      this._dataSourceChanges.next(new ArrayDataSource((0, import_rxjs6.isObservable)(value) ? value : Array.from(value || [])));
     }
   }
   /**
@@ -4551,28 +5013,28 @@ var CdkVirtualForOf = class _CdkVirtualForOf {
     this._differs = _differs;
     this._viewRepeater = _viewRepeater;
     this._viewport = _viewport;
-    this.viewChange = new import_rxjs5.Subject();
-    this._dataSourceChanges = new import_rxjs5.Subject();
+    this.viewChange = new import_rxjs6.Subject();
+    this._dataSourceChanges = new import_rxjs6.Subject();
     this.dataStream = this._dataSourceChanges.pipe(
       // Start off with null `DataSource`.
-      (0, import_operators3.startWith)(null),
+      (0, import_operators4.startWith)(null),
       // Bundle up the previous and current data sources so we can work with both.
-      (0, import_operators3.pairwise)(),
+      (0, import_operators4.pairwise)(),
       // Use `_changeDataSource` to disconnect from the previous data source and connect to the
       // new one, passing back a stream of data changes which we run through `switchMap` to give
       // us a data stream that emits the latest data from whatever the current `DataSource` is.
-      (0, import_operators3.switchMap)(([prev, cur]) => this._changeDataSource(prev, cur)),
+      (0, import_operators4.switchMap)(([prev, cur]) => this._changeDataSource(prev, cur)),
       // Replay the last emitted data when someone subscribes.
-      (0, import_operators3.shareReplay)(1)
+      (0, import_operators4.shareReplay)(1)
     );
     this._differ = null;
     this._needsUpdate = false;
-    this._destroyed = new import_rxjs5.Subject();
+    this._destroyed = new import_rxjs6.Subject();
     this.dataStream.subscribe((data) => {
       this._data = data;
       this._onRenderedDataChange();
     });
-    this._viewport.renderedRangeStream.pipe((0, import_operators3.takeUntil)(this._destroyed)).subscribe((range) => {
+    this._viewport.renderedRangeStream.pipe((0, import_operators4.takeUntil)(this._destroyed)).subscribe((range) => {
       this._renderedRange = range;
       if (this.viewChange.observers.length) {
         ngZone.run(() => this.viewChange.next(this._renderedRange));
@@ -4652,7 +5114,7 @@ var CdkVirtualForOf = class _CdkVirtualForOf {
       oldDs.disconnect(this);
     }
     this._needsUpdate = true;
-    return newDs ? newDs.connect(this) : (0, import_rxjs5.of)();
+    return newDs ? newDs.connect(this) : (0, import_rxjs6.of)();
   }
   /** Update the `CdkVirtualForOfContext` for all views. */
   _updateContext() {
@@ -4830,7 +5292,7 @@ var CdkVirtualScrollableElement = class _CdkVirtualScrollableElement extends Cdk
 var CdkVirtualScrollableWindow = class _CdkVirtualScrollableWindow extends CdkVirtualScrollable {
   constructor(scrollDispatcher, ngZone, dir) {
     super(new ElementRef(document.documentElement), scrollDispatcher, ngZone, dir);
-    this._elementScrolled = new import_rxjs5.Observable((observer) => this.ngZone.runOutsideAngular(() => (0, import_rxjs5.fromEvent)(document, "scroll").pipe((0, import_operators3.takeUntil)(this._destroyed)).subscribe(observer)));
+    this._elementScrolled = new import_rxjs6.Observable((observer) => this.ngZone.runOutsideAngular(() => (0, import_rxjs6.fromEvent)(document, "scroll").pipe((0, import_operators4.takeUntil)(this._destroyed)).subscribe(observer)));
   }
   measureBoundingClientRectWithScrollOffset(from) {
     return this.getElementRef().nativeElement.getBoundingClientRect()[from];
@@ -4930,9 +5392,9 @@ var ScrollingModule = class _ScrollingModule {
 })();
 
 // node_modules/@angular/cdk/fesm2022/overlay.mjs
-var import_operators4 = __toESM(require_operators(), 1);
-var import_rxjs6 = __toESM(require_cjs(), 1);
-var scrollBehaviorSupported = supportsScrollBehavior();
+var import_operators5 = __toESM(require_operators(), 1);
+var import_rxjs7 = __toESM(require_cjs(), 1);
+var scrollBehaviorSupported2 = supportsScrollBehavior();
 var BlockScrollStrategy = class {
   constructor(_viewportRuler, document2) {
     this._viewportRuler = _viewportRuler;
@@ -4972,11 +5434,11 @@ var BlockScrollStrategy = class {
       htmlStyle.left = this._previousHTMLStyles.left;
       htmlStyle.top = this._previousHTMLStyles.top;
       html.classList.remove("cdk-global-scrollblock");
-      if (scrollBehaviorSupported) {
+      if (scrollBehaviorSupported2) {
         htmlStyle.scrollBehavior = bodyStyle.scrollBehavior = "auto";
       }
       window.scroll(this._previousScrollPosition.left, this._previousScrollPosition.top);
-      if (scrollBehaviorSupported) {
+      if (scrollBehaviorSupported2) {
         htmlStyle.scrollBehavior = previousHtmlScrollBehavior;
         bodyStyle.scrollBehavior = previousBodyScrollBehavior;
       }
@@ -5021,7 +5483,7 @@ var CloseScrollStrategy = class {
     if (this._scrollSubscription) {
       return;
     }
-    const stream = this._scrollDispatcher.scrolled(0).pipe((0, import_operators4.filter)((scrollable) => {
+    const stream = this._scrollDispatcher.scrolled(0).pipe((0, import_operators5.filter)((scrollable) => {
       return !scrollable || !this._overlayRef.overlayElement.contains(scrollable.getElementRef().nativeElement);
     }));
     if (this._config && this._config.threshold && this._config.threshold > 1) {
@@ -5531,17 +5993,17 @@ var OverlayRef = class {
     this._animationsDisabled = _animationsDisabled;
     this._injector = _injector;
     this._backdropElement = null;
-    this._backdropClick = new import_rxjs6.Subject();
-    this._attachments = new import_rxjs6.Subject();
-    this._detachments = new import_rxjs6.Subject();
-    this._locationChanges = import_rxjs6.Subscription.EMPTY;
+    this._backdropClick = new import_rxjs7.Subject();
+    this._attachments = new import_rxjs7.Subject();
+    this._detachments = new import_rxjs7.Subject();
+    this._locationChanges = import_rxjs7.Subscription.EMPTY;
     this._backdropClickHandler = (event) => this._backdropClick.next(event);
     this._backdropTransitionendHandler = (event) => {
       this._disposeBackdrop(event.target);
     };
-    this._keydownEvents = new import_rxjs6.Subject();
-    this._outsidePointerEvents = new import_rxjs6.Subject();
-    this._renders = new import_rxjs6.Subject();
+    this._keydownEvents = new import_rxjs7.Subject();
+    this._outsidePointerEvents = new import_rxjs7.Subject();
+    this._renders = new import_rxjs7.Subject();
     if (_config.scrollStrategy) {
       this._scrollStrategy = _config.scrollStrategy;
       this._scrollStrategy.attach(this);
@@ -5851,7 +6313,7 @@ var OverlayRef = class {
   /** Detaches the overlay content next time the zone stabilizes. */
   _detachContentWhenEmpty() {
     this._ngZone.runOutsideAngular(() => {
-      const subscription = this._renders.pipe((0, import_operators4.takeUntil)((0, import_rxjs6.merge)(this._attachments, this._detachments))).subscribe(() => {
+      const subscription = this._renders.pipe((0, import_operators5.takeUntil)((0, import_rxjs7.merge)(this._attachments, this._detachments))).subscribe(() => {
         if (!this._pane || !this._host || this._pane.children.length === 0) {
           if (this._pane && this._config.panelClass) {
             this._toggleClasses(this._pane, this._config.panelClass, false);
@@ -5915,8 +6377,8 @@ var FlexibleConnectedPositionStrategy = class {
     this._viewportMargin = 0;
     this._scrollables = [];
     this._preferredPositions = [];
-    this._positionChanges = new import_rxjs6.Subject();
-    this._resizeSubscription = import_rxjs6.Subscription.EMPTY;
+    this._positionChanges = new import_rxjs7.Subject();
+    this._resizeSubscription = import_rxjs7.Subscription.EMPTY;
     this._offsetX = 0;
     this._offsetY = 0;
     this._appliedPanelClasses = [];
@@ -7185,10 +7647,10 @@ var CdkConnectedOverlay = class _CdkConnectedOverlay {
   constructor(_overlay, templateRef, viewContainerRef, scrollStrategyFactory, _dir) {
     this._overlay = _overlay;
     this._dir = _dir;
-    this._backdropSubscription = import_rxjs6.Subscription.EMPTY;
-    this._attachSubscription = import_rxjs6.Subscription.EMPTY;
-    this._detachSubscription = import_rxjs6.Subscription.EMPTY;
-    this._positionSubscription = import_rxjs6.Subscription.EMPTY;
+    this._backdropSubscription = import_rxjs7.Subscription.EMPTY;
+    this._attachSubscription = import_rxjs7.Subscription.EMPTY;
+    this._detachSubscription = import_rxjs7.Subscription.EMPTY;
+    this._positionSubscription = import_rxjs7.Subscription.EMPTY;
     this._disposeOnNavigation = false;
     this._ngZone = inject(NgZone);
     this.viewportMargin = 0;
@@ -7353,7 +7815,7 @@ var CdkConnectedOverlay = class _CdkConnectedOverlay {
     }
     this._positionSubscription.unsubscribe();
     if (this.positionChange.observers.length > 0) {
-      this._positionSubscription = this._position.positionChanges.pipe((0, import_operators4.takeWhile)(() => this.positionChange.observers.length > 0)).subscribe((position) => {
+      this._positionSubscription = this._position.positionChanges.pipe((0, import_operators5.takeWhile)(() => this.positionChange.observers.length > 0)).subscribe((position) => {
         this._ngZone.run(() => this.positionChange.emit(position));
         if (this.positionChange.observers.length === 0) {
           this._positionSubscription.unsubscribe();
@@ -7720,7 +8182,7 @@ var MdbModalRef = class {
     this._container = _container;
   }
   component;
-  onClose$ = new import_rxjs7.Subject();
+  onClose$ = new import_rxjs8.Subject();
   onClose = this.onClose$.asObservable();
   close(message) {
     this._container._close();
@@ -7749,8 +8211,8 @@ var MdbModalContainerComponent = class _MdbModalContainerComponent {
   _portalOutlet;
   modalDialog;
   modalContent;
-  _destroy$ = new import_rxjs7.Subject();
-  backdropClick$ = new import_rxjs7.Subject();
+  _destroy$ = new import_rxjs8.Subject();
+  backdropClick$ = new import_rxjs8.Subject();
   _config;
   BACKDROP_TRANSITION = 150;
   MODAL_TRANSITION = 200;
@@ -7838,13 +8300,13 @@ var MdbModalContainerComponent = class _MdbModalContainerComponent {
       this._renderer.setStyle(this._document.body, "padding-right", `${widthWithoutVerticalScroll - widthWithVerticalScroll}px`);
     }
     if (!this._config.ignoreBackdropClick && !this._config.nonInvasive) {
-      (0, import_rxjs7.fromEvent)(this.host, "mousedown").pipe((0, import_operators5.filter)((event) => {
+      (0, import_rxjs8.fromEvent)(this.host, "mousedown").pipe((0, import_operators6.filter)((event) => {
         const target = event.target;
         const dialog = this.modalDialog.nativeElement;
         const notDialog = target !== dialog;
         const notDialogContent = !dialog.contains(target);
         return notDialog && notDialogContent;
-      }), (0, import_operators5.takeUntil)(this._destroy$)).subscribe((event) => {
+      }), (0, import_operators6.takeUntil)(this._destroy$)).subscribe((event) => {
         this.backdropClick$.next(event);
       });
     }
@@ -8160,13 +8622,13 @@ var MdbModalService = class _MdbModalService {
     });
   }
   _registerListeners(modalRef, config, container) {
-    container.backdropClick$.pipe((0, import_operators5.take)(1)).subscribe(() => {
+    container.backdropClick$.pipe((0, import_operators6.take)(1)).subscribe(() => {
       modalRef.close();
     });
     if (config.keyboard) {
-      (0, import_rxjs7.fromEvent)(container._elementRef.nativeElement, "keydown").pipe((0, import_operators5.filter)((event) => {
+      (0, import_rxjs8.fromEvent)(container._elementRef.nativeElement, "keydown").pipe((0, import_operators6.filter)((event) => {
         return event.key === "Escape";
-      }), (0, import_operators5.take)(1)).subscribe(() => {
+      }), (0, import_operators6.take)(1)).subscribe(() => {
         modalRef.close();
       });
     }

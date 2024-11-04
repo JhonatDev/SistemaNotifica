@@ -15,5 +15,9 @@ public interface TicketRepository extends JpaRepository<Ticket, Long> {
     
     //findByStatus
     List<Ticket> findByStatus(@Valid Ticket.Status status);
+
+    List<Ticket> findByRaAlunoAndStatus(String raAluno, com.Notifica.entity.Ticket.Status status);
+
+    List<Ticket> findByRaAluno(String raAluno);
     
 }
