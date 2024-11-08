@@ -3,7 +3,7 @@
   <h2 *ngIf="funcao === 'Criar'">Criar Novo Ticket</h2>
   <!-- mostrar edicao de ticket se funcao for EDITAR -->
   <h2 *ngIf="funcao === 'Atualizar'">Atualizar Ticket</h2>
-  <form class="conteinerTicket" (ngSubmit)="criarTicket()">
+  <form class="conteinerTicket">
     <label for="resumoProblema">Resumo do Problema:</label>
     <input id="resumoProblema" [(ngModel)]="TicketList.resumoProblema" name="resumoProblema" required />
 
@@ -51,12 +51,12 @@
       <input id="outroSubtipoProblema" [(ngModel)]="TicketList.outroSubtipoProblema" name="outroSubtipoProblema" required />
     </div>
 
-    <label for="caminhoFoto">Foto:</label>
-    <input id="caminhoFoto" type="file" accept="image/*" (change)="onImageSelected($event)"/>
+    <label for="Foto">Foto:</label>
+    <input id="Foto" type="file" accept="image/*" (change)="onFileSelected($event)"/>
 
     <!-- mostrar botao de criar ticket se funcao for Criar -->
-    <button *ngIf="funcao === 'Criar'" (click)="criarTicket()" type="button" class="btn btn-info btn-rounded ms-2" mdbRipple>Criar Ticket</button>
+    <button *ngIf="funcao === 'Criar'" (click)="criarTicket()" type="button" class="btn btn-info btn-rounded ms-2" >Criar Ticket</button>
     <!-- mostrar botao de editar ticket se funcao for Atualizar -->
-    <button *ngIf="funcao === 'Atualizar'" (click)="atualizarTicket()" type="button" class="btn btn-info btn-rounded ms-2" mdbRipple>Atualizar Ticket</button>
+    <button *ngIf="funcao === 'Atualizar'" (click)="atualizarTicket()" type="button" class="btn btn-info btn-rounded ms-2" >Atualizar Ticket</button>
   </form>
 </div>

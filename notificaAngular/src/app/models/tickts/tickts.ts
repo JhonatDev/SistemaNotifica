@@ -13,5 +13,4 @@ export class Tickts {
   raAluno!: string;
   outroLocal: any;
   funcionarioResponsavel!: string;
-  foto!: any;
 }

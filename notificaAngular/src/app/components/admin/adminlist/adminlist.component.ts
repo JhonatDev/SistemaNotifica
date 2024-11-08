@@ -12,7 +12,7 @@ import { SharedService } from '../../../service/shared.service';
   selector: 'app-adminlist',
   standalone: true,
   imports: [RouterLink, CommonModule, MdbModalModule, AdmindetalhesComponent	],
-  templateUrl: './adminlist.component.html',
+  templateUrl: './adminlist.component.html',	
   styleUrls: ['./adminlist.component.css']
 })
 export class AdminlistComponent implements OnInit {
@@ -46,6 +46,7 @@ export class AdminlistComponent implements OnInit {
   login!: string;
   tipoDeUsuario!: string;
   tipoSite!: string;
+  
   
 
   ngOnInit(): void {

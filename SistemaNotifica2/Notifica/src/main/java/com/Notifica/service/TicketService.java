@@ -50,12 +50,10 @@ public class TicketService {
         return ticketRepository.save(ticket);
     }
 
-    // Método para listar todos os tickets
+    // Método para listar todos os tickets em ordem do mais novo para o mais antigo
     public List<Ticket> listarTickets() {
-        return ticketRepository.findAll();
+        return ticketRepository.findAllByOrderByDataCriacaoDesc();
     }
-    
-
     // Método para buscar um ticket por ID
     public Optional<Ticket> buscarTicket(Long id) {
         if (id == null) {
@@ -156,16 +154,16 @@ public class TicketService {
         return ticketRepository.save(ticket);
     }
 
-    // Método para listar tickets por status
+    // Método para listar tickets por status em ordem do mais novo para o mais antigo
     public List<Ticket> listarTicketsPorStatus(@Valid Ticket.Status status) {
         if (status == null) {
             throw new IllegalArgumentException("Status do ticket é obrigatório");
         }
 
-        return ticketRepository.findByStatus(status);
+        return ticketRepository.findByStatusOrderByDataCriacaoDesc(status);
     }
 
-    // buscar tickets por RA e status
+    // buscar tickets por RA e status em ordem do mais novo para o mais antigo
     public List<Ticket> buscarTicketsPorRaEStatus(String raAluno, Ticket.Status status) {
         if (raAluno == null || raAluno.isEmpty()) {
             throw new IllegalArgumentException("RA do aluno é obrigatório");
@@ -176,7 +174,7 @@ public class TicketService {
         return ticketRepository.findByRaAlunoAndStatus(raAluno, status);
     }
 
-    // buscar tickets por RA
+    // buscar tickets por RA findByStatusOrderByDataCriacaoDesc
     public List<Ticket> buscarTicketsPorRa(String raAluno) {
         if (raAluno == null || raAluno.isEmpty()) {
             throw new IllegalArgumentException("RA do aluno é obrigatório");

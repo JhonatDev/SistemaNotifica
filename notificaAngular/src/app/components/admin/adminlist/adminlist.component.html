@@ -7,7 +7,6 @@
   >
     Criar
   </button>
-
   <button
     (click)="onListar()"
     type="button"
@@ -47,7 +46,9 @@
       <td>{{ ticket.outrovtipoProblema }}</td>
       <td>{{ ticket.subtipoProblema }}</td>
       <td>{{ ticket.outroSubtipoProblema }}</td>
-      <td>{{ ticket.caminhoFoto }}</td>
+      <td>
+        <img [src]="'http://127.0.0.1:8080/image/download/' + ticket.caminhoFoto" alt="Imagem do Ticket" class="img-fluid" style="width: 100px; height: 100px;"/>
+      </td>
       <td>{{ ticket.status }}</td>
       <td>{{ ticket.raAluno }}</td>
       <td>{{ ticket.funcionarioResponsavel }}</td>

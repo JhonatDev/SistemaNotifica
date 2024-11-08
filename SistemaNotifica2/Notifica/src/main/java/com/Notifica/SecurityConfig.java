@@ -39,7 +39,7 @@ public class SecurityConfig {
             .cors() // Permitir CORS conforme configurado
             .and()
             .authorizeRequests()
-            .requestMatchers("/tickets/**", "/usuarios/**", "/subtipoproblemas/**", "/login").permitAll() // Permitir acesso ao endpoint de login
+            .requestMatchers("/tickets/**", "/usuarios/**", "/subtipoproblemas/**", "/login/**", "/image/**").permitAll() // Permitir acesso ao endpoint de login
             .anyRequest().authenticated();
     
         return http.build();
