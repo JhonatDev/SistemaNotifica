@@ -1,0 +1,29 @@
+.conteiner{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #ff0000;
+    flex: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.conteinerTicket{
+    margin-top: 20px;
+    margin-bottom: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #ffffff;
+    flex: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.conteinerTicket div{
+    flex: auto;
+    display: flex;
+    flex-direction: column;
+}
