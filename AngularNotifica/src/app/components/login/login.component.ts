@@ -16,7 +16,7 @@ import { SharedService } from '../../service/shared.service';
 })
 export class LoginComponent {
   login = '';
-  senha = '';
+  senha = ''
 
   router = inject(Router);
 

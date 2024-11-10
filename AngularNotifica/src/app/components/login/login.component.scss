@@ -1,0 +1,90 @@
+
+$primary-color: #4caf50;
+$text-color: #ffffff; 
+$background-color: rgba(27, 27, 27, 0.9); 
+
+.container {
+  margin-top: 5rem;
+
+  .project-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: $primary-color;
+    margin-bottom: 1rem;
+    text-align: center; 
+  }
+
+  .card {
+    background-color: $background-color;
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+
+    .card-body {
+      padding: 2rem;
+
+      .card-title {
+        color: $text-color;
+        font-size: 1.5rem;
+        font-weight: 600;
+        margin-bottom: 1.5rem;
+        text-align: center; 
+      }
+
+      .form-outline {
+        position: relative;
+      
+        input.form-control {
+          background-color: transparent;
+          border: 1px solid $primary-color;
+          color: $text-color;
+          border-radius: 4px;
+          padding: 0.75rem;
+          width: 100%;
+          margin-bottom: 1.5rem;
+          transition: 0.2s ease all;
+      
+          &:focus {
+            outline: none;
+            border-color: lighten($primary-color, 10%);
+          }
+      
+        
+          &:not(:placeholder-shown) + .form-label,
+          &:focus + .form-label,
+          &:not(:empty) + .form-label {
+            transform: translateY(-1.5rem); // Move a label para cima
+            font-size: 0.875rem;
+            color: lighten($primary-color, 20%);
+          }
+        }
+      
+        .form-label {
+          position: absolute;
+          top: 0.75rem;
+          left: 0.75rem;
+          color: $primary-color;
+          background-color: $background-color;
+          padding: 0 0.25rem;
+          transition: 0.2s ease all;
+          pointer-events: none;
+        }
+      
+      }
+
+      .btn-primary {
+        background-color: $primary-color;
+        color: $text-color;
+        font-weight: bold;
+        border: none;
+        padding: 0.75rem 1.5rem;
+        border-radius: 4px;
+        width: 100%;
+        cursor: pointer;
+
+        &:hover {
+          background-color: lighten($primary-color, 10%);
+        }
+      }
+    }
+  }
+}
