@@ -7,7 +7,7 @@ import { Tickts } from '../../models/tickts/tickts';
   providedIn: 'root'
 })
 export class TicktsService {
-  
+
 
   constructor(private http: HttpClient) {}
 
@@ -54,4 +54,6 @@ export class TicktsService {
   listarPorUsuario(Usuario: string): Observable<any> {
     return this.http.get(`http://localhost:8080/tickets/buscarPorRa/${Usuario}`);
   }
+
+  
 }

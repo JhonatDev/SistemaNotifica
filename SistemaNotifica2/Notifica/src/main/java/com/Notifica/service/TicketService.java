@@ -174,6 +174,27 @@ public class TicketService {
         return ticketRepository.findByRaAlunoAndStatus(raAluno, status);
     }
 
+    // buscar tickets por RA e status sem cancelados em ordem do mais novo para o mais antigo
+    public List<Ticket> buscarTicketsPorRaEStatusSemCancelados(String raAluno, Ticket.Status status) {
+        if (raAluno == null || raAluno.isEmpty()) {
+            throw new IllegalArgumentException("RA do aluno é obrigatório");
+        } else if (status == null) {
+            throw new IllegalArgumentException("Status do ticket é obrigatório");
+        }
+
+        return ticketRepository.findByRaAlunoAndStatus(raAluno, Ticket.Status.CANCELADO);
+    }
+
+    // buscar tickets por ra sem cancelados em ordem do mais novo para o mais antigo
+
+    public List<Ticket> buscarTicketsPorRaSemCancelados(String raAluno) {
+        if (raAluno == null || raAluno.isEmpty()) {
+            throw new IllegalArgumentException("RA do aluno é obrigatório");
+        }
+
+        return ticketRepository.findByRaAlunoAndStatus(raAluno, Ticket.Status.CANCELADO);
+    }
+
     // buscar tickets por RA findByStatusOrderByDataCriacaoDesc
     public List<Ticket> buscarTicketsPorRa(String raAluno) {
         if (raAluno == null || raAluno.isEmpty()) {
@@ -182,5 +203,7 @@ public class TicketService {
 
         return ticketRepository.findByRaAluno(raAluno);
     }
+
+    
 
 }

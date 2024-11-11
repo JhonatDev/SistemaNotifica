@@ -16,4 +16,9 @@ export class ImageUploadService {
     formData.append('image', file);
     return this.http.post(`${this.baseUrl}/upload`, formData, { responseType: 'text' });
   }
+
+  // Método para deletar a imagem
+  deleteImage(fileName: string): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/delete/${fileName}`, { responseType: 'text' });
+  }
 }

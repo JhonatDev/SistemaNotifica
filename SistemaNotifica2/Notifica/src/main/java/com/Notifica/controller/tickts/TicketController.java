@@ -123,4 +123,17 @@ public class TicketController {
         return new ResponseEntity<>(ticketsPorRa, HttpStatus.OK);
     }
 
+    // Método para buscar tickets por ra e status sem cancelados
+    @GetMapping("/buscarPorRaEStatusSemCancelados/{raAluno}/{status}")
+    public ResponseEntity<List<Ticket>> buscarTicketsPorRaEStatusSemCancelados(@Valid @PathVariable String raAluno, @Valid @PathVariable Ticket.Status status) {
+        List<Ticket> ticketsPorRaEStatusSemCancelados = ticketService.buscarTicketsPorRaEStatusSemCancelados(raAluno, status);
+        return new ResponseEntity<>(ticketsPorRaEStatusSemCancelados, HttpStatus.OK);
+    }
+
+    // Método para buscar tickets por ra sem cancelados
+    @GetMapping("/buscarPorRaSemCancelados/{raAluno}")
+    public ResponseEntity<List<Ticket>> buscarTicketsPorRaSemCancelados(@Valid @PathVariable String raAluno) {
+        List<Ticket> ticketsPorRaSemCancelados = ticketService.buscarTicketsPorRaSemCancelados(raAluno);
+        return new ResponseEntity<>(ticketsPorRaSemCancelados, HttpStatus.OK);
+    }
 }

@@ -1,39 +1,63 @@
-<p>hello world</p>
 <div *ngIf="TicketList">
     <h4>Detalhes do Ticket</h4>
     <div>
-      <p><strong>ID:</strong> {{ TicketList.id }}</p>
       <p><strong>Descrição:</strong> {{ TicketList.resumoProblema }}</p>
       <p><strong>Status:</strong> {{ TicketList.status }}</p>
       <p><strong>Data de Criação:</strong> {{ TicketList.dataCriacao | date:'dd/MM/yyyy HH:mm' }}</p>
       <p><strong>Data de Solução:</strong> {{ TicketList.dataSolucao | date:'dd/MM/yyyy HH:mm' }}</p>
+      <p><strong>Local:</strong> {{ TicketList.local }}</p>
+      <p><strong>Outro Local:</strong> {{ TicketList.outroLocal }}</p>
+      <p><strong>Tipo de Problema:</strong> {{ TicketList.tipoProblema }}</p>
+      <p><strong>Outros tipos de Problema:</strong> {{ TicketList.outrovtipoProblema }}</p>
+      <p><strong>SubTipo de Problema:</strong> {{ TicketList.subtipoProblema }}</p>
+      <p><strong>Outros SubTipos de Problema:</strong> {{ TicketList.outroSubtipoProblema }}</p>
+      <p><strong>Aluno:</strong> {{ TicketList.raAluno }}</p>
+      <p><strong>Funcionário:</strong> {{ TicketList.funcionarioResponsavel }}</p>
       <!-- Adicione outros campos conforme necessário -->
     </div>
 
     <!-- Botões de Ação -->
-    <div class="button-group">
-      <!-- Botão para Editar o Ticket -->
-      <button *ngIf="funcao !== 'Visualizar'" (click)="edit(TicketList)" class="btn btn-warning">Editar</button>
+    <div class="actions">
+      <button *ngIf="tipoDeUsuario == 'ADMIN' || tipoDeUsuario == 'Usuarios' && TicketList.status == 'ABERTO'"
+              class="btn btn-primary"
+              onclick="document.getElementById('botaoEditar').click()">
+        Editar
+      </button>
+      <button *ngIf="tipoDeUsuario == 'ADMIN' && TicketList.status == 'CANCELADO'"
+              class="btn btn-danger"
+              (click)="deletar(TicketList); $event.stopPropagation()">
+        Excluir
+      </button>
+      <button *ngIf="tipoDeUsuario == 'ADMIN' && TicketList.status == 'ABERTO'"
+              class="btn btn-success"
+              (click)="pegarTicket(TicketList); $event.stopPropagation()">
+        Pegar
+      </button>
+      <button *ngIf="tipoDeUsuario == 'ADMIN' && TicketList.status == 'EM_ANDAMENTO'"
+              class="btn btn-success"
+              (click)="finalizarTicket(TicketList); $event.stopPropagation()">
+        Finalizar
+      </button>
 
-      <!-- Botão para Finalizar o Ticket -->
-      <button *ngIf="TicketList.status !== 'SOLUCIONADO'" (click)="finalizarTicket(TicketList)" class="btn btn-success">Finalizar</button>
-
-      <!-- Botão para Cancelar o Ticket -->
-      <button *ngIf="TicketList.status !== 'CANCELADO'" (click)="cancelarTicket(TicketList)" class="btn btn-danger">Cancelar</button>
-
-      <!-- Botão para Reabrir o Ticket -->
-      <button *ngIf="TicketList.status !== 'ABERTO'" (click)="reabrirTicket(TicketList)" class="btn btn-info">Reabrir</button>
-
-      <!-- Botão para Pegar o Ticket -->
-      <button *ngIf="TicketList.status === 'ABERTO'" (click)="pegarTicket(TicketList)" class="btn btn-primary">Pegar</button>
-
-      <!-- Botão para Excluir o Ticket -->
-      <button *ngIf="funcao !== 'Visualizar'" (click)="deletar(TicketList)" class="btn btn-dark">Excluir</button>
-    </div>
-
-    <div class="modal-footer">
-      <!-- Botão de Fechar Modal -->
-      <button type="button" class="btn btn-secondary" (click)="onClose()">Fechar</button>
+      <button *ngIf="tipoDeUsuario == 'ADMIN' && (TicketList.status == 'CANCELADO' || TicketList.status == 'SOLUCIONADO')"
+              class="btn btn-success"
+              (click)="reabrirTicket(TicketList); $event.stopPropagation()">
+        Reabrir
+      </button>
+      <button *ngIf="tipoDeUsuario == 'ADMIN' && TicketList.status != 'CANCELADO'"
+              class="btn btn-danger"
+              (click)="cancelarTicket(TicketList); $event.stopPropagation()">
+        Cancelar
+      </button>
+      <button *ngIf="tipoDeUsuario == 'Usuarios' && TicketList.status == 'ABERTO'"
+              class="btn btn-danger"
+              (click)="cancelarTicket(TicketList); $event.stopPropagation()">
+        Cancelar
+      </button>
+      <button *ngIf="tipoDeUsuario == 'ADMIN' && TicketList.status == 'EM_ANDAMENTO'"
+              class="btn btn-success"
+              (click)="reabrirTicket(TicketList); $event.stopPropagation()">
+        Sair
+      </button>
     </div>
   </div>
-  

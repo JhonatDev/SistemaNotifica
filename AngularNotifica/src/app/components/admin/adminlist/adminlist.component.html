@@ -15,14 +15,6 @@
   >
     atualizar
   </button>
-  <button
-    (click)="show(ticketEdit)"
-    type="button"
-    class="btn btn-info btn-rounded ms-2"
-    mdbRipple
-  > 
-    Visualizar
-  </button>
 </div>
 
 <div class="tickets-grid">
@@ -35,11 +27,18 @@
     <p class="local">Local: {{ ticket.local }}</p>
     <p class="data">{{ ticket.dataSolucao ? ('Resolvido em:' + (ticket.dataSolucao | date: 'short')) : ('Criado em:' + (ticket.dataCriacao | date: 'short')) }}</p>
     <div class="conteiner-imagem">
-      <img [src]="'http://127.0.0.1:8080/image/download/' + ticket.caminhoFoto" alt="Imagem do Ticket" class="ticket-image"/>
+      <!--se p src for null, mostrar imagem padrão -->
+
+      <img [src]="'http://127.0.0.1:8080/image/download/' + ticket.caminhoFoto"
+     (error)="onError($event)"
+     alt="Imagem do Ticket"
+     class="ticket-image"/>
+
     </div>
     <div class="actions">
       <button *ngIf="tipoDeUsuario == 'ADMIN' || tipoDeUsuario == 'Usuarios' && ticket.status == 'ABERTO'"
               class="btn-primary"
+              id="botaoEditar"
               (click)="edit(ticket); $event.stopPropagation()">
         Editar
       </button>
@@ -85,7 +84,10 @@
 
 <ng-template #modalTicketDetails>
   <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel">Tidacket</h5>
+    <!--se funcao for Criar, mostrar "Criar Novo Ticket" -->
+    <h5 class="modal-title" id="exampleModalLabel" *ngIf="funcao === 'Criar'">Criar Novo Ticket</h5>
+    <!--se funcao for Atualizar, mostrar "Atualizar Ticket" -->
+    <h5 class="modal-title" id="exampleModalLabel" *ngIf="funcao === 'Editar'">Editar Ticket</h5>
     <button
       type="button"
       class="btn-close"
@@ -100,7 +102,7 @@
 
 <ng-template #modalTicketShow>
   <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel">Ticket2</h5>
+    <h5 class="modal-title" id="exampleModalLabel">Ticket #{{ ticketEdit.id }}</h5>
     <button
       type="button"
       class="btn-close"
@@ -109,7 +111,7 @@
     ></button><h1></h1>
   </div>
   <div class="modal-body">
-    <app-ticketshow [TicketList]="ticketEdit" [funcao]="funcao" (retorno)="retornar($event)"></app-ticketshow>
+    <app-ticketshow [TicketList]="ticketEdit" [tipoDeUsuario]="tipoDeUsuario" [login]="login" (retorno)="retornar($event)"></app-ticketshow>
   </div>
 
 

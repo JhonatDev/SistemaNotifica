@@ -51,6 +51,23 @@ public class ImageController {
         }
     }
 
+    // deleta a imagem
+    @DeleteMapping("/delete/{filename}")
+    public ResponseEntity<String> deleteImage(@PathVariable String filename) {
+        try {
+            Path filePath = Paths.get(UPLOAD_DIR).resolve(filename).normalize();
+            File file = filePath.toFile();
+
+            if (file.delete()) {
+                return ResponseEntity.ok("Imagem deletada com sucesso!");
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Imagem não encontrada");
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao deletar a imagem");
+        }
+    }
+
     // Gera um link para mostrar a imagem em um HTML
     @GetMapping("/ver/{filename}")
     public ResponseEntity<Resource> viewImage(@PathVariable String filename) {

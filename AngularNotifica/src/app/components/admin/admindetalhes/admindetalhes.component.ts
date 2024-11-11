@@ -44,8 +44,8 @@ export class AdmindetalhesComponent {
   selectedImage: File | null = null;
 
   constructor(
-    private ticktsService: TicktsService, 
-    private subTipoProblemaService: SubTipoProblemaService, 
+    private ticktsService: TicktsService,
+    private subTipoProblemaService: SubTipoProblemaService,
     private SharedService: SharedService,
     private imageUploadService: ImageUploadService,
   ) { }
@@ -57,6 +57,8 @@ export class AdmindetalhesComponent {
     }
     // colocar o nome do arquivo no campo caminhoFoto
     this.TicketList.caminhoFoto = this.selectedFile?.name ?? '';
+
+    this.uploadImage();
   }
 
   uploadImage(): void {
@@ -64,7 +66,6 @@ export class AdmindetalhesComponent {
       this.imageUploadService.uploadImage(this.selectedFile).subscribe({
         next: (response) => {
           console.log('Upload bem-sucedido:', response);
-          
         },
         error: (error) => {
           console.error('Erro no upload:', error);
@@ -73,6 +74,17 @@ export class AdmindetalhesComponent {
         }
       });
     }
+  }
+
+  deledarImagen(): void {
+    this.imageUploadService.deleteImage(this.TicketList.caminhoFoto).subscribe({
+      next: (response) => {
+        console.log('Deleção bem-sucedida:', response);
+      },
+      error: (error) => {
+        console.error('Erro na deleção:', error);
+      }
+    });
   }
 
   ngOnInit(): void {
@@ -85,7 +97,6 @@ export class AdmindetalhesComponent {
     console.log('Novo ticket:', this.TicketList);
     this.ticktsService.criar(this.TicketList).subscribe({
       next: (response) => {
-        this.uploadImage();
         console.log('Criação bem-sucedida:', response);
         alert('Ticket criado com sucesso!');
         this.TicketList = new Tickts(); // Limpar o formulário
