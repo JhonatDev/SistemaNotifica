@@ -1,8 +1,8 @@
-import { Component, inject} from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LoginService } from '../../service/login/login.service';
-import { Router } from '@angular/router'; 
+import { Router } from '@angular/router';
 import { AdminlistComponent } from '../admin/adminlist/adminlist.component';
 import { AdmindetalhesComponent } from '../admin/admindetalhes/admindetalhes.component';
 import { SharedService } from '../../service/shared.service';
@@ -21,6 +21,16 @@ export class LoginComponent {
   router = inject(Router);
 
   constructor(private loginService: LoginService, private sharedService: SharedService) {}
+
+  ngOnInit(): void {
+    document.documentElement.style.setProperty('--mdb-body-bg', '#00000000');//muda a cor do fundo
+    document.documentElement.style.setProperty(
+      'background',
+       'url(https://svanegas-one.blackboard.com/bbcswebdav/xid-212801_1) no-repeat center center fixed'
+    );//muda a imagem de fundo
+    document.documentElement.style.setProperty('background-size', 'cover');//ajusta a imagem de fundo
+
+  }
 
   onLogin() {
     this.loginService.login({ username: this.login, password: this.senha })

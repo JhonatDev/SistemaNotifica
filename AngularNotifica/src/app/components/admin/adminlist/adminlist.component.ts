@@ -13,10 +13,11 @@ import { SharedService } from '../../../service/shared.service';
   selector: 'app-adminlist',
   standalone: true,
   imports: [RouterLink, CommonModule, MdbModalModule, AdmindetalhesComponent, TicketshowComponent],
-  templateUrl: './adminlist.component.html',	
+  templateUrl: './adminlist.component.html',
   styleUrls: ['./adminlist.component.css']
 })
 export class AdminlistComponent implements OnInit {
+
   // Serviço de modal injetado
   //modalService = inject(MdbModalService);
 
@@ -49,17 +50,19 @@ export class AdminlistComponent implements OnInit {
   login!: string;
   tipoDeUsuario!: string;
   tipoSite!: string;
-  
-  
+
+
 
   ngOnInit(): void {
     this.login = this.SharedService.ultimoLogin;
     this.tipoDeUsuario = this.SharedService.tipoUsuario;
-  
+
+    document.documentElement.style.setProperty('--mdb-body-bg', '#ffffff');//muda a cor do fundo
+
     // Verifique se o código está sendo executado no navegador
     if (typeof window !== 'undefined') {
       const url = window.location.href;
-  
+
       // Define o tipo de site com base no URL
       switch (true) {
         case url.includes('principal/cancelados'):
@@ -81,17 +84,20 @@ export class AdminlistComponent implements OnInit {
       // Defina um valor padrão ou trate o caso em que `window` não está disponível
       this.tipoSite = 'principal';
     }
-  
+
     // Carrega a lista de tickets após definir o tipo de site
     this.onListar();
     console.log(this.ticketsList); // Verificação de dados
   }
 
-
+  onError(event: Event) {
+    (event.target as HTMLImageElement).src = 'http://127.0.0.1:8080/image/download/Untitled.png';
+  }
 
   // Listar tickets
   onListar() {
     let tipoDeLista;
+    let listaTickets;
 
     // Função auxiliar para determinar o status
     const getStatusByTipoSite = (tipoSite: string) => {
@@ -147,7 +153,7 @@ export class AdminlistComponent implements OnInit {
 
 
 
-  
+
 
   // Abrir modal para criação de um novo ticket
   onCriar() {
@@ -182,9 +188,10 @@ export class AdminlistComponent implements OnInit {
 
   // Editar um ticket
   edit(ticket: Tickts) {
+    this.onClose();
     console.log('Editar ticket:', ticket);
     this.ticketEdit = { ...ticket }; // Clonar o ticket para evitar mutação
-    this.funcao = 'Atualizar';
+    this.funcao = 'Editar';
     this.modalRef = this.modalService.open(this.modalTicketDetails); // Abrir modal com ticket para edição
   }
 
@@ -235,7 +242,7 @@ export class AdminlistComponent implements OnInit {
     });
   }
 
-  // reabrir Ticket 
+  // reabrir Ticket
   reabrirTicket(ticket: Tickts) {
     console.log('Sair ticket:', ticket);
     this.ticktsService.reabrir(ticket.id).subscribe({
@@ -267,5 +274,5 @@ export class AdminlistComponent implements OnInit {
         }
     });
   }
-  
+
 }

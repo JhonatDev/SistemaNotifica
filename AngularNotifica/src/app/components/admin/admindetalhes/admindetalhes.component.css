@@ -1,29 +1,86 @@
-.conteiner{
-    margin-top: 20px;
-    margin-bottom: 20px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #ff0000;
-    flex: auto;
-    display: flex;
-    flex-direction: column;
+/* Estilos gerais para o contêiner principal */
+.conteiner {
+  background-color: #ffffff;
+  max-width: 500px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
-.conteinerTicket{
-    margin-top: 20px;
-    margin-bottom: 20px;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    background-color: #ffffff;
-    flex: auto;
-    display: flex;
-    flex-direction: column;
+.conteinerTicket {
+  background-color: #ffffff;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
+  max-width: 500px;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
 }
 
-.conteinerTicket div{
-    flex: auto;
-    display: flex;
-    flex-direction: column;
+/* Estilos dos rótulos e inputs */
+.conteinerTicket label {
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.conteinerTicket input[type="text"],
+.conteinerTicket input[type="file"],
+.conteinerTicket select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-sizing: border-box;
+  font-size: 16px;
+  margin-bottom: 15px;
+}
+
+/* Botões */
+.conteinerTicket button {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  font-size: 16px;
+  color: #fff;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+.conteinerTicket button.btn-info {
+  background-color: #007bff;
+}
+
+.conteinerTicket button.btn-info:hover {
+  background-color: #0056b3;
+}
+
+/* Estilos do contêiner de imagem */
+.conteiner-imagem {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  background-color: #f7f7f7;
+  border: 1px dashed #ddd;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  margin-bottom: 15px;
+}
+
+.conteiner-imagem img {
+  max-width: 100%;
+  max-height: 100%;
+  border-radius: 5px;
+  object-fit: contain;
+}
+
+.conteiner #FotoInput {
+  display: none;
 }

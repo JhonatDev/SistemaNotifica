@@ -48,7 +48,7 @@ describe('TicktsService', () => {
       raAluno: '',
       outroLocal: undefined,
       funcionarioResponsavel: ''
-      
+
     }).subscribe();
 
     const req = httpTestingController.expectOne('http://localhost:8080/tickets/atualizar/1');

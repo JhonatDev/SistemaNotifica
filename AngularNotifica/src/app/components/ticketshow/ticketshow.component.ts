@@ -26,7 +26,8 @@ import { DatePipe } from '@angular/common';
 export class TicketshowComponent {
   // Objeto do novo ticket
   @Input() TicketList!: Tickts;
-  @Input() funcao!: any;
+  @Input() tipoDeUsuario!: any;
+  @Input() login!: string;
   @Output() retorno = new EventEmitter<any>();
 
   selectedFile: File | null = null;
@@ -107,7 +108,7 @@ reabrirTicket(ticket: Tickts) {
 // Método para pegar o ticket
 pegarTicket(ticket: Tickts) {
   console.log('Pegar ticket:', ticket);
-  this.ticktsService.iniciar(ticket.id, 'funcionarioResponsavel').subscribe({
+  this.ticktsService.iniciar(ticket.id,this.login).subscribe({
     next: (response) => {
       console.log('Ticket pego com sucesso:', response);
       alert('Ticket pego com sucesso!');
@@ -135,6 +136,9 @@ deletar(ticket: Tickts) {
     }
   });
 }
+
+//atualizar ticket 
+
 
 // Fechar modal
 onClose() {
