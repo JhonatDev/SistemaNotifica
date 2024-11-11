@@ -1,0 +1,52 @@
+.navbar {
+  background-color: #2eb13f !important;  // Cor de fundo verde
+  color: rgb(255, 255, 255);  // Cor do texto
+  border: 2px solid #c5c5c5;  // Borda cinza
+  display: inline-block;
+  padding: 0;
+  border-radius: 1%;
+  width: 100%;  // Garante que a navbar ocupe toda a largura disponível
+
+  .navbar-nav {
+    display: inline-flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+
+    // Garante que todos os itens tenham a mesma altura e não causem distorções no layout
+    .nav-item {
+      display: flex;
+      align-items: center;  // Alinha os itens verticalmente no centro
+      margin-right: 20px;    // Espaçamento entre os itens
+
+      &:last-child {
+        margin-right: 0;
+      }
+
+      .nav-link {
+        color: rgb(255, 255, 255);  // Cor do link
+        padding: 4px 10px;  // Padding dos links
+        text-decoration: none;
+        transition: background-color 0.3s, color 0.3s;
+
+        // Efeito hover nos links
+        &:hover {
+          background-color: #92e4a0;  // Cor de fundo no hover
+          color: rgb(255, 255, 255);  // Cor do texto no hover
+        }
+      }
+
+      // Efeito hover do último item (link de Sair)
+      &:last-child .nav-link:hover {
+        background-color: red;  // Cor de fundo para o "SAIR"
+        color: rgb(255, 255, 255);  // Cor do texto para "SAIR"
+      }
+    }
+  }
+
+  // Adiciona um efeito para o botão de toggle (menu mobile)
+  .navbar-toggler {
+    border: none;  // Remover borda do botão
+    background-color: transparent;  // Deixa o botão de toggle transparente
+  }
+}

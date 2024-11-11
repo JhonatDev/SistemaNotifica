@@ -1,4 +1,4 @@
-/* Estilos gerais para o contêiner principal */
+
 .conteiner {
   background-color: #ffffff;
   max-width: 500px;
@@ -6,6 +6,7 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
+  border-color: #34d802;
 }
 
 .conteinerTicket {
@@ -20,52 +21,65 @@
   gap: 15px;
 }
 
-/* Estilos dos rótulos e inputs */
 .conteinerTicket label {
   font-weight: bold;
-  color: #333;
+  color: #333333;
   margin-bottom: 5px;
 }
 
+
+
 .conteinerTicket input[type="text"],
 .conteinerTicket input[type="file"],
-.conteinerTicket select {
+.conteinerTicket select,
+.conteinerTicket button 
+.conteinerTicket label{
   width: 100%;
   padding: 10px;
-  border: 1px solid #ddd;
   border-radius: 5px;
   box-sizing: border-box;
   font-size: 16px;
   margin-bottom: 15px;
+  border: 1px solid #34d802;  
 }
 
-/* Botões */
+.conteinerTicket input[type="text"],
+.conteinerTicket input[type="file"] {
+  border-color: #34d802; 
+}
+
+
+.conteinerTicket select {
+  border-color: #34d802;  
+}
+
+
 .conteinerTicket button {
   width: 100%;
   padding: 10px;
   border: none;
   border-radius: 5px;
   font-size: 16px;
-  color: #fff;
+  color: #ffffff;
   cursor: pointer;
   transition: background-color 0.3s;
+  border-color: #34d802; /* Borda verde no botão */
 }
 
 .conteinerTicket button.btn-info {
-  background-color: #007bff;
+  background-color: #34d802;
 }
 
 .conteinerTicket button.btn-info:hover {
-  background-color: #0056b3;
+  background-color: #34d802;
 }
 
-/* Estilos do contêiner de imagem */
 .conteiner-imagem {
   position: relative;
   width: 100%;
   height: 300px;
   background-color: #f7f7f7;
-  border: 1px dashed #ddd;
+  border: 1px dashed #34d802; 
   border-radius: 5px;
   display: flex;
   align-items: center;
@@ -81,6 +95,17 @@
   object-fit: contain;
 }
 
+
 .conteiner #FotoInput {
   display: none;
+}
+
+
+#resumoProblema {
+  border-color: #34d802; 
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
 }
