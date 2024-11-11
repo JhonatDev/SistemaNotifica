@@ -13,6 +13,15 @@
       <p><strong>Outros SubTipos de Problema:</strong> {{ TicketList.outroSubtipoProblema }}</p>
       <p><strong>Aluno:</strong> {{ TicketList.raAluno }}</p>
       <p><strong>Funcionário:</strong> {{ TicketList.funcionarioResponsavel }}</p>
+      <div class="conteiner-imagem">
+        <!--se p src for null, mostrar imagem padrão -->
+
+        <img [src]="'http://localhost:8080/image/download/' + TicketList.caminhoFoto"
+       (error)="onError($event)"
+       alt="Imagem do Ticket"
+       class="ticket-image"/>
+
+      </div>
       <!-- Adicione outros campos conforme necessário -->
     </div>
 

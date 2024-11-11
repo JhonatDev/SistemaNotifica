@@ -22,6 +22,7 @@
     "@angular/router": "^18.2.0",
     "@angular/ssr": "^18.2.10",
     "@fortawesome/fontawesome-free": "^6.6.0",
+    "angular-notifica": "file:",
     "express": "^4.18.2",
     "mdb-angular-ui-kit": "^7.0.0",
     "rxjs": "~7.8.0",

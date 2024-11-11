@@ -50,13 +50,23 @@ export class AdmindetalhesComponent {
     private imageUploadService: ImageUploadService,
   ) { }
 
+  onError(event: any) {
+    event.target.src = 'http://localhost:8080/image/download/Untitled.png';
+  }
+
+
+  ngOnInit(): void {
+    this.listarSubTipoProblema();
+    this.TicketList.caminhoFoto = 'selecionar.png';
+  }
+
+
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
       this.selectedFile = input.files[0];
     }
-    // colocar o nome do arquivo no campo caminhoFoto
-    this.TicketList.caminhoFoto = this.selectedFile?.name ?? '';
+
 
     this.uploadImage();
   }
@@ -74,6 +84,11 @@ export class AdmindetalhesComponent {
         }
       });
     }
+    //esperar 3 segundo para a imagem ser carregada
+    setTimeout(() => {
+      // colocar o nome do arquivo no campo caminhoFoto
+      this.TicketList.caminhoFoto = this.selectedFile?.name ?? '';
+    }, 1000);
   }
 
   deledarImagen(): void {
@@ -85,10 +100,6 @@ export class AdmindetalhesComponent {
         console.error('Erro na deleção:', error);
       }
     });
-  }
-
-  ngOnInit(): void {
-    this.listarSubTipoProblema();
   }
 
   //criar um novo ticket

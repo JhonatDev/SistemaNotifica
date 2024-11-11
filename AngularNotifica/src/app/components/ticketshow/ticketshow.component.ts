@@ -57,6 +57,10 @@ export class TicketshowComponent {
   console.log('Editar ticket:', ticket);
 }
 
+onError(event: any) {
+  event.target.src = 'http://localhost:8080/image/download/Untitled.png';
+}
+
 // Método para finalizar o ticket
 finalizarTicket(ticket: Tickts) {
   console.log('Finalizar ticket:', ticket);
@@ -137,7 +141,7 @@ deletar(ticket: Tickts) {
   });
 }
 
-//atualizar ticket 
+//atualizar ticket
 
 
 // Fechar modal
