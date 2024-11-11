@@ -13,10 +13,9 @@
       <p><strong>Outros SubTipos de Problema:</strong> {{ TicketList.outroSubtipoProblema }}</p>
       <p><strong>Aluno:</strong> {{ TicketList.raAluno }}</p>
       <p><strong>Funcionário:</strong> {{ TicketList.funcionarioResponsavel }}</p>
-      <!-- Adicione outros campos conforme necessário -->
+    
     </div>
 
-    <!-- Botões de Ação -->
     <div class="actions">
       <button *ngIf="tipoDeUsuario == 'ADMIN' || tipoDeUsuario == 'Usuarios' && TicketList.status == 'ABERTO'"
               class="btn btn-primary"
