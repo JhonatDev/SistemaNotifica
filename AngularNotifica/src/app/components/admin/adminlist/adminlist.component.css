@@ -90,3 +90,7 @@
 .actions .btn-success {
   background-color: #28a745;
 }
+body {
+  background-color: #2a2a2a; /* Escolha uma cor escura */
+  color: #ffffff; /* Ajuste a cor do texto para maior contraste */
+}
