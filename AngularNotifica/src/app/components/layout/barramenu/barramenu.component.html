@@ -1,63 +1,66 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <!-- Container wrapper -->
-    <div class="container-fluid">
-      <!-- Toggle button -->
-      <button
-        class="navbar-toggler"
-        type="button"
-        (click)="centered.toggle()"
-        aria-controls="navbarCenteredExample"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <i class="fas fa-bars"></i>
-      </button>
-  
-      <!-- Collapsible wrapper -->
-      <div
-        class="collapse navbar-collapse justify-content-center"
-        id="navbarCenteredExample"
-        mdbCollapse
-        #centered="mdbCollapse"
-      >
-        <!-- Left links -->
-        <ul class="navbar-nav mb-2 mb-lg-0"> 
-          <!--se o usuário tipoDeUsuário for ADMIN-->
-          <li *ngIf="tipoDeUsuario == 'ADMIN'" class="nav-item">
-            <a class="nav-link" href="/admin/principal">principal</a>
-          </li>
-          <li *ngIf="tipoDeUsuario == 'ADMIN'" class="nav-item">
-            <a class="nav-link" href="/admin/principal/cancelados">cancelados</a>
-          </li>
-          <li *ngIf="tipoDeUsuario == 'ADMIN'" class="nav-item">
-            <a class="nav-link" href="/admin/principal/pendentes">pendentes</a>
-          </li>
-          <li *ngIf="tipoDeUsuario == 'ADMIN'" class="nav-item">
-            <a class="nav-link" href="/admin/principal/andamento">em andamento</a>
-          </li>
-          <li *ngIf="tipoDeUsuario == 'ADMIN'" class="nav-item">
-            <a class="nav-link" href="/admin/principal/concluidos">concluidos</a>
-          </li>
-          <!--se o usuário tipoDeUsuário for USUARIO-->
-          <li *ngIf="tipoDeUsuario == 'Usuarios'" class="nav-item">
-            <a class="nav-link" href="/aluno/principal">principal</a>
-          </li>
-          <li *ngIf="tipoDeUsuario == 'Usuarios'" class="nav-item">
-            <a class="nav-link" href="/aluno/principal/pendentes">pendentes</a>
-          </li>
-          <li *ngIf="tipoDeUsuario == 'Usuarios'" class="nav-item">
-            <a class="nav-link" href="/aluno/principal/andamento">em andamento</a>
-          </li>
-          <li *ngIf="tipoDeUsuario == 'Usuarios'" class="nav-item">
-            <a class="nav-link" href="/aluno/principal/concluidos">concluidos</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="/login">Sair</a>
-          </li>
-        </ul>
-        <!-- Left links -->
-      </div>
-      <!-- Collapsible wrapper -->
+  <!-- Container wrapper -->
+  <div class="container-fluid">
+    <!-- Toggle button -->
+    <button
+      class="navbar-toggler"
+      type="button"
+      (click)="centered.toggle()"
+      aria-controls="navbarCenteredExample"
+      aria-expanded="false"
+      aria-label="Toggle navigation"
+    >
+      <i class="fas fa-bars"></i>
+    </button>
+
+    <!-- Collapsible wrapper -->
+    <div
+      class="collapse navbar-collapse justify-content-center"
+      id="navbarCenteredExample"
+      mdbCollapse
+      #centered="mdbCollapse"
+    >
+      <!-- Left links -->
+      <ul class="navbar-nav mb-2 mb-lg-0">
+        <!-- Itens para ADMIN -->
+        <li *ngIf="tipoDeUsuario === 'ADMIN'" class="nav-item">
+          <a class="nav-link" href="/admin/principal">PRINCIPAL</a>
+        </li>
+        <li *ngIf="tipoDeUsuario === 'ADMIN'" class="nav-item">
+          <a class="nav-link" href="/admin/principal/cancelados">CANCELADO</a>
+        </li>
+        <li *ngIf="tipoDeUsuario === 'ADMIN'" class="nav-item">
+          <a class="nav-link" href="/admin/principal/pendentes">PENDENTES</a>
+        </li>
+        <li *ngIf="tipoDeUsuario === 'ADMIN'" class="nav-item">
+          <a class="nav-link" href="/admin/principal/andamento">EM-ANDAMENTO</a>
+        </li>
+        <li *ngIf="tipoDeUsuario === 'ADMIN'" class="nav-item">
+          <a class="nav-link" href="/admin/principal/concluidos">CONCLUIDOS</a>
+        </li>
+
+        <!-- Itens para USUARIO -->
+        <li *ngIf="tipoDeUsuario === 'Usuarios'" class="nav-item">
+          <a class="nav-link" href="/aluno/principal">PRINCIPAL</a>
+        </li>
+        <li *ngIf="tipoDeUsuario === 'Usuarios'" class="nav-item">
+          <a class="nav-link" href="/aluno/principal/pendentes">PENDENTES</a>
+        </li>
+        <li *ngIf="tipoDeUsuario === 'Usuarios'" class="nav-item">
+          <a class="nav-link" href="/aluno/principal/andamento">EM-ANDAMENTO</a>
+        </li>
+        <li *ngIf="tipoDeUsuario === 'Usuarios'" class="nav-item">
+          <a class="nav-link" href="/aluno/principal/concluidos">CONCLUIDOS</a>
+        </li>
+
+        <!-- Link para SAIR -->
+        <li class="nav-item">
+          <a class="nav-link" href="/login">SAIR</a>
+        </li>
+      </ul>
+      <!-- Left links -->
     </div>
-    <!-- Container wrapper -->
-  </nav>
+    <!-- Collapsible wrapper -->
+  </div>
+  <!-- Container wrapper -->
+</nav>
