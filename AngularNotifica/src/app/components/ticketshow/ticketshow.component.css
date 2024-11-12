@@ -4,12 +4,14 @@
     border-radius: 8px;
     max-width: 800px;
     margin: 0 auto;
+    
 
     .ticket-header {
       display: flex;
       justify-content: space-between;
       align-items: center;
       margin-bottom: 1.5rem;
+      
 
       h2 {
         font-size: 1.5rem;
@@ -20,6 +22,7 @@
         font-size: 1rem;
         padding: 0.5rem 1rem;
         border-radius: 4px;
+        
 
         &.ABERTO { background-color: #e6f7ff; color: #0056b3; }
         &.CANCELADO { background-color: #fff0f0; color: #d9534f; }
@@ -35,6 +38,7 @@
           font-weight: bold;
           display: block;
           margin-bottom: 0.5rem;
+          border-color: #28a745;
         }
 
         p {

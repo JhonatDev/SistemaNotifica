@@ -6,7 +6,7 @@
   display: flex;
   flex-direction: column;
   gap: 15px;
-  border-color: #34d802;
+  border-color: #14a44d;
 }
 
 .conteinerTicket {
@@ -72,15 +72,15 @@
   color: #ffffff;
   cursor: pointer;
   transition: background-color 0.3s;
-  border-color: #34d802; /* Borda verde no botão */
+  border-color: #14a44d; /* Borda verde no botão */
 }
 
 .conteinerTicket button.btn-info {
-  background-color: #34d802;
+  background-color: #14a44d;
 }
 
 .conteinerTicket button.btn-info:hover {
-  background-color: #34d802;
+  background-color: #14a44d;
 }
 
 .conteiner-imagem {
