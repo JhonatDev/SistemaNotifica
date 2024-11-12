@@ -57,7 +57,11 @@ export class AdmindetalhesComponent {
 
   ngOnInit(): void {
     this.listarSubTipoProblema();
-    this.TicketList.caminhoFoto = 'selecionar.png';
+    document.documentElement.style.setProperty('--mdb-body-bg', '#242424');//muda a cor do fundo
+    document.documentElement.style.setProperty('--mdb-modal-bg', '#242424');//muda a cor do fundo
+    if (this.TicketList.caminhoFoto == null || this.TicketList.caminhoFoto == '') {
+      this.TicketList.caminhoFoto = 'selecionar.png';
+    }
   }
 
 
@@ -79,7 +83,6 @@ export class AdmindetalhesComponent {
         },
         error: (error) => {
           console.error('Erro no upload:', error);
-          this.deletarTicket();
           return;
         }
       });
@@ -88,7 +91,8 @@ export class AdmindetalhesComponent {
     setTimeout(() => {
       // colocar o nome do arquivo no campo caminhoFoto
       this.TicketList.caminhoFoto = this.selectedFile?.name ?? '';
-    }, 1000);
+      console.log('Caminho da foto:', this.TicketList.caminhoFoto);
+    }, 2000);
   }
 
   deledarImagen(): void {
@@ -111,6 +115,8 @@ export class AdmindetalhesComponent {
         console.log('Criação bem-sucedida:', response);
         alert('Ticket criado com sucesso!');
         this.TicketList = new Tickts(); // Limpar o formulário
+        //retornar para a lista de tickets
+        this.retorno.emit();
       },
       error: (error) => {
         console.error('Erro na criação:', error);
@@ -121,12 +127,15 @@ export class AdmindetalhesComponent {
 
   // atualizar um ticket
   atualizarTicket() {
+    this.TicketList.caminhoFoto = this.selectedFile?.name ?? '';
     console.log('Atualizar ticket:', this.TicketList);
     this.ticktsService.atualizar(this.TicketList.id, this.TicketList).subscribe({
       next: (response) => {
         console.log('Atualização bem-sucedida:', response);
         alert('Ticket atualizado com sucesso!');
         this.TicketList = new Tickts(); // Limpar o formulário
+        //retornar para a lista de tickets
+        this.retorno.emit();
       },
       error: (error) => {
         console.error('Erro na atualização:', error);

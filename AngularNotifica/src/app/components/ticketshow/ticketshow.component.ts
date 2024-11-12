@@ -51,6 +51,11 @@ export class TicketshowComponent {
     private imageUploadService: ImageUploadService,
   ) { }
 
+  ngOnInit(): void {
+    document.documentElement.style.setProperty('--mdb-body-bg', '#242424');//muda a cor do fundo
+  }
+
+
  // Método para editar o ticket
  edit(ticket: Tickts) {
   // Lógica para edição (abrir modal com detalhes do ticket para edição)

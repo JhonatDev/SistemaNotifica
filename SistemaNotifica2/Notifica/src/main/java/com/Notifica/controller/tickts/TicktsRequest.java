@@ -9,7 +9,6 @@ public record TicktsRequest(
         String outroSubtipoProblema,
         String caminhoFoto,
         String raAluno,
-        String funcionarioResponsavel,
-        byte[] foto
+        String funcionarioResponsavel
 ) {
 }

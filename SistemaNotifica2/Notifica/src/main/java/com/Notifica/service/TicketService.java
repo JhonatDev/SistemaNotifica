@@ -78,6 +78,10 @@ public class TicketService {
         ticketSalvo.setSubtipoProblema(ticket.getSubtipoProblema());
         ticketSalvo.setOutroSubtipoProblema(ticket.getOutroSubtipoProblema());
         ticketSalvo.setRaAluno(ticket.getRaAluno());
+        ticketSalvo.setFuncionarioResponsavel(ticket.getFuncionarioResponsavel());
+        ticketSalvo.setCaminhoFoto(ticket.getCaminhoFoto());
+        ticketSalvo.setDataSolucao(ticket.getDataSolucao());
+        ticketSalvo.setStatus(ticket.getStatus());
         validarTicket(ticketSalvo);
 
         return ticketRepository.save(ticketSalvo);
@@ -151,6 +155,8 @@ public class TicketService {
             throw new IllegalArgumentException("Ticket já foi cancelado");
         }
         ticket.setStatus(Ticket.Status.CANCELADO);
+        ticket.setDataSolucao(LocalDateTime.now());
+        ticket.setFuncionarioResponsavel(null);
         return ticketRepository.save(ticket);
     }
 
