@@ -13,6 +13,7 @@ export class BarramenuComponent {
   tipoDeUsuario!: string;
   exibirBuscaAvancada: boolean = false;
   listaLinks: Array<{ texto: string; href: string }> = [];
+  showModal: boolean = false; // Variável para controlar o modal
 
   constructor(private sharedService: SharedService) {
     this.tipoDeUsuario = this.sharedService.tipoUsuario;
@@ -42,5 +43,20 @@ export class BarramenuComponent {
 
   toggleBuscaAvancada(): void {
     this.exibirBuscaAvancada = !this.exibirBuscaAvancada;
+  }
+
+  // Abre o modal de confirmação
+  openLogoutModal(): void {
+    this.showModal = true;
+  }
+
+  // Fecha o modal
+  closeModal(): void {
+    this.showModal = false;
+  }
+
+  // Confirma a saída e redireciona para o login
+  confirmLogout(): void {
+    window.location.href = '/login';
   }
 }

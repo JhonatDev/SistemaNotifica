@@ -1,3 +1,4 @@
+<!-- Barra de navegação -->
 <nav class="navbar navbar-expand-lg">
   <div class="container-fluid">
     <!-- Texto indicando o tipo de usuário -->
@@ -22,6 +23,19 @@
     </div>
 
     <!-- Botão "SAIR" -->
-    <a class="nav-link text-white ms-auto" href="/login">SAIR</a>
+    <button class="btn btn-logout ms-auto" (click)="openLogoutModal()">SAIR</button>
   </div>
 </nav>
+
+<!-- Modal -->
+<div *ngIf="showModal" class="modal-overlay">
+  <div class="modal-content">
+    <h4>SISTEMA NOTIFICA</h4>
+    <p>Você tem certeza que deseja sair?</p>
+    <div class="modal-buttons">
+      <button (click)="confirmLogout()">Sim</button>
+      <button (click)="closeModal()">Não</button>
+    </div>
+  </div>
+</div>
+
