@@ -1,66 +1,27 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <!-- Container wrapper -->
+<nav class="navbar navbar-expand-lg">
   <div class="container-fluid">
-    <!-- Toggle button -->
-    <button
-      class="navbar-toggler"
-      type="button"
-      (click)="centered.toggle()"
-      aria-controls="navbarCenteredExample"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <i class="fas fa-bars"></i>
+    <!-- Texto indicando o tipo de usuário -->
+    <span class="navbar-text text-white me-auto">
+      USUÁRIO: {{ tipoDeUsuario === 'ADMIN' ? 'ADMIN' : 'ALUNO' }}
+    </span>
+
+    <!-- Botões "Principal" e "Busca Avançada" -->
+    <button class="btn btn-principal" (click)="irParaPrincipal()">PRINCIPAL</button>
+    <button class="btn btn-advanced" (click)="toggleBuscaAvancada()">
+      BUSCA AVANÇADA
+      <i [class]="exibirBuscaAvancada ? 'fas fa-chevron-up' : 'fas fa-chevron-down'"></i>
     </button>
 
-    <!-- Collapsible wrapper -->
-    <div
-      class="collapse navbar-collapse justify-content-center"
-      id="navbarCenteredExample"
-      mdbCollapse
-      #centered="mdbCollapse"
-    >
-      <!-- Left links -->
-      <ul class="navbar-nav mb-2 mb-lg-0">
-        <!-- Itens para ADMIN -->
-        <li *ngIf="tipoDeUsuario === 'ADMIN'" class="nav-item">
-          <a class="nav-link" href="/admin/principal">PRINCIPAL</a>
-        </li>
-        <li *ngIf="tipoDeUsuario === 'ADMIN'" class="nav-item">
-          <a class="nav-link" href="/admin/principal/cancelados">CANCELADO</a>
-        </li>
-        <li *ngIf="tipoDeUsuario === 'ADMIN'" class="nav-item">
-          <a class="nav-link" href="/admin/principal/pendentes">PENDENTES</a>
-        </li>
-        <li *ngIf="tipoDeUsuario === 'ADMIN'" class="nav-item">
-          <a class="nav-link" href="/admin/principal/andamento">EM ANDAMENTO</a>
-        </li>
-        <li *ngIf="tipoDeUsuario === 'ADMIN'" class="nav-item">
-          <a class="nav-link" href="/admin/principal/concluidos">CONCLUIDOS</a>
-        </li>
-
-        <!-- Itens para USUARIO -->
-        <li *ngIf="tipoDeUsuario === 'Usuarios'" class="nav-item">
-          <a class="nav-link" href="/aluno/principal">PRINCIPAL</a>
-        </li>
-        <li *ngIf="tipoDeUsuario === 'Usuarios'" class="nav-item">
-          <a class="nav-link" href="/aluno/principal/pendentes">PENDENTES</a>
-        </li>
-        <li *ngIf="tipoDeUsuario === 'Usuarios'" class="nav-item">
-          <a class="nav-link" href="/aluno/principal/andamento">EM-ANDAMENTO</a>
-        </li>
-        <li *ngIf="tipoDeUsuario === 'Usuarios'" class="nav-item">
-          <a class="nav-link" href="/aluno/principal/concluidos">CONCLUIDOS</a>
-        </li>
-
-        <!-- Link para SAIR -->
-        <li class="nav-item">
-          <a class="nav-link" href="/login">SAIR</a>
+    <!-- Lista de links da Busca Avançada -->
+    <div *ngIf="exibirBuscaAvancada" class="menu-busca-avancada">
+      <ul class="list-unstyled">
+        <li *ngFor="let link of listaLinks">
+          <a [href]="link.href" class="text-white">{{ link.texto }}</a>
         </li>
       </ul>
-      <!-- Left links -->
     </div>
-    <!-- Collapsible wrapper -->
+
+    <!-- Botão "SAIR" -->
+    <a class="nav-link text-white ms-auto" href="/login">SAIR</a>
   </div>
-  <!-- Container wrapper -->
 </nav>

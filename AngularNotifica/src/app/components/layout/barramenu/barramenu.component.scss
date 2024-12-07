@@ -1,52 +1,81 @@
 .navbar {
-  background-color: #242424 !important;  // Cor de fundo verde
-  color: rgb(255, 255, 255);  // Cor do texto
-  border: 2px solid #28a745;  // Borda cinza
-  display: inline-block;
-  padding: 0;
-  border-radius: 1%;
-  width: 100%;  // Garante que a navbar ocupe toda a largura disponível
+  background-color: rgba(0, 0, 0, 0.315) !important; /* Ajusta o fundo para um tom de preto transparente */
+  color: rgb(255, 255, 255);
+  width: 100%;
+  height: 40px;
 
-  .navbar-nav {
-    display: inline-flex;
-    list-style: none;
-    padding: 0;
-    margin: 0;
+  .btn-advanced {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-weight: bold;
+    margin: 0 10px;
+    padding: 8px 15px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 10;
 
-    // Garante que todos os itens tenham a mesma altura e não causem distorções no layout
-    .nav-item {
-      display: flex;
-      align-items: center;  // Alinha os itens verticalmente no centro
-      margin-right: 20px;    // Espaçamento entre os itens
+    &:hover {
+      background-color: rgba(0, 123, 255, 0.2); 
+      color: #007bff; 
+    }
 
-      &:last-child {
-        margin-right: 0;
-      }
-
-      .nav-link {
-        color: rgb(255, 255, 255);  // Cor do link
-        padding: 4px 10px;  // Padding dos links
-        text-decoration: none;
-        transition: background-color 0.3s, color 0.3s;
-
-        // Efeito hover nos links
-        &:hover {
-          background-color: #92e4a0;  // Cor de fundo no hover
-          color: rgb(255, 255, 255);  // Cor do texto no hover
-        }
-      }
-
-      // Efeito hover do último item (link de Sair)
-      &:last-child .nav-link:hover {
-        background-color: red;  // Cor de fundo para o "SAIR"
-        color: rgb(255, 255, 255);  // Cor do texto para "SAIR"
-      }
+    i {
+      font-size: 10px;
+      transition: transform 0.3s ease;
     }
   }
 
+  .btn-advanced,
+  .btn-principal {
+    background-color: transparent;
+    border: none;
+    color: white;
+    font-weight: bold;
+    margin: 0 10px;
+    padding: 8px 15px;
+    border-radius: 5px;
+    transition: all 0.3s ease;
 
-  .navbar-toggler {
-    border: none;  // Remover borda do botão
-    background-color: transparent;  // Deixa o botão de toggle transparente
+    &:hover {
+      background-color: rgba(0, 123, 255, 0.2);
+      color: #007bff;
+    }
+  }
+
+  .menu-busca-avancada {
+    background-color: #d3d3d3b4;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    margin-top: 10px;
+    padding: 10px;
+    box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+    position: absolute;
+    top: 100%; /* Posiciona o menu logo abaixo do botão */
+    left: 60%; /* Centraliza o menu */
+    transform: translateX(-50%); /* Ajusta a centralização */
+    width: 200px;
+    display: block;
+    z-index: 9;
+    height: 130px;
+
+    a {
+      text-decoration: none;
+      color: white;
+      display: block;
+      padding: 0px 0px;
+      border-radius: 8px;
+      transition: background-color 0.3s, color 0.3s;
+      
+
+      &:hover {
+        background-color: #007bff;
+        color: white;
+      }
+    }
   }
 }
