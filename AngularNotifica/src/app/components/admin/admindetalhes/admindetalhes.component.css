@@ -1,55 +1,48 @@
-
 .conteiner {
-  background-color: #242424;
-  max-width: 500px;
+  background-color: #24242486;
+  max-width: 480px; /* Aumenta a largura máxima */
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 15px; /* Aumenta o espaço entre os elementos */
   border-color: #14a44d;
+  margin: 0 auto; /* Centraliza horizontalmente */
+  padding: 10px; /* Adiciona um pequeno padding para dar espaçamento nas bordas */
 }
 
 .conteinerTicket {
-  background-color: #242424;
-  padding: 20px;
-  border-radius: 10px;
+  background-color: #242424a9;
+  padding: 15px; /* Aumenta o padding para mais espaço */
+  border-radius: 6px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
-  max-width: 500px;
+  max-width: 480px; /* Ajuste a largura */
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 15px;
+  gap: 15px; /* Espaço entre os elementos */
+  margin: 0 auto; /* Centraliza o formulário */
 }
 
 .conteinerTicket label {
   font-weight: bold;
   color: #ffffff;
-  margin-bottom: 5px;
+  margin-bottom: 8px; /* Aumenta a margem inferior para um pouco mais de espaço */
 }
-
-
 
 .conteinerTicket input[type="text"],
 .conteinerTicket input[type="file"],
 .conteinerTicket select,
-.conteinerTicket button
-.conteinerTicket label{
+.conteinerTicket button,
+.conteinerTicket label {
   width: 100%;
-  padding: 10px;
+  padding: 6px; /* Aumenta o padding para mais espaço */
   border-radius: 5px;
   box-sizing: border-box;
-  font-size: 16px;
-  margin-bottom: 15px;
-  background-color: #292929;
+  font-size: 12px;
+  margin-bottom: 10px; /* Aumenta o espaço entre os elementos */
+  background-color: #292929bb;
   color: #ffffff;
   border: 1px solid #34d802;
-}
-
--webkit-autofill {
-  -webkit-text-fill-color: #ffffff!important;
-  background-color: #00000000 !important;
-  -webkit-box-shadow: 0 0 0px 1000px #00000000 inset;
-  transition: background-color 5000s ease-in-out 0s;
 }
 
 .conteinerTicket input[type="text"],
@@ -57,22 +50,17 @@
   border-color: #34d802;
 }
 
-
 .conteinerTicket select {
   border-color: #34d802;
 }
 
-
 .conteinerTicket button {
-  width: 100%;
-  padding: 10px;
+  padding: 10px; /* Aumenta o padding do botão */
+  font-size: 14px; /* Aumenta o tamanho da fonte */
   border: none;
   border-radius: 5px;
-  font-size: 16px;
-  color: #ffffff;
   cursor: pointer;
   transition: background-color 0.3s;
-  border-color: #14a44d; /* Borda verde no botão */
 }
 
 .conteinerTicket button.btn-info {
@@ -86,15 +74,15 @@
 .conteiner-imagem {
   position: relative;
   width: 100%;
-  height: 300px;
-  background-color: #242424;
+  height: 250px; /* Aumenta a altura da imagem */
+  background-color: #2424246e;
   border: 1px dashed #34d802;
   border-radius: 5px;
   display: flex;
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  margin-bottom: 15px;
+  margin-bottom: 15px; /* Aumenta a margem inferior */
 }
 
 .conteiner-imagem img {
@@ -104,18 +92,16 @@
   object-fit: contain;
 }
 
-
 .conteiner #FotoInput {
   display: none;
 }
-
 
 #resumoProblema {
   border-color: #34d802;
   background-color: #292929;
   color: #ffffff;
-  padding: 10px;
-  font-size: 16px;
+  padding: 12px; /* Aumenta o padding */
+  font-size: 14px; /* Ajuste no tamanho da fonte */
   border-radius: 5px;
   width: 100%;
   box-sizing: border-box;

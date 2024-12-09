@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import Swal from 'sweetalert2';
 import { TicketshowComponent } from './ticketshow.component';
 
 describe('TicketshowComponent', () => {
