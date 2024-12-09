@@ -1,9 +1,9 @@
 package com.Notifica.controller;
 
-import com.Notifica.entity.Usuarios;
-import com.Notifica.service.UsuariosService;
+import com.Notifica.entity.UsuariosOld;
+import com.Notifica.service.UsuariosServiceOld;
 
-import com.Notifica.controller.UsuariosController;
+import com.Notifica.controller.UsuariosControllerOld;
 import Notifica.service.SecurityConfig;
 
 import org.junit.jupiter.api.Test;
@@ -24,7 +24,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
-@WebMvcTest(UsuariosController.class)
+@WebMvcTest(UsuariosControllerOld.class)
 @Import(SecurityConfig.class) // Certifique-se de que isso está correto
 public class UsuariosControllerTest {
    
@@ -32,17 +32,17 @@ public class UsuariosControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private UsuariosService usuariosService;
+    private UsuariosServiceOld usuariosService;
 
     @Test
     public void testCriarUsuarios() throws Exception {
-        Usuarios usuarios = new Usuarios();
+        UsuariosOld usuarios = new UsuariosOld();
         usuarios.setId(1L);
         usuarios.setUsername("Test Usuarios");
         usuarios.setPassword("Test Usuarios");
-        usuarios.setTipoUsuario(Usuarios.TipoUsuario.ADMIN);
+        usuarios.setTipoUsuario(UsuariosOld.TipoUsuario.ADMIN);
 
-        Mockito.when(usuariosService.criarUsuario(any(String.class), any(String.class), any(Usuarios.TipoUsuario.class))).thenReturn(usuarios);
+        Mockito.when(usuariosService.criarUsuario(any(String.class), any(String.class), any(UsuariosOld.TipoUsuario.class))).thenReturn(usuarios);
 
         mockMvc.perform(MockMvcRequestBuilders.post("/usuarios/criar")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -58,7 +58,7 @@ public class UsuariosControllerTest {
 
     @Test
     public void testCriarUsuariosInternalServerError() throws Exception {
-        Mockito.when(usuariosService.criarUsuario(any(String.class), any(String.class), any(Usuarios.TipoUsuario.class))).thenThrow(new RuntimeException("Erro interno"));
+        Mockito.when(usuariosService.criarUsuario(any(String.class), any(String.class), any(UsuariosOld.TipoUsuario.class))).thenThrow(new RuntimeException("Erro interno"));
 
         mockMvc.perform(MockMvcRequestBuilders.post("/usuarios/criar")
                 .contentType(MediaType.APPLICATION_JSON)
@@ -68,11 +68,11 @@ public class UsuariosControllerTest {
         
     @Test
     public void testObterUsuariosPorId() throws Exception {
-        Usuarios usuarios = new Usuarios();
+        UsuariosOld usuarios = new UsuariosOld();
         usuarios.setId(1L);
         usuarios.setUsername("Test Usuarios");
         usuarios.setPassword("Test Usuarios");
-        usuarios.setTipoUsuario(Usuarios.TipoUsuario.ADMIN);
+        usuarios.setTipoUsuario(UsuariosOld.TipoUsuario.ADMIN);
 
         Mockito.when(usuariosService.obterUsuarioPorId(any(Long.class))).thenReturn(usuarios);
 

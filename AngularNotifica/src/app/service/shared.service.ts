@@ -6,6 +6,7 @@ import { Injectable } from '@angular/core';
 export class SharedService {
   private readonly storageKeyLogin = 'ultimoLogin';
   private readonly storageKeyTipoUsuario = 'tipoUsuario';
+  private readonly storageKeyToken = 'token';
 
   // Verifica se o localStorage está disponível
   private isLocalStorageAvailable(): boolean {
@@ -46,4 +47,19 @@ export class SharedService {
       localStorage.setItem(this.storageKeyTipoUsuario, novoTipo);
     }
   }
+
+  // Carregar o token do LocalStorage ou usar um valor padrão
+  get token(): string {
+    if (this.isLocalStorageAvailable()) {
+      return localStorage.getItem(this.storageKeyToken) ?? 'Token padrão';
+    }
+    return 'Token padrão';
+  }
+
+  set token(novoToken: string) {
+    if (this.isLocalStorageAvailable()) {
+      localStorage.setItem(this.storageKeyToken, novoToken);
+    }
+  }
+
 }

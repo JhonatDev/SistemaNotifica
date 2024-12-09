@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: Notifica.service.NotificaApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 13.60 s -- in Notifica.service.NotificaApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 7.553 s -- in Notifica.service.NotificaApplicationTests

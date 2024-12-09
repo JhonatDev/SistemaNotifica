@@ -10,7 +10,8 @@ import com.Notifica.service.UsuariosService;
 
 @RestController
 @RequestMapping(&quot;/usuarios&quot;)
-<span class="fc" id="L13">public class UsuariosController {</span>
+@CrossOrigin(origins = &quot;*&quot;)
+<span class="fc" id="L14">public class UsuariosController {</span>
 
     @Autowired
     private UsuariosService usuariosService;
@@ -18,24 +19,24 @@ import com.Notifica.service.UsuariosService;
     @PostMapping(&quot;/criar&quot;)
     public ResponseEntity&lt;Usuarios&gt; criarUsuarios(@RequestBody Usuarios usuario) {
         try {
-<span class="fc" id="L21">            Usuarios novoUsuario = usuariosService.criarUsuario(usuario.getUsername(), usuario.getPassword(), usuario.getTipoUsuario());</span>
-<span class="fc" id="L22">            return ResponseEntity.status(HttpStatus.CREATED).body(novoUsuario); // Retornando o objeto criado</span>
-<span class="fc" id="L23">        } catch (Exception e) {</span>
-<span class="fc" id="L24">            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);</span>
+<span class="fc" id="L22">            Usuarios novoUsuario = usuariosService.criarUsuario(usuario.getUsername(), usuario.getPassword(), usuario.getTipoUsuario());</span>
+<span class="fc" id="L23">            return ResponseEntity.status(HttpStatus.CREATED).body(novoUsuario); // Retornando o objeto criado</span>
+<span class="fc" id="L24">        } catch (Exception e) {</span>
+<span class="fc" id="L25">            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);</span>
         }
     }
 
     @GetMapping(&quot;/obter/{id}&quot;)
     public ResponseEntity&lt;Usuarios&gt; obterUsuariosPorId(@PathVariable Long id) {
         try {
-<span class="fc" id="L31">            Usuarios usuario = usuariosService.obterUsuarioPorId(id);</span>
-<span class="fc bfc" id="L32" title="All 2 branches covered.">            if (usuario != null) {</span>
-<span class="fc" id="L33">                return ResponseEntity.ok(usuario); // Retornando o objeto encontrado</span>
+<span class="fc" id="L32">            Usuarios usuario = usuariosService.obterUsuarioPorId(id);</span>
+<span class="fc bfc" id="L33" title="All 2 branches covered.">            if (usuario != null) {</span>
+<span class="fc" id="L34">                return ResponseEntity.ok(usuario); // Retornando o objeto encontrado</span>
             } else {
-<span class="fc" id="L35">                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);</span>
+<span class="fc" id="L36">                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);</span>
             }
-<span class="fc" id="L37">        } catch (Exception e) {</span>
-<span class="fc" id="L38">            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);</span>
+<span class="fc" id="L38">        } catch (Exception e) {</span>
+<span class="fc" id="L39">            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);</span>
         }
     }
 }

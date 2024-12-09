@@ -1,6 +1,8 @@
 package com.Notifica.controller.login;
+
 public record LoginRequest(
-        String username,
-        String password
+        String login,
+        String senha,
+        String tipoDeUsuario
 ) {
 }

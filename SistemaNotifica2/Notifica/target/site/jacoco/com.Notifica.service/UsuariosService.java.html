@@ -40,5 +40,18 @@ import com.Notifica.repository.UsuariosRepository;
 <span class="fc" id="L40">        return usuariosRepository.findById(id)</span>
 <span class="fc" id="L41">            .orElseThrow(() -&gt; new RuntimeException(&quot;Usuário não encontrado.&quot;));</span>
     }
+
+    public Usuarios loginuUsuarios(String username, String password) {
+<span class="nc" id="L45">        Usuarios usuario = usuariosRepository.findByUsername(username);</span>
+<span class="nc bnc" id="L46" title="All 2 branches missed.">        if (usuario == null) {</span>
+<span class="nc" id="L47">            throw new IllegalArgumentException(&quot;Usuário não pode ser encontrado.&quot;);</span>
+<span class="nc bnc" id="L48" title="All 4 branches missed.">        } else if (password == null || password.isEmpty()) {</span>
+<span class="nc" id="L49">            throw new IllegalArgumentException(&quot;A senha não pode ser vazia.&quot;);</span>
+<span class="nc bnc" id="L50" title="All 2 branches missed.">        } else if (!passwordEncoder.matches(password, usuario.getPassword())) {</span>
+<span class="nc" id="L51">            throw new IllegalArgumentException(&quot;Usuario ou senha inválidos.&quot;);</span>
+        } else {
+<span class="nc" id="L53">            return usuario;</span>
+        }
+    }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

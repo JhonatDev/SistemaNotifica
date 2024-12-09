@@ -1,10 +1,20 @@
-C:\Users\duduh\OneDrive\Documentos\driver facul\4 semestre\notifica\SistemaNotifica\Notifica\src\main\java\com\Notifica\controller\TicketController.java
-C:\Users\duduh\OneDrive\Documentos\driver facul\4 semestre\notifica\SistemaNotifica\Notifica\src\main\java\com\Notifica\controller\UsuariosController.java
-C:\Users\duduh\OneDrive\Documentos\driver facul\4 semestre\notifica\SistemaNotifica\Notifica\src\main\java\com\Notifica\entity\Ticket.java
-C:\Users\duduh\OneDrive\Documentos\driver facul\4 semestre\notifica\SistemaNotifica\Notifica\src\main\java\com\Notifica\entity\Usuarios.java
-C:\Users\duduh\OneDrive\Documentos\driver facul\4 semestre\notifica\SistemaNotifica\Notifica\src\main\java\com\Notifica\NotificaApplication.java
-C:\Users\duduh\OneDrive\Documentos\driver facul\4 semestre\notifica\SistemaNotifica\Notifica\src\main\java\com\Notifica\repository\TicketRepository.java
-C:\Users\duduh\OneDrive\Documentos\driver facul\4 semestre\notifica\SistemaNotifica\Notifica\src\main\java\com\Notifica\repository\UsuariosRepository.java
-C:\Users\duduh\OneDrive\Documentos\driver facul\4 semestre\notifica\SistemaNotifica\Notifica\src\main\java\com\Notifica\SecurityConfig.java
-C:\Users\duduh\OneDrive\Documentos\driver facul\4 semestre\notifica\SistemaNotifica\Notifica\src\main\java\com\Notifica\service\TicketService.java
-C:\Users\duduh\OneDrive\Documentos\driver facul\4 semestre\notifica\SistemaNotifica\Notifica\src\main\java\com\Notifica\service\UsuariosService.java
+C:\Users\felip\Downloads\SistemaNotifica2\Notifica\src\main\java\com\Notifica\controller\Image\ImageController.java
+C:\Users\felip\Downloads\SistemaNotifica2\Notifica\src\main\java\com\Notifica\controller\login\loginController.java
+C:\Users\felip\Downloads\SistemaNotifica2\Notifica\src\main\java\com\Notifica\controller\login\LoginRequest.java
+C:\Users\felip\Downloads\SistemaNotifica2\Notifica\src\main\java\com\Notifica\controller\SubTipoProblema\SubTipoProblemaController.java
+C:\Users\felip\Downloads\SistemaNotifica2\Notifica\src\main\java\com\Notifica\controller\SubTipoProblema\SubTipoProblemaRequest.java
+C:\Users\felip\Downloads\SistemaNotifica2\Notifica\src\main\java\com\Notifica\controller\tickts\TicketController.java
+C:\Users\felip\Downloads\SistemaNotifica2\Notifica\src\main\java\com\Notifica\controller\tickts\TicktsRequest.java
+C:\Users\felip\Downloads\SistemaNotifica2\Notifica\src\main\java\com\Notifica\controller\UsuariosController.java
+C:\Users\felip\Downloads\SistemaNotifica2\Notifica\src\main\java\com\Notifica\entity\SubTipoProblema.java
+C:\Users\felip\Downloads\SistemaNotifica2\Notifica\src\main\java\com\Notifica\entity\Ticket.java
+C:\Users\felip\Downloads\SistemaNotifica2\Notifica\src\main\java\com\Notifica\entity\Usuarios.java
+C:\Users\felip\Downloads\SistemaNotifica2\Notifica\src\main\java\com\Notifica\GlobalExceptionHandler.java
+C:\Users\felip\Downloads\SistemaNotifica2\Notifica\src\main\java\com\Notifica\NotificaApplication.java
+C:\Users\felip\Downloads\SistemaNotifica2\Notifica\src\main\java\com\Notifica\repository\SubTipoProblemaRepository.java
+C:\Users\felip\Downloads\SistemaNotifica2\Notifica\src\main\java\com\Notifica\repository\TicketRepository.java
+C:\Users\felip\Downloads\SistemaNotifica2\Notifica\src\main\java\com\Notifica\repository\UsuariosRepository.java
+C:\Users\felip\Downloads\SistemaNotifica2\Notifica\src\main\java\com\Notifica\SecurityConfig.java
+C:\Users\felip\Downloads\SistemaNotifica2\Notifica\src\main\java\com\Notifica\service\SubTipoProblemaService.java
+C:\Users\felip\Downloads\SistemaNotifica2\Notifica\src\main\java\com\Notifica\service\TicketService.java
+C:\Users\felip\Downloads\SistemaNotifica2\Notifica\src\main\java\com\Notifica\service\UsuariosService.java

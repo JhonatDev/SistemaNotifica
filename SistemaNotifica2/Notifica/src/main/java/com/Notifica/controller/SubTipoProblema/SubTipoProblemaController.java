@@ -17,12 +17,11 @@ import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
 import java.util.Objects;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @RestController
 @Validated
 @RequestMapping("/subtipoproblemas")
+@CrossOrigin(origins = "*")
 public class SubTipoProblemaController {
 
     @Autowired
@@ -45,13 +44,13 @@ public class SubTipoProblemaController {
     
 
     @GetMapping("/listar")
-    public ResponseEntity<List<SubTipoProblema>> getSubTipoProblemas() {
+    public ResponseEntity<List<SubTipoProblema>> getSubTipoProblemas(@RequestHeader("Authorization") String token) { 
         try {
             List<SubTipoProblema> subTipos = subTipoProblemaService.getSubTipoProblemas();
             return new ResponseEntity<>(subTipos, HttpStatus.OK);
         } catch (NoSuchElementException e) {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+        } 
     }
 
     // retorna um subtipo de problema por tipo de problema

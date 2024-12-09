@@ -1,16 +1,16 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { LoginService } from '../../service/login/login.service';
+import { LoginService } from '../../service/login-service.service';
 import { Router } from '@angular/router';
 import { AdminlistComponent } from '../admin/adminlist/adminlist.component';
 import { AdmindetalhesComponent } from '../admin/admindetalhes/admindetalhes.component';
-import { SharedService } from '../../service/shared.service';
+import { Login } from '../../models/login/login';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [CommonModule, FormsModule, AdminlistComponent],
+  imports: [CommonModule, FormsModule],
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
@@ -20,7 +20,7 @@ export class LoginComponent {
 
   router = inject(Router);
 
-  constructor(private loginService: LoginService, private sharedService: SharedService) {}
+  constructor(private loginService: LoginService) {}
 
   ngOnInit(): void {
     document.documentElement.style.setProperty('--mdb-body-bg', '#00000000');//muda a cor do fundo
@@ -33,16 +33,20 @@ export class LoginComponent {
   }
 
   onLogin() {
-    this.loginService.login({ username: this.login, password: this.senha })
+    this.loginService.logar({ login: this.login, senha: this.senha })
       .subscribe({
         next: (response) => {
           console.log('Login bem-sucedido:', response);
+          this.loginService.addToken(response);
+          let tipoUsuario = this.loginService.jwtDecode()?.sub;
+          console.log('Tipo de usuário:', tipoUsuario);
 
-          if (response.tipoUsuario === 'ADMIN') {
+          if (tipoUsuario === 'admin') {
             this.router.navigate(['admin/principal']);
-          } else if (response.tipoUsuario === 'Usuarios') {
+          } else if (tipoUsuario === 'user') {
             this.router.navigate(['aluno/principal']);
           }
+
         },
         error: (error) => {
           console.error('Erro no login:', error);
