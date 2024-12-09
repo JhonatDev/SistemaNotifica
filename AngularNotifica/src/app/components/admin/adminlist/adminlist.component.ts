@@ -58,6 +58,11 @@ export class AdminlistComponent implements OnInit {
     this.login = this.loginService.jwtDecode()?.username || '';
     this.tipoDeUsuario = this.loginService.jwtDecode()?.sub || '';
 
+    // Verificação se tem token
+    if (!this.loginService.jwtDecode()) {
+      this.router.navigate(['login']);
+    }
+
     document.documentElement.style.setProperty('--mdb-body-bg', '#00000000');//muda a cor do fundo
     document.documentElement.style.setProperty(
       'background',
