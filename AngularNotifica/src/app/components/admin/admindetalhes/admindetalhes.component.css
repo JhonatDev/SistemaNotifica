@@ -10,6 +10,11 @@
   padding: 10px; /* Adiciona um pequeno padding para dar espaçamento nas bordas */
 }
 
+#title {
+  border: #00000000;
+  background-color: #00000000;
+}
+
 .conteinerTicket {
   background-color: #242424a9;
   padding: 15px; /* Aumenta o padding para mais espaço */

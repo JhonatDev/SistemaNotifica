@@ -68,6 +68,8 @@ export class AdminlistComponent implements OnInit {
       'background',
        'url(https://svanegas-one.blackboard.com/bbcswebdav/xid-212801_1) no-repeat center center fixed'
     );
+    //arruma a imagem de fundo
+    document.documentElement.style.setProperty('background-size', 'cover');
 
     // Verifique se o código está sendo executado no navegador
     if (typeof window !== 'undefined') {
