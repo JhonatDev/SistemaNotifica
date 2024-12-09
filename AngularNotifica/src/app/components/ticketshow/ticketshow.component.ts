@@ -7,6 +7,7 @@ import { TicktsService } from '../../service/tickts/tickts.service';
 import { Tickts } from '../../models/tickts/tickts';
 import { SubTipoProblemaService } from '../../service/SubTipoProblema/sub-tipo-problema.service';
 import { ImageUploadService } from '../../service/image-service.service';
+import { environment } from '../../../environments/environment';
 
 @Component({
   selector: 'app-ticketshow',
@@ -25,6 +26,9 @@ export class TicketshowComponent implements OnInit {
   @Input() tipoDeUsuario!: string;
   @Input() login!: string;
   @Output() retorno = new EventEmitter<any>();
+
+  //link para o servidor
+  servidor = environment.SERVIDOR;
 
   selectedFile: File | null = null;
   modalService = inject(MdbModalService);
@@ -49,7 +53,7 @@ export class TicketshowComponent implements OnInit {
   }
 
   onError(event: any) {
-    event.target.src = 'http://localhost:8080/image/download/Untitled.png';
+    event.target.src = this.servidor + '/image/download/Untitled.png';
   }
 
   finalizarTicket(ticket: Tickts) {

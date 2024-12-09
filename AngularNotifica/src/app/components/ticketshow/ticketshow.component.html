@@ -16,7 +16,7 @@
       <div class="conteiner-imagem">
         <!--se p src for null, mostrar imagem padrão -->
 
-        <img [src]="'http://localhost:8080/image/download/' + TicketList.caminhoFoto"
+        <img [src]="servidor + '/image/download/' + TicketList.caminhoFoto"
        (error)="onError($event)"
        alt="Imagem do Ticket"
        class="ticket-image"/>

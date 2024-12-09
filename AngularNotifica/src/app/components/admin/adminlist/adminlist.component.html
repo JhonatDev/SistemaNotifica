@@ -31,7 +31,7 @@
     <div class="conteiner-imagem">
       <!-- Se o src for null, mostrar imagem padrão -->
       <img
-        [src]="'http://localhost:8080/image/download/' + ticket.caminhoFoto"
+        [src]="servidor + '/image/download/' + ticket.caminhoFoto"
         (error)="onError($event)"
         alt="Imagem do Ticket"
         class="ticket-image"

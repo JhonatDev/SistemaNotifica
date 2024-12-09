@@ -9,6 +9,7 @@ import { SubTipoProblemaService } from '../../../service/SubTipoProblema/sub-tip
 import { SubTipoProblema } from '../../../models/SubTipoProblema/subtipoproblema';
 import { ImageUploadService } from '../../../service/image-service.service';
 import { LoginService } from '../../../service/login-service.service';
+import { environment } from '../../../../environments/environment';
 
 @Component({
   selector: 'app-admindetalhes',
@@ -28,6 +29,9 @@ export class AdmindetalhesComponent {
   @Input() TicketList!: Tickts;
   @Input() funcao!: any;
   @Output() retorno = new EventEmitter<any>();
+
+  // servidor
+  servidor = environment.SERVIDOR;
 
   selectedFile: File | null = null;
 
@@ -51,7 +55,7 @@ export class AdmindetalhesComponent {
   ) { }
 
   onError(event: any) {
-    event.target.src = 'http://localhost:8080/image/download/Untitled.png';
+    event.target.src = `${environment.SERVIDOR}/image/download/Untitled.png`;
   }
 
 

@@ -8,6 +8,7 @@ import { AdmindetalhesComponent } from '../admindetalhes/admindetalhes.component
 import { TicketshowComponent } from '../../ticketshow/ticketshow.component';
 import { LoginService } from '../../../service/login-service.service';
 import { log } from 'console';
+import { environment } from '../../../../environments/environment';
 
 
 @Component({
@@ -25,6 +26,9 @@ export class AdminlistComponent implements OnInit {
   // Referência do template de modal
   @ViewChild('modalTicketDetails', { static: false }) modalTicketDetails!: TemplateRef<any>;
   @ViewChild('modalTicketShow', { static: false }) modalTicketShow!: TemplateRef<any>;
+
+  //link para o servidor
+  servidor = environment.SERVIDOR;
 
 
   // Referência para manipular a modal aberta
@@ -103,7 +107,7 @@ export class AdminlistComponent implements OnInit {
   }
 
   onError(event: Event) {
-    (event.target as HTMLImageElement).src = 'http://127.0.0.1:8080/image/download/Untitled.png';
+    (event.target as HTMLImageElement).src = this.servidor + '/image/download/Untitled.png';
   }
 
   // Listar tickets
