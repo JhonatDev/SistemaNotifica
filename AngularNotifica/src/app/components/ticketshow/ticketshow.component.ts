@@ -38,11 +38,11 @@ export class TicketshowComponent implements OnInit {
     private ticktsService: TicktsService,
     private subTipoProblemaService: SubTipoProblemaService,
     private SharedService: SharedService,
-    private imageUploadService: ImageUploadService,
-  ) { }
+    private imageUploadService: ImageUploadService
+  ) {}
 
   ngOnInit(): void {
-
+    
   }
 
   edit(ticket: Tickts) {

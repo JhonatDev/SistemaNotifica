@@ -57,7 +57,11 @@ export class AdmindetalhesComponent {
 
   ngOnInit(): void {
     this.listarSubTipoProblema();
-    this.TicketList.caminhoFoto = 'selecionar.png';
+    /*document.documentElement.style.setProperty('--mdb-body-bg', '#242424');//muda a cor do fundo*/
+    document.documentElement.style.setProperty('--mdb-modal-bg', '#242424');//muda a cor do fundo
+    if (this.TicketList.caminhoFoto == null || this.TicketList.caminhoFoto == '') {
+      this.TicketList.caminhoFoto = 'selecionar.png';
+    }
   }
 
 

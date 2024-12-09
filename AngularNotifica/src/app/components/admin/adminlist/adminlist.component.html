@@ -22,7 +22,13 @@
     </div>
     <p class="resumo">{{ ticket.resumoProblema }}</p>
     <p class="local">Local: {{ ticket.local }}</p>
-    <p class="data">{{ ticket.dataSolucao ? ('Resolvido em:' + (ticket.dataSolucao | date: 'short')) : ('Criado em:' + (ticket.dataCriacao | date: 'short')) }}</p>
+    <p class="data">
+      {{
+        ticket.dataSolucao
+          ? 'Resolvido:' + (ticket.dataSolucao | date: 'short')
+          : 'Criado:' + (ticket.dataCriacao | date: 'short')
+      }}
+    </p>
     <div class="conteiner-imagem">
       <!-- Se o src for null, mostrar imagem padrão -->
       <img
