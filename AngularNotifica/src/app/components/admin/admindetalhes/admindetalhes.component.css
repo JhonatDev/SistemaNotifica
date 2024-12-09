@@ -1,16 +1,16 @@
 
 .conteiner {
-  background-color: #ffffff;
+  background-color: #242424;
   max-width: 500px;
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 15px;
-  border-color: #34d802;
+  border-color: #14a44d;
 }
 
 .conteinerTicket {
-  background-color: #ffffff;
+  background-color: #242424;
   padding: 20px;
   border-radius: 10px;
   box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
@@ -23,7 +23,7 @@
 
 .conteinerTicket label {
   font-weight: bold;
-  color: #333333;
+  color: #ffffff;
   margin-bottom: 5px;
 }
 
@@ -32,7 +32,7 @@
 .conteinerTicket input[type="text"],
 .conteinerTicket input[type="file"],
 .conteinerTicket select,
-.conteinerTicket button 
+.conteinerTicket button
 .conteinerTicket label{
   width: 100%;
   padding: 10px;
@@ -40,17 +40,26 @@
   box-sizing: border-box;
   font-size: 16px;
   margin-bottom: 15px;
-  border: 1px solid #34d802;  
+  background-color: #292929;
+  color: #ffffff;
+  border: 1px solid #34d802;
+}
+
+-webkit-autofill {
+  -webkit-text-fill-color: #ffffff!important;
+  background-color: #00000000 !important;
+  -webkit-box-shadow: 0 0 0px 1000px #00000000 inset;
+  transition: background-color 5000s ease-in-out 0s;
 }
 
 .conteinerTicket input[type="text"],
 .conteinerTicket input[type="file"] {
-  border-color: #34d802; 
+  border-color: #34d802;
 }
 
 
 .conteinerTicket select {
-  border-color: #34d802;  
+  border-color: #34d802;
 }
 
 
@@ -63,23 +72,23 @@
   color: #ffffff;
   cursor: pointer;
   transition: background-color 0.3s;
-  border-color: #34d802; /* Borda verde no botão */
+  border-color: #14a44d; /* Borda verde no botão */
 }
 
 .conteinerTicket button.btn-info {
-  background-color: #34d802;
+  background-color: #14a44d;
 }
 
 .conteinerTicket button.btn-info:hover {
-  background-color: #34d802;
+  background-color: #14a44d;
 }
 
 .conteiner-imagem {
   position: relative;
   width: 100%;
   height: 300px;
-  background-color: #f7f7f7;
-  border: 1px dashed #34d802; 
+  background-color: #242424;
+  border: 1px dashed #34d802;
   border-radius: 5px;
   display: flex;
   align-items: center;
@@ -102,7 +111,9 @@
 
 
 #resumoProblema {
-  border-color: #34d802; 
+  border-color: #34d802;
+  background-color: #292929;
+  color: #ffffff;
   padding: 10px;
   font-size: 16px;
   border-radius: 5px;

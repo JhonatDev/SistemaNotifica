@@ -19,22 +19,26 @@ import lombok.Setter;
     @Column(nullable = false)
     private String password;
 
+    //hash
+    //@Column(nullable = false)
+    private String hash;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TipoUsuario tipoUsuario; // Novo campo para o tipo de usuário
 
     // Enum para definir o tipo de usuário
-<span class="fc" id="L27">    public enum TipoUsuario {</span>
-<span class="fc" id="L28">        ADMIN(1), Usuarios(2);</span>
+<span class="fc" id="L31">    public enum TipoUsuario {</span>
+<span class="fc" id="L32">        ADMIN(1), Usuarios(2);</span>
 
         private final int codigo;
 
-<span class="fc" id="L32">        TipoUsuario(int codigo) {</span>
-<span class="fc" id="L33">            this.codigo = codigo;</span>
-<span class="fc" id="L34">        }</span>
+<span class="fc" id="L36">        TipoUsuario(int codigo) {</span>
+<span class="fc" id="L37">            this.codigo = codigo;</span>
+<span class="fc" id="L38">        }</span>
 
         public int getCodigo() {
-<span class="nc" id="L37">            return codigo;</span>
+<span class="nc" id="L41">            return codigo;</span>
         }
     }
 }

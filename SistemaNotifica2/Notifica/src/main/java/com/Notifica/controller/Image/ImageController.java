@@ -9,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.Notifica.service.UsuariosService;
+import com.Notifica.service.UsuariosServiceOld;
 
 import java.io.File;
 import java.io.IOException;
@@ -20,12 +20,13 @@ import java.nio.file.Paths;
 
 @RestController
 @RequestMapping("/image")
+@CrossOrigin(origins = "*")
 public class ImageController {
 
     private static final String UPLOAD_DIR = "SistemaNotifica2/Notifica/src/main/resources/static/image/download/";
 
     @Autowired
-    private UsuariosService usuariosService;
+    private UsuariosServiceOld usuariosService;
 
     @PostMapping("/upload")
     public ResponseEntity<String> uploadImage(@RequestParam("image") MultipartFile file) {

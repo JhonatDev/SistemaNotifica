@@ -1,44 +1,38 @@
 package com.Notifica.controller.login;
 
-import com.Notifica.entity.Usuarios;
-import com.Notifica.service.UsuariosService;
-
-import jakarta.validation.Valid;
-
+import com.Notifica.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
-@RequestMapping("/login")
+@RequestMapping("/")
 @CrossOrigin("*")
 public class loginController {
 
     @Autowired
-    private UsuariosService usuariosService;
+    private UsuarioService pessoaService;
 
-    //login
-    @PostMapping
-    public ResponseEntity<Usuarios> loginuUsuarios(@Valid @RequestBody Usuarios usuario) {
-    
-        System.out.println("Tentando login com username: " + usuario.getUsername());
-        System.out.println("Tentando login com password: " + usuario.getPassword());
-        Usuarios usuarioLogado = usuariosService.loginuUsuarios(usuario.getUsername(), usuario.getPassword());
-        
-        return new ResponseEntity<>(usuarioLogado, HttpStatus.OK);
-        
-   }
-
-   /*postaman
-    * {
-    "username": "admin",
-    "password": "admin"
+    @PostMapping("login")
+        public ResponseEntity<String> logar(@RequestBody LoginRequest login) {
+            try {
+                String jwtToken = pessoaService.logar(login);  // Obtenha o token aqui
+                return ResponseEntity.ok(jwtToken);            // Retorne o JWT se login for bem-sucedido
+            } catch (AuthenticationException ex) {
+                System.out.println(ex.getMessage());
+                 return new ResponseEntity<>(ex.getMessage(), HttpStatus.UNAUTHORIZED);
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+                return new ResponseEntity<>("Erro interno", HttpStatus.BAD_REQUEST); // Alterado para mensagem fixa
     }
-    
-    */
+}
 
-        
+    @PostMapping("novo-usuario/save")
+    public ResponseEntity<HttpStatus> saveNewUser(@RequestParam String usuario,@RequestParam String password,@RequestParam Boolean isAdmin){
+        pessoaService.saveNewUser(usuario, password,isAdmin);
+        return ResponseEntity.status(HttpStatus.CREATED).build();
+    }
+
 }

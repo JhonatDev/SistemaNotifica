@@ -13,18 +13,30 @@ public class Ticket {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @NotBlank(message = &quot;A descrição do problema é obrigatória&quot;)
+    @NotBlank(message = &quot;O resumo do problema é obrigatório&quot;)
     @Column(nullable = false)
-    private String descricaoProblema;
+    private String resumoProblema;
     
-    @NotBlank(message = &quot;O local do problema é obrigatório&quot;)
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String local;
+    private Local local;
 
     @Enumerated(EnumType.STRING)
-    private Status status;
+    @Column(nullable = false)
+    private TipoProblema tipoProblema;
 
-    private LocalDateTime dataCriacao;
+    private String outrovtipoProblema;
+
+    @NotBlank(message = &quot;O subtipo do problema é obrigatório&quot;)
+    @Column(nullable = false)
+    private String subtipoProblema;
+
+    private String outroSubtipoProblema;
+
+    @Enumerated(EnumType.STRING)
+    private Status status = Status.ABERTO;
+
+    private LocalDateTime dataCriacao = LocalDateTime.now();
 
     private LocalDateTime dataSolucao;
 
@@ -32,24 +44,22 @@ public class Ticket {
 
     @NotBlank(message = &quot;O RA do aluno é obrigatório&quot;)
     @Column(nullable = false)
-    private String raAluno; // RA do aluno é obrigatório
+    private String raAluno;
 
-<span class="fc" id="L37">    public enum Status {</span>
-<span class="fc" id="L38">        ABERTO, EM_ANDAMENTO, SOLUCIONADO, CANCELADO</span>
+    private String funcionarioResponsavel;
+
+    // Enumerações para Status, Local e TipoProblema
+<span class="fc" id="L52">    public enum Status {</span>
+<span class="fc" id="L53">        ABERTO, EM_ANDAMENTO, SOLUCIONADO, CANCELADO</span>
     }
 
-    @PrePersist
-    protected void onCreate() {
-<span class="nc" id="L43">        this.dataCriacao = LocalDateTime.now();</span>
-<span class="nc" id="L44">        this.status = Status.ABERTO;</span>
-<span class="nc" id="L45">    }</span>
-    
-    public void atualizarStatus(Status novoStatus) {
-<span class="nc bnc" id="L48" title="All 2 branches missed.">        if (novoStatus == Status.SOLUCIONADO) {</span>
-<span class="nc" id="L49">            this.dataSolucao = LocalDateTime.now(); // Registra a data de solução ao mudar para SOLUCIONADO</span>
-        }
-<span class="nc" id="L51">        this.status = novoStatus;</span>
-<span class="nc" id="L52">    }</span>
+<span class="fc" id="L56">    public enum Local {</span>
+<span class="fc" id="L57">        OUTRO, BIBLIOTECA, SALA, LABORATORIO</span>
+    }
+
+<span class="fc" id="L60">    public enum TipoProblema {</span>
+<span class="fc" id="L61">        OUTRO, ELETRICO, INFRAESTRUTURA, MOBILIARIO, REDE, TECNOLOGIA</span>
+    }
     
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

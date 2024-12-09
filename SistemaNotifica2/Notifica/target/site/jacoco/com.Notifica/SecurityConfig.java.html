@@ -1,30 +1,53 @@
 <?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="pt"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>SecurityConfig.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">Notifica</a> &gt; <a href="index.source.html" class="el_package">com.Notifica</a> &gt; <span class="el_source">SecurityConfig.java</span></div><h1>SecurityConfig.java</h1><pre class="source lang-java linenums">package com.Notifica;
 
+import java.util.Arrays;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+import org.springframework.lang.NonNull;
 
 @Configuration
 @EnableWebSecurity
-<span class="fc" id="L12">public class SecurityConfig {</span>
+<span class="fc" id="L19">public class SecurityConfig {</span>
+
+    @Bean
+    public WebMvcConfigurer corsConfigurer() {
+<span class="fc" id="L23">        return new WebMvcConfigurer() {</span>
+            @Override
+            public void addCorsMappings(@NonNull CorsRegistry registry) {
+<span class="fc" id="L26">                registry.addMapping(&quot;/**&quot;)</span>
+<span class="fc" id="L27">                        .allowedOrigins(&quot;http://localhost:4200&quot;)</span>
+<span class="fc" id="L28">                        .allowedMethods(&quot;GET&quot;, &quot;POST&quot;, &quot;PUT&quot;, &quot;DELETE&quot;, &quot;OPTIONS&quot;); // Permitir métodos HTTP específicos</span>
+<span class="fc" id="L29">            }</span>
+        };
+    }
     
     @Bean
     public BCryptPasswordEncoder passwordEncoder() {
-<span class="fc" id="L16">        return new BCryptPasswordEncoder();</span>
+<span class="fc" id="L35">        return new BCryptPasswordEncoder();</span>
     }
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-<span class="fc" id="L21">        http</span>
-<span class="fc" id="L22">            .csrf().disable() // Desativando CSRF para o teste</span>
-<span class="fc" id="L23">            .authorizeRequests()</span>
-<span class="fc" id="L24">            .requestMatchers(&quot;/tickets/**&quot;, &quot;/usuarios/**&quot;).permitAll() // Permitir acesso ao endpoint sem autenticação</span>
-<span class="fc" id="L25">            .anyRequest().authenticated();</span>
+<span class="fc" id="L40">    	CorsConfiguration config = new CorsConfiguration();</span>
+<span class="fc" id="L41">    	config.setAllowedOriginPatterns(Arrays.asList(&quot;*&quot;));</span>
+<span class="fc" id="L42">        http</span>
+<span class="fc" id="L43">            .csrf().disable() // Desativando CSRF para o teste</span>
+<span class="fc" id="L44">            .cors() // Permitir CORS conforme configurado</span>
+<span class="fc" id="L45">            .and()</span>
+<span class="fc" id="L46">            .authorizeRequests()</span>
+<span class="fc" id="L47">            .requestMatchers(&quot;/tickets/**&quot;, &quot;/usuarios/**&quot;, &quot;/subtipoproblemas/**&quot;, &quot;/login/**&quot;, &quot;/image/**&quot;).permitAll() // Permitir acesso ao endpoint de login</span>
+<span class="fc" id="L48">            .anyRequest().authenticated();</span>
     
-<span class="fc" id="L27">        return http.build();</span>
+<span class="fc" id="L50">        return http.build();</span>
     }
 }
 </pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>

@@ -57,7 +57,11 @@ export class AdminlistComponent implements OnInit {
     this.login = this.SharedService.ultimoLogin;
     this.tipoDeUsuario = this.SharedService.tipoUsuario;
 
-    document.documentElement.style.setProperty('--mdb-body-bg', '#ffffff');//muda a cor do fundo
+    document.documentElement.style.setProperty('--mdb-body-bg', '#00000000');//muda a cor do fundo
+    document.documentElement.style.setProperty(
+      'background',
+       'url(https://svanegas-one.blackboard.com/bbcswebdav/xid-212801_1) no-repeat center center fixed'
+    );
 
     // Verifique se o código está sendo executado no navegador
     if (typeof window !== 'undefined') {

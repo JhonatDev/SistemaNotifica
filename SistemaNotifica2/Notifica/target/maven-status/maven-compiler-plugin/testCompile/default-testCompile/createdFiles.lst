@@ -1,2 +1,6 @@
 com\Notifica\service\UsuariosServiceTest.class
+Notifica\service\NotificaApplicationTests.class
+com\Notifica\controller\UsuariosControllerTest.class
 com\Notifica\service\TicketServiceTest.class
+com\Notifica\controller\TicketControllerTest.class
+Notifica\service\SecurityConfig.class
