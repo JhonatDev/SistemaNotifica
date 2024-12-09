@@ -9,35 +9,69 @@
 }
 
 
+/* Estilos do Grid de Tickets */
 .tickets-grid {
   display: grid;
-  gap: 0.75rem;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); /* Ajuste responsivo */
+  gap: 1rem; /* Maior distância entre os cards */
+  grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); /* Ajuste responsivo */
   padding: 0.75rem;
 }
 
+/* Ajustes para o tamanho do Ticket */
 .ticket-card {
   border: 1px solid #ddd;
   border-radius: 6px;
-  padding: 0.75rem;
+  padding: 0.5rem; /* Menor padding para diminuir o tamanho */
   display: flex;
   flex-direction: column;
+  background-color: #242424e3;
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.555); /* Sombra suave */
+  border-color: #0ed13c50;
+  width: 100%; /* Garantir que o ticket ocupe toda a largura disponível */
+}
+
+/* Reduzindo o espaço entre a imagem e os botões */
+.ticket-image {
   background-color: #242424;
-  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); /* Sombra mais suave */
-  border-color: #28a745;
-
-}
-
-.ticket-card p {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  height: 10%;
   width: 100%;
-  margin: 0;
-  font-size: 0.85rem;
-  color: #ffffff;
+  height: auto;
+  margin-top: 0.25rem; /* Distância menor entre a imagem e os botões */
+  border-radius: 3px;
 }
+
+/* Ajustes para os Botões */
+.actions {
+  margin-top: 0.5rem; /* Aproximar os botões da imagem */
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 0.25rem; /* Menor distância entre os botões */
+}
+
+/* Ajustando o tamanho e as cores dos botões */
+.actions button {
+  flex: 1 1 30%; /* Menor largura para os botões */
+  padding: 0.25rem; /* Menor padding nos botões */
+  font-size: 0.7rem;
+  border-radius: 3px;
+  border: none;
+  cursor: pointer;
+  color: #fff;
+}
+
+.actions .btn-primary {
+  background-color: #007bff; /* Azul original */
+}
+
+.actions .btn-danger {
+  background-color: #dc3545; /* Vermelho original */
+}
+
+.actions .btn-success {
+  background-color: #28a745; /* Verde original */
+}
+
+/* Estilos dos Cabeçalhos de Ticket */
 .ticket-header {
   display: flex;
   justify-content: space-between;
@@ -72,63 +106,7 @@
   color: #5cb85c;
 }
 
-.ticket-image {
-  background-color: #242424;
-  width: 100%;
-  height: auto;
-  margin-top: 0.375rem;
-  border-radius: 3px;
-}
-
-.conteiner-imagem {
-  position: relative;
-  width: 100%;
-  height: 300px;
-  background-color: #242424;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  margin-bottom: 15px;
-}
-
-.conteiner-imagem img {
-  max-width: 100%;
-  max-height: 100%;
-  border-radius: 5px;
-  object-fit: contain;
-}
-
-.actions {
-  margin-top: 0.75rem;
-  display: flex;
-  align-items: flex-start; /* Corrigido */
-  flex-wrap: wrap;
-  gap: 0.375rem;
-}
-
-.actions button {
-  flex: 1 1 33%;
-  padding: 0.375rem;
-  font-size: 0.7rem;
-  border-radius: 3px;
-  border: none;
-  cursor: pointer;
-  color: #fff;
-}
-
-.actions .btn-primary {
-  background-color: #007bff;
-}
-
-.actions .btn-danger {
-  background-color: #dc3545;
-}
-
-.actions .btn-success {
-  background-color: #28a745;
-}
-
+/* Estilos do Modal */
 .modal-header {
   display: flex;
   justify-content: space-between;
@@ -177,15 +155,46 @@
 }
 
 .modal-footer .btn-primary {
-  background-color: #007bff;
+  background-color: #007bff; /* Azul original */
 }
 
 .modal-footer .btn-danger {
-  background-color: #dc3545;
+  background-color: #dc3545; /* Vermelho original */
 }
 
 .modal-footer .btn-success {
-  background-color: #28a745;
+  background-color: #28a745; /* Verde original */
+}
+/* Ajustando o container do botão */
+.btn-container {
+  margin-top: 20px; /* Distância da navbar */
+  display: flex;
+  justify-content: flex-start; /* Alinha o botão à esquerda */
+  padding-left: 12px; /* Adiciona espaçamento à esquerda do container */
+  padding-right: 12px; /* Adiciona um espaçamento à direita do container, se necessário */
 }
 
-/* Estilos do Formulário */
+/* Estilo do botão */
+.btn-container .btn-info {
+  background-color: #007bff; /* Cor de fundo azul */
+  border: none; /* Remove borda padrão */
+  color: white; /* Cor do texto */
+  padding: 0.5rem 1rem; /* Ajuste no tamanho do botão */
+  font-size: 1rem; /* Ajuste no tamanho da fonte */
+  border-radius: 4px; /* Borda arredondada */
+  box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2); /* Sombra suave */
+  transition: background-color 0.3s, transform 0.3s; /* Transições suaves */
+}
+
+.btn-container .btn-info:hover {
+  background-color: #0056b3; /* Cor de fundo ao passar o mouse */
+  transform: scale(1.05); /* Leve aumento de tamanho ao passar o mouse */
+}
+
+.btn-container .btn-info:active {
+  background-color: #004085; /* Cor de fundo quando pressionado */
+  transform: scale(1); /* Mantém o tamanho quando pressionado */
+}
+
+
+
