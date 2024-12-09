@@ -1,93 +1,109 @@
 <div class="btn-container">
   <button
+  *ngIf="tipoDeUsuario === 'Usuarios'"
     (click)="onCriar()"
     type="button"
     class="btn btn-info btn-rounded"
     mdbRipple
   >
-    Criar
-  </button>
-  <button
-    (click)="onListar()"
-    type="button"
-    class="btn btn-info btn-rounded ms-2"
-    mdbRipple
-  >
-    atualizar
+    Criar Ticket
   </button>
 </div>
 
 <div class="tickets-grid">
-  <div class="ticket-card" *ngFor="let ticket of ticketsList; trackBy: trackById" (click)="show(ticket)">
+  <div
+    class="ticket-card"
+    *ngFor="let ticket of ticketsList; trackBy: trackById"
+    (click)="show(ticket)"
+  >
     <div class="ticket-header">
       <h5>Ticket #{{ ticket.id }}</h5>
       <span class="status">{{ ticket.status }}</span>
     </div>
     <p class="resumo">{{ ticket.resumoProblema }}</p>
     <p class="local">Local: {{ ticket.local }}</p>
-    <p class="data">{{ ticket.dataSolucao ? ('Resolvido:' + (ticket.dataSolucao | date: 'short')) : ('Criado:' + (ticket.dataCriacao | date: 'short')) }}</p>
+    <p class="data">{{ ticket.dataSolucao ? ('Resolvido em:' + (ticket.dataSolucao | date: 'short')) : ('Criado em:' + (ticket.dataCriacao | date: 'short')) }}</p>
     <div class="conteiner-imagem">
-      <!--se p src for null, mostrar imagem padrão -->
-
-      <img [src]="'http://localhost:8080/image/download/' + ticket.caminhoFoto"
-     (error)="onError($event)"
-     alt="Imagem do Ticket"
-     class="ticket-image"/>
-
+      <!-- Se o src for null, mostrar imagem padrão -->
+      <img
+        [src]="'http://localhost:8080/image/download/' + ticket.caminhoFoto"
+        (error)="onError($event)"
+        alt="Imagem do Ticket"
+        class="ticket-image"
+      />
     </div>
     <div class="actions">
-      <button *ngIf="tipoDeUsuario == 'ADMIN' || tipoDeUsuario == 'Usuarios' && ticket.status == 'ABERTO'"
-              class="btn-primary"
-              id="botaoEditar"
-              (click)="edit(ticket); $event.stopPropagation()">
+      <button
+        *ngIf="tipoDeUsuario == 'ADMIN' || tipoDeUsuario == 'Usuarios' && ticket.status == 'ABERTO'"
+        class="btn-primary"
+        id="botaoEditar"
+        (click)="edit(ticket); $event.stopPropagation()"
+      >
         Editar
       </button>
-      <button *ngIf="tipoDeUsuario == 'ADMIN' && ticket.status == 'CANCELADO'"
-              class="btn-danger"
-              (click)="deletar(ticket); $event.stopPropagation()">
+      <button
+        *ngIf="tipoDeUsuario == 'ADMIN' && ticket.status == 'CANCELADO'"
+        class="btn-danger"
+        (click)="deletar(ticket); $event.stopPropagation()"
+      >
         Excluir
       </button>
-      <button *ngIf="tipoDeUsuario == 'ADMIN' && ticket.status == 'ABERTO'"
-              class="btn-success"
-              (click)="pegarTicket(ticket); $event.stopPropagation()">
+      <button
+        *ngIf="tipoDeUsuario == 'ADMIN' && ticket.status == 'ABERTO'"
+        class="btn-success"
+        (click)="pegarTicket(ticket); $event.stopPropagation()"
+      >
         Pegar
       </button>
-      <button *ngIf="tipoDeUsuario == 'ADMIN' && ticket.status == 'EM_ANDAMENTO'"
-              class="btn-success"
-              (click)="finalizarTicket(ticket); $event.stopPropagation()">
+      <button
+        *ngIf="tipoDeUsuario == 'ADMIN' && ticket.status == 'EM_ANDAMENTO'"
+        class="btn-success"
+        (click)="finalizarTicket(ticket); $event.stopPropagation()"
+      >
         Finalizar
       </button>
-      <button *ngIf="tipoDeUsuario == 'ADMIN' && ticket.status == 'EM_ANDAMENTO'"
-              class="btn-success"
-              (click)="reabrirTicket(ticket); $event.stopPropagation()">
+      <button
+        *ngIf="tipoDeUsuario == 'ADMIN' && ticket.status == 'EM_ANDAMENTO'"
+        class="btn-success"
+        (click)="reabrirTicket(ticket); $event.stopPropagation()"
+      >
         Sair
       </button>
-      <button *ngIf="tipoDeUsuario == 'ADMIN' && (ticket.status == 'CANCELADO' || ticket.status == 'SOLUCIONADO')"
-              class="btn-success"
-              (click)="reabrirTicket(ticket); $event.stopPropagation()">
+      <button
+        *ngIf="tipoDeUsuario == 'ADMIN' && (ticket.status == 'CANCELADO' || ticket.status == 'SOLUCIONADO')"
+        class="btn-success"
+        (click)="reabrirTicket(ticket); $event.stopPropagation()"
+      >
         Reabrir
       </button>
-      <button *ngIf="tipoDeUsuario == 'ADMIN' && ticket.status != 'CANCELADO'"
-              class="btn-danger"
-              (click)="cancelarTicket(ticket); $event.stopPropagation()">
+      <button
+        *ngIf="tipoDeUsuario == 'ADMIN' && ticket.status != 'CANCELADO'"
+        class="btn-danger"
+        (click)="cancelarTicket(ticket); $event.stopPropagation()"
+      >
         Cancelar
       </button>
-      <button *ngIf="tipoDeUsuario == 'Usuarios' && ticket.status == 'ABERTO'"
-              class="btn-danger"
-              (click)="cancelarTicket(ticket); $event.stopPropagation()">
+      <button
+        *ngIf="tipoDeUsuario == 'Usuarios' && ticket.status == 'ABERTO'"
+        class="btn-danger"
+        (click)="cancelarTicket(ticket); $event.stopPropagation()"
+      >
         Cancelar
       </button>
     </div>
   </div>
 </div>
 
-
 <ng-template #modalTicketDetails>
   <div class="modal-header">
-    <!--se funcao for Criar, mostrar "Criar Novo Ticket" -->
-    <h5 class="modal-title" id="exampleModalLabel" *ngIf="funcao === 'Criar'">Criar Novo Ticket</h5>
-    <!--se funcao for Atualizar, mostrar "Atualizar Ticket" -->
-    <h5 class="modal-title" id="exampleModalLabel" *ngIf="funcao === 'Editar'">Editar Ticket</h5>
+    <!-- Se funcao for Criar, mostrar "Criar Novo Ticket" -->
+    <h5 class="modal-title" id="exampleModalLabel" *ngIf="funcao === 'Criar'">
+      Criar Novo Ticket
+    </h5>
+    <!-- Se funcao for Atualizar, mostrar "Atualizar Ticket" -->
+    <h5 class="modal-title" id="exampleModalLabel" *ngIf="funcao === 'Editar'">
+      Editar Ticket
+    </h5>
     <button
       type="button"
       class="btn-close"
@@ -96,22 +112,32 @@
     ></button>
   </div>
   <div class="modal-body">
-    <app-admindetalhes [TicketList]="ticketEdit" [funcao]="funcao" (retorno)="retornar($event)"></app-admindetalhes>
+    <app-admindetalhes
+      [TicketList]="ticketEdit"
+      [funcao]="funcao"
+      (retorno)="retornar($event)"
+    ></app-admindetalhes>
   </div>
 </ng-template>
 
 <ng-template #modalTicketShow>
   <div class="modal-header">
-    <h5 class="modal-title" id="exampleModalLabel">Ticket #{{ ticketEdit.id }}</h5>
+    <h5 class="modal-title" id="exampleModalLabel">
+      Ticket #{{ ticketEdit.id }}
+    </h5>
     <button
       type="button"
       class="btn-close"
       aria-label="Close"
       (click)="onClose()"
-    ></button><h1></h1>
+    ></button>
   </div>
   <div class="modal-body">
-    <app-ticketshow [TicketList]="ticketEdit" [tipoDeUsuario]="tipoDeUsuario" [login]="login" (retorno)="retornar($event)"></app-ticketshow>
+    <app-ticketshow
+      [TicketList]="ticketEdit"
+      [tipoDeUsuario]="tipoDeUsuario"
+      [login]="login"
+      (retorno)="retornar($event)"
+    ></app-ticketshow>
   </div>
-
-
+</ng-template>

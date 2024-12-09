@@ -1,16 +1,16 @@
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-  <!-- Container wrapper -->
+<!-- Barra de navegação -->
+<nav class="navbar navbar-expand-lg">
   <div class="container-fluid">
-    <!-- Toggle button -->
-    <button
-      class="navbar-toggler"
-      type="button"
-      (click)="centered.toggle()"
-      aria-controls="navbarCenteredExample"
-      aria-expanded="false"
-      aria-label="Toggle navigation"
-    >
-      <i class="fas fa-bars"></i>
+    <!-- Texto indicando o tipo de usuário -->
+    <span class="navbar-text text-white me-auto">
+      USUÁRIO: {{ tipoDeUsuario === 'ADMIN' ? 'ADMIN' : 'ALUNO' }}
+    </span>
+
+    <!-- Botões "Principal" e "Busca Avançada" -->
+    <button class="btn btn-principal" (click)="irParaPrincipal()">PRINCIPAL</button>
+    <button class="btn btn-advanced" (click)="toggleBuscaAvancada()">
+      BUSCA AVANÇADA
+      <i [class]="exibirBuscaAvancada ? 'fas fa-chevron-up' : 'fas fa-chevron-down'"></i>
     </button>
 
     <!-- Collapsible wrapper -->
@@ -33,7 +33,7 @@
           <a class="nav-link" href="/admin/principal/pendentes">PENDENTES</a>
         </li>
         <li *ngIf="tipoDeUsuario === 'ADMIN'" class="nav-item">
-          <a class="nav-link" href="/admin/principal/andamento">EM ANDAMENTO</a>
+          <a class="nav-link" href="/admin/principal/andamento">EM-ANDAMENTO</a>
         </li>
         <li *ngIf="tipoDeUsuario === 'ADMIN'" class="nav-item">
           <a class="nav-link" href="/admin/principal/concluidos">CONCLUIDOS</a>
@@ -58,9 +58,22 @@
           <a class="nav-link" href="/login">SAIR</a>
         </li>
       </ul>
-      <!-- Left links -->
     </div>
-    <!-- Collapsible wrapper -->
+
+    <!-- Botão "SAIR" -->
+    <button class="btn btn-logout ms-auto" (click)="openLogoutModal()">SAIR</button>
   </div>
-  <!-- Container wrapper -->
 </nav>
+
+<!-- Modal -->
+<div *ngIf="showModal" class="modal-overlay">
+  <div class="modal-content">
+    <h4>SISTEMA NOTIFICA</h4>
+    <p>Você tem certeza que deseja sair?</p>
+    <div class="modal-buttons">
+      <button (click)="confirmLogout()">Sim</button>
+      <button (click)="closeModal()">Não</button>
+    </div>
+  </div>
+</div>
+
