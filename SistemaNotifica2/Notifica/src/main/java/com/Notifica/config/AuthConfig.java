@@ -34,6 +34,7 @@ public class AuthConfig {
                 .cors(cors -> cors.disable())  // Cors gerenciado manualmente com o filtro CORS
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/login").permitAll()  // Permite acesso ao login sem autenticação
+                        .requestMatchers("/image/download/**").permitAll()  // Permite acesso às imagens sem autenticação
                         .requestMatchers("/h2-console").permitAll()  // Permite acesso à H2 console
                         .anyRequest().authenticated())  // Exige autenticação para todas as outras requisições
                 .authenticationProvider(authenticationProvider)

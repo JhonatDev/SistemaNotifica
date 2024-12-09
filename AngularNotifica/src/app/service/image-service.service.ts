@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../environments/environment';
 
@@ -11,15 +11,30 @@ export class ImageUploadService {
 
   constructor(private http: HttpClient) {}
 
+  // Método para obter os cabeçalhos com o token
+  private getAuthHeaders(): HttpHeaders {
+    const token = localStorage.getItem('token'); // Recupera o token JWT armazenado
+    return new HttpHeaders().set('Authorization', `Bearer ${token}`);
+  }
+
   // Método para fazer o upload da imagem
   uploadImage(file: File): Observable<any> {
     const formData = new FormData();
     formData.append('image', file);
-    return this.http.post(`${this.baseUrl}/upload`, formData, { responseType: 'text' });
+
+    const headers = this.getAuthHeaders(); // Adiciona o cabeçalho Authorization
+    return this.http.post(`${this.baseUrl}/upload`, formData, {
+      headers,
+      responseType: 'text',
+    });
   }
 
   // Método para deletar a imagem
   deleteImage(fileName: string): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/delete/${fileName}`, { responseType: 'text' });
+    const headers = this.getAuthHeaders(); // Adiciona o cabeçalho Authorization
+    return this.http.delete(`${this.baseUrl}/delete/${fileName}`, {
+      headers,
+      responseType: 'text',
+    });
   }
 }

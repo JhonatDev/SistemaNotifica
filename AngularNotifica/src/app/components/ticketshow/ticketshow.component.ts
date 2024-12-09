@@ -6,7 +6,6 @@ import { MdbModalModule, MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit
 import { TicktsService } from '../../service/tickts/tickts.service';
 import { Tickts } from '../../models/tickts/tickts';
 import { SubTipoProblemaService } from '../../service/SubTipoProblema/sub-tipo-problema.service';
-import { SharedService } from '../../service/shared.service';
 import { ImageUploadService } from '../../service/image-service.service';
 
 @Component({
@@ -23,7 +22,7 @@ import { ImageUploadService } from '../../service/image-service.service';
 })
 export class TicketshowComponent implements OnInit {
   @Input() TicketList!: Tickts;
-  @Input() tipoDeUsuario!: any;
+  @Input() tipoDeUsuario!: string;
   @Input() login!: string;
   @Output() retorno = new EventEmitter<any>();
 
@@ -37,12 +36,11 @@ export class TicketshowComponent implements OnInit {
   constructor(
     private ticktsService: TicktsService,
     private subTipoProblemaService: SubTipoProblemaService,
-    private SharedService: SharedService,
     private imageUploadService: ImageUploadService
   ) {}
 
   ngOnInit(): void {
-    
+
   }
 
   edit(ticket: Tickts) {

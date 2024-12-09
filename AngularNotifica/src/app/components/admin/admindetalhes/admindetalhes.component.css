@@ -120,3 +120,36 @@
   width: 100%;
   box-sizing: border-box;
 }
+
+#outroLocal {
+  border-color: #34d802;
+  background-color: #292929;
+  color: #ffffff;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#outroTipoProblema {
+  border-color: #34d802;
+  background-color: #292929;
+  color: #ffffff;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+#outroSubtipoProblema {
+  border-color: #34d802;
+  background-color: #292929;
+  color: #ffffff;
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  width: 100%;
+  box-sizing: border-box;
+}

@@ -1,6 +1,5 @@
 <div class="btn-container">
   <button
-  *ngIf="tipoDeUsuario === 'Usuarios'"
     (click)="onCriar()"
     type="button"
     class="btn btn-info btn-rounded"
@@ -40,7 +39,7 @@
     </div>
     <div class="actions">
       <button
-        *ngIf="tipoDeUsuario == 'ADMIN' || tipoDeUsuario == 'Usuarios' && ticket.status == 'ABERTO'"
+        *ngIf="tipoDeUsuario == 'admin' || tipoDeUsuario == 'user' && ticket.status == 'ABERTO'"
         class="btn-primary"
         id="botaoEditar"
         (click)="edit(ticket); $event.stopPropagation()"
@@ -48,49 +47,49 @@
         Editar
       </button>
       <button
-        *ngIf="tipoDeUsuario == 'ADMIN' && ticket.status == 'CANCELADO'"
+        *ngIf="tipoDeUsuario == 'admin' && ticket.status == 'CANCELADO'"
         class="btn-danger"
         (click)="deletar(ticket); $event.stopPropagation()"
       >
         Excluir
       </button>
       <button
-        *ngIf="tipoDeUsuario == 'ADMIN' && ticket.status == 'ABERTO'"
+        *ngIf="tipoDeUsuario == 'admin' && ticket.status == 'ABERTO'"
         class="btn-success"
         (click)="pegarTicket(ticket); $event.stopPropagation()"
       >
         Pegar
       </button>
       <button
-        *ngIf="tipoDeUsuario == 'ADMIN' && ticket.status == 'EM_ANDAMENTO'"
+        *ngIf="tipoDeUsuario == 'admin' && ticket.status == 'EM_ANDAMENTO'"
         class="btn-success"
         (click)="finalizarTicket(ticket); $event.stopPropagation()"
       >
         Finalizar
       </button>
       <button
-        *ngIf="tipoDeUsuario == 'ADMIN' && ticket.status == 'EM_ANDAMENTO'"
+        *ngIf="tipoDeUsuario == 'admin' && ticket.status == 'EM_ANDAMENTO'"
         class="btn-success"
         (click)="reabrirTicket(ticket); $event.stopPropagation()"
       >
         Sair
       </button>
       <button
-        *ngIf="tipoDeUsuario == 'ADMIN' && (ticket.status == 'CANCELADO' || ticket.status == 'SOLUCIONADO')"
+        *ngIf="tipoDeUsuario == 'admin' && (ticket.status == 'CANCELADO' || ticket.status == 'SOLUCIONADO')"
         class="btn-success"
         (click)="reabrirTicket(ticket); $event.stopPropagation()"
       >
         Reabrir
       </button>
       <button
-        *ngIf="tipoDeUsuario == 'ADMIN' && ticket.status != 'CANCELADO'"
+        *ngIf="tipoDeUsuario == 'admin' && ticket.status != 'CANCELADO'"
         class="btn-danger"
         (click)="cancelarTicket(ticket); $event.stopPropagation()"
       >
         Cancelar
       </button>
       <button
-        *ngIf="tipoDeUsuario == 'Usuarios' && ticket.status == 'ABERTO'"
+        *ngIf="tipoDeUsuario == 'user' && ticket.status == 'ABERTO'"
         class="btn-danger"
         (click)="cancelarTicket(ticket); $event.stopPropagation()"
       >
@@ -112,6 +111,7 @@
     </h5>
     <button
       type="button"
+      id="botaoFechar"
       class="btn-close"
       aria-label="Close"
       (click)="onClose()"
@@ -133,6 +133,7 @@
     </h5>
     <button
       type="button"
+      id="botaoFechar"
       class="btn-close"
       aria-label="Close"
       (click)="onClose()"

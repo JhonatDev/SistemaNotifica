@@ -4,6 +4,11 @@
   gap: 0.5rem;
 }
 
+#botaoFechar {
+  background-color: #dc3545;
+}
+
+
 .tickets-grid {
   display: grid;
   gap: 0.75rem;

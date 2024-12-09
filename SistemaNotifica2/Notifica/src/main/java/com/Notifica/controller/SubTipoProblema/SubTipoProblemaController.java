@@ -29,7 +29,7 @@ public class SubTipoProblemaController {
 
     // cria um novo subtipo de problema
     @PostMapping("/criar/{tipoProblema}/{subtipoProblema}")
-    public ResponseEntity<SubTipoProblema> criarSubTipoProblema(@Valid @PathVariable String tipoProblema, @PathVariable String subtipoProblema) {
+    public ResponseEntity<SubTipoProblema> criarSubTipoProblema(@Valid @RequestHeader("Authorization") String token, @PathVariable String tipoProblema, @PathVariable String subtipoProblema) {
         SubTipoProblema subTipoProblema = new SubTipoProblema();
         subTipoProblema.setTipoProblema(SubTipoProblema.TipoProblema.valueOf(tipoProblema));
         subTipoProblema.setSubtipoProblema(subtipoProblema);
@@ -55,7 +55,7 @@ public class SubTipoProblemaController {
 
     // retorna um subtipo de problema por tipo de problema
     @GetMapping("/listar/{tipoProblema}")
-    public ResponseEntity<List<SubTipoProblema>> getSubTipoProblemaByTipoProblema(@Valid @PathVariable String tipoProblema) {
+    public ResponseEntity<List<SubTipoProblema>> getSubTipoProblemaByTipoProblema(@Valid @RequestHeader("Authorization") String token, @PathVariable String tipoProblema ) {
         try {
             TipoProblema tipo = TipoProblema.valueOf(tipoProblema.toUpperCase());
             List<SubTipoProblema> subTipos = subTipoProblemaService.getSubTipoProblemaByTipoProblema(tipo);
@@ -67,7 +67,7 @@ public class SubTipoProblemaController {
 
     // exclui um subtipo de problema por SubtipoProblema
     @DeleteMapping("/deletar/{subtipoProblema}")
-    public ResponseEntity<Status> deleteSubTipoProblema(@PathVariable String subtipoProblema) {
+    public ResponseEntity<Status> deleteSubTipoProblema(@PathVariable @RequestHeader("Authorization") String token, String subtipoProblema) {
         try {
             subTipoProblemaService.deleteSubTipoProblema(subtipoProblema);
             return new ResponseEntity<>(HttpStatus.OK);

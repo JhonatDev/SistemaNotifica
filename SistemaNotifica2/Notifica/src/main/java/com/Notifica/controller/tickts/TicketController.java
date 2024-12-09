@@ -29,21 +29,21 @@ public class TicketController {
 
     // Método para criar um ticket
     @PostMapping("/criar")
-    public ResponseEntity<Ticket> criarTicket(@Valid @RequestBody Ticket ticket) {
+    public ResponseEntity<Ticket> criarTicket(@Valid @RequestHeader("Authorization") String token, @RequestBody Ticket ticket) {
         Ticket ticketCriado = ticketService.criarTicket(ticket);
         return new ResponseEntity<>(ticketCriado, HttpStatus.CREATED);
     }
 
     // Método para listar todos os tickets
     @GetMapping("/listar")
-    public ResponseEntity<List<Ticket>> listarTickets() {
+    public ResponseEntity<List<Ticket>> listarTickets(@RequestHeader("Authorization") String token) {
         List<Ticket> tickets = ticketService.listarTickets();
         return new ResponseEntity<>(tickets, HttpStatus.OK);
     }
 
     // Método para buscar um ticket
     @GetMapping("/buscarID/{id}")
-    public ResponseEntity<Ticket> buscarTicket(@PathVariable Long id) {
+    public ResponseEntity<Ticket> buscarTicket(@RequestHeader("Authorization") String token, @PathVariable Long id) {
         try {
             Optional<Ticket> ticket = ticketService.buscarTicket(id);
             return new ResponseEntity<>(ticket.get(), HttpStatus.OK);
@@ -54,7 +54,7 @@ public class TicketController {
 
     // Método para atualizar um ticket
     @PutMapping("/atualizar/{id}")
-    public ResponseEntity<Ticket> atualizarTicket(@Valid @PathVariable Long id, @RequestBody Ticket ticket) {
+    public ResponseEntity<Ticket> atualizarTicket(@Valid @RequestHeader("Authorization") String token, @PathVariable Long id, @RequestBody Ticket ticket) {
         Ticket ticketAtualizado = ticketService.atualizarTicket(id, ticket);
         return new ResponseEntity<>(ticketAtualizado, HttpStatus.OK);
         
@@ -62,7 +62,7 @@ public class TicketController {
 
     // Método para deletar um ticket
     @DeleteMapping("/deletar/{id}")
-    public ResponseEntity<Map<String, String>> deletarTicket(@Valid @PathVariable Long id) {
+    public ResponseEntity<Map<String, String>> deletarTicket(@Valid @RequestHeader("Authorization") String token, @PathVariable Long id) {
         ticketService.deletarTicket(id);
     
         // Criar um objeto JSON como resposta
@@ -75,7 +75,7 @@ public class TicketController {
 
     // Métodos para iniciar, solucionar e cancelar um ticket
     @PutMapping("/iniciar/{funcionarioResponsavel}/{id}")
-    public ResponseEntity<Ticket> iniciarTicket(@Valid @PathVariable Long id, @PathVariable String funcionarioResponsavel) { 
+    public ResponseEntity<Ticket> iniciarTicket(@Valid @RequestHeader("Authorization") String token, @PathVariable Long id, @PathVariable String funcionarioResponsavel) { 
         Ticket ticketIniciado = ticketService.iniciarTicket(id, funcionarioResponsavel);
          return new ResponseEntity<>(ticketIniciado, HttpStatus.OK);
         
@@ -83,7 +83,7 @@ public class TicketController {
 
     // Método para voltar um ticket para aberto
     @PutMapping("/voltarAberto/{id}")
-    public ResponseEntity<Ticket> voltarAberto(@PathVariable Long id) {
+    public ResponseEntity<Ticket> voltarAberto(@RequestHeader("Authorization") String token, @PathVariable Long id) {
         Ticket ticketAberto = ticketService.voltarTicketParaAberto(id);
         return new ResponseEntity<>(ticketAberto, HttpStatus.OK);
         
@@ -91,49 +91,49 @@ public class TicketController {
 
     // Método para solucionar um ticket
     @PutMapping("/solucionar/{id}")
-    public ResponseEntity<Ticket> solucionarTicket(@Valid @PathVariable Long id) {
+    public ResponseEntity<Ticket> solucionarTicket(@Valid @RequestHeader("Authorization") String token, @PathVariable Long id) {
         Ticket ticketSolucionado = ticketService.solucionarTicket(id);
         return new ResponseEntity<>(ticketSolucionado, HttpStatus.OK);
     }
 
     // Método para cancelar um ticket
     @PutMapping("/cancelar/{id}")
-    public ResponseEntity<Ticket> cancelarTicket(@Valid @PathVariable Long id) {
+    public ResponseEntity<Ticket> cancelarTicket(@Valid @RequestHeader("Authorization") String token, @PathVariable Long id) {
         Ticket ticketCancelado = ticketService.cancelarTicket(id);
         return new ResponseEntity<>(ticketCancelado, HttpStatus.OK);
     }
 
     // Método para listar tickets por status
     @GetMapping("/listarPorStatus/{status}")
-    public ResponseEntity<List<Ticket>> listarTicketsPorStatus(@Valid @PathVariable Ticket.Status status) {
+    public ResponseEntity<List<Ticket>> listarTicketsPorStatus(@Valid @RequestHeader("Authorization") String token, @PathVariable Ticket.Status status) {
         List<Ticket> ticketsPorStatus = ticketService.listarTicketsPorStatus(status);
         return new ResponseEntity<>(ticketsPorStatus, HttpStatus.OK);
     }
 
     // Método para buscar tickets por RA e status
     @GetMapping("/buscarPorRaEStatus/{raAluno}/{status}")
-    public ResponseEntity<List<Ticket>> buscarTicketsPorRaEStatus(@Valid @PathVariable String raAluno, @Valid @PathVariable Ticket.Status status) {
+    public ResponseEntity<List<Ticket>> buscarTicketsPorRaEStatus(@Valid @RequestHeader("Authorization") String token, @PathVariable String raAluno, @Valid @PathVariable Ticket.Status status) {
         List<Ticket> ticketsPorRaEStatus = ticketService.buscarTicketsPorRaEStatus(raAluno, status);
         return new ResponseEntity<>(ticketsPorRaEStatus, HttpStatus.OK);
     }
 
     // Método para buscar tickets por RA
     @GetMapping("/buscarPorRa/{raAluno}")
-    public ResponseEntity<List<Ticket>> buscarTicketsPorRa(@Valid @PathVariable String raAluno) {
+    public ResponseEntity<List<Ticket>> buscarTicketsPorRa(@Valid @RequestHeader("Authorization") String token, @PathVariable String raAluno) {
         List<Ticket> ticketsPorRa = ticketService.buscarTicketsPorRa(raAluno);
         return new ResponseEntity<>(ticketsPorRa, HttpStatus.OK);
     }
 
     // Método para buscar tickets por ra e status sem cancelados
     @GetMapping("/buscarPorRaEStatusSemCancelados/{raAluno}/{status}")
-    public ResponseEntity<List<Ticket>> buscarTicketsPorRaEStatusSemCancelados(@Valid @PathVariable String raAluno, @Valid @PathVariable Ticket.Status status) {
+    public ResponseEntity<List<Ticket>> buscarTicketsPorRaEStatusSemCancelados(@Valid @RequestHeader("Authorization") String token, @PathVariable String raAluno, @Valid @PathVariable Ticket.Status status) {
         List<Ticket> ticketsPorRaEStatusSemCancelados = ticketService.buscarTicketsPorRaEStatusSemCancelados(raAluno, status);
         return new ResponseEntity<>(ticketsPorRaEStatusSemCancelados, HttpStatus.OK);
     }
 
     // Método para buscar tickets por ra sem cancelados
     @GetMapping("/buscarPorRaSemCancelados/{raAluno}")
-    public ResponseEntity<List<Ticket>> buscarTicketsPorRaSemCancelados(@Valid @PathVariable String raAluno) {
+    public ResponseEntity<List<Ticket>> buscarTicketsPorRaSemCancelados(@Valid @RequestHeader("Authorization") String token, @PathVariable String raAluno) {
         List<Ticket> ticketsPorRaSemCancelados = ticketService.buscarTicketsPorRaSemCancelados(raAluno);
         return new ResponseEntity<>(ticketsPorRaSemCancelados, HttpStatus.OK);
     }

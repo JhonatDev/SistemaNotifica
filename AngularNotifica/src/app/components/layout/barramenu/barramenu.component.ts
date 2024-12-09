@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
-import { SharedService } from '../../../service/shared.service';
 import { CommonModule } from '@angular/common'; // Import necessário para *ngIf
+import { LoginService } from '../../../service/login-service.service';
+import { log } from 'console';
 
 @Component({
   selector: 'app-barramenu',
   standalone: true,
   templateUrl: './barramenu.component.html',
   styleUrls: ['./barramenu.component.scss'],
-  imports: [CommonModule], 
+  imports: [CommonModule],
 })
 export class BarramenuComponent {
   tipoDeUsuario!: string;
@@ -15,11 +16,11 @@ export class BarramenuComponent {
   listaLinks: Array<{ texto: string; href: string }> = [];
   showModal: boolean = false; // Variável para controlar o modal
 
-  constructor(private sharedService: SharedService) {
-    this.tipoDeUsuario = this.sharedService.tipoUsuario;
+  constructor(private loginService: LoginService) {
+    this.tipoDeUsuario = this.loginService.jwtDecode()?.sub || '';
 
     // Define os links conforme o tipo de usuário
-    this.listaLinks = this.tipoDeUsuario === 'ADMIN'
+    this.listaLinks = this.tipoDeUsuario === 'admin'
       ? [
           { texto: 'CANCELADO', href: '/admin/principal/cancelados' },
           { texto: 'PENDENTES', href: '/admin/principal/pendentes' },
@@ -35,8 +36,8 @@ export class BarramenuComponent {
 
   irParaPrincipal(): void {
     // Lógica para redirecionar o usuário
-    const rotaPrincipal = this.tipoDeUsuario === 'ADMIN' 
-      ? '/admin/principal' 
+    const rotaPrincipal = this.tipoDeUsuario === 'admin'
+      ? '/admin/principal'
       : '/aluno/principal';
     window.location.href = rotaPrincipal;
   }

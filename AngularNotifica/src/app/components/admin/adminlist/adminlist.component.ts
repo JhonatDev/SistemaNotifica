@@ -6,7 +6,8 @@ import { TicktsService } from '../../../service/tickts/tickts.service';
 import { Tickts } from '../../../models/tickts/tickts';
 import { AdmindetalhesComponent } from '../admindetalhes/admindetalhes.component';
 import { TicketshowComponent } from '../../ticketshow/ticketshow.component';
-import { SharedService } from '../../../service/shared.service';
+import { LoginService } from '../../../service/login-service.service';
+import { log } from 'console';
 
 
 @Component({
@@ -41,7 +42,7 @@ export class AdminlistComponent implements OnInit {
   funcao!: any;
   constructor(
     private ticktsService: TicktsService,
-    private SharedService: SharedService,
+    private loginService: LoginService,
     private modalService: MdbModalService,
     private router: Router
   ) {}
@@ -54,8 +55,8 @@ export class AdminlistComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.login = this.SharedService.ultimoLogin;
-    this.tipoDeUsuario = this.SharedService.tipoUsuario;
+    this.login = this.loginService.jwtDecode()?.username || '';
+    this.tipoDeUsuario = this.loginService.jwtDecode()?.sub || '';
 
     document.documentElement.style.setProperty('--mdb-body-bg', '#00000000');//muda a cor do fundo
     document.documentElement.style.setProperty(
@@ -122,7 +123,7 @@ export class AdminlistComponent implements OnInit {
     // Escolhe o método de listagem com base no tipo de site
     const status = getStatusByTipoSite(this.tipoSite);
 
-    if (this.tipoDeUsuario === 'ADMIN') {
+    if (this.tipoDeUsuario === 'admin') {
         if (status) {
             tipoDeLista = this.ticktsService.listarPorStatus(status);
             console.log(`Listando tickets ${status} para ${this.tipoDeUsuario}`);
@@ -130,7 +131,7 @@ export class AdminlistComponent implements OnInit {
             tipoDeLista = this.ticktsService.listar();
             console.log('Listando todos os tickets para Admin');
         }
-    } else if (this.tipoDeUsuario === 'Usuarios') { // Corrigido para fora do bloco ADMIN
+    } else if (this.tipoDeUsuario === 'user') { // Corrigido para fora do bloco ADMIN
         if (status) {
             tipoDeLista = this.ticktsService.listarPorUsuarioStatus(this.login, status);
             console.log(`Listando tickets ${status} para ${this.tipoDeUsuario}`);

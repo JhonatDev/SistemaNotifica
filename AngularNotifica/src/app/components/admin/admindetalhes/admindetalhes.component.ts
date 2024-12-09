@@ -7,8 +7,8 @@ import { TicktsService } from '../../../service/tickts/tickts.service';
 import { Tickts } from '../../../models/tickts/tickts';
 import { SubTipoProblemaService } from '../../../service/SubTipoProblema/sub-tipo-problema.service';
 import { SubTipoProblema } from '../../../models/SubTipoProblema/subtipoproblema';
-import { SharedService } from '../../../service/shared.service';
 import { ImageUploadService } from '../../../service/image-service.service';
+import { LoginService } from '../../../service/login-service.service';
 
 @Component({
   selector: 'app-admindetalhes',
@@ -46,8 +46,8 @@ export class AdmindetalhesComponent {
   constructor(
     private ticktsService: TicktsService,
     private subTipoProblemaService: SubTipoProblemaService,
-    private SharedService: SharedService,
     private imageUploadService: ImageUploadService,
+    private loginService: LoginService,
   ) { }
 
   onError(event: any) {
@@ -76,6 +76,7 @@ export class AdmindetalhesComponent {
   }
 
   uploadImage(): void {
+    this.TicketList.caminhoFoto = 'loading-image.gif';
     if (this.selectedFile) {
       this.imageUploadService.uploadImage(this.selectedFile).subscribe({
         next: (response) => {
@@ -108,7 +109,7 @@ export class AdmindetalhesComponent {
 
   //criar um novo ticket
   criarTicket() {
-    this.TicketList.raAluno = this.SharedService.ultimoLogin;
+    this.TicketList.raAluno = this.loginService.jwtDecode()?.username || '';
     console.log('Novo ticket:', this.TicketList);
     this.ticktsService.criar(this.TicketList).subscribe({
       next: (response) => {

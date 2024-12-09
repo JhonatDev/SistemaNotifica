@@ -29,7 +29,7 @@ public class ImageController {
     private UsuariosServiceOld usuariosService;
 
     @PostMapping("/upload")
-    public ResponseEntity<String> uploadImage(@RequestParam("image") MultipartFile file) {
+    public ResponseEntity<String> uploadImage(@RequestHeader("Authorization") String token, @RequestParam("image") MultipartFile file) {
         if (file.isEmpty()) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Arquivo não enviado");
         }
@@ -54,7 +54,7 @@ public class ImageController {
 
     // deleta a imagem
     @DeleteMapping("/delete/{filename}")
-    public ResponseEntity<String> deleteImage(@PathVariable String filename) {
+    public ResponseEntity<String> deleteImage(@RequestHeader("Authorization") String token, @PathVariable String filename) {
         try {
             Path filePath = Paths.get(UPLOAD_DIR).resolve(filename).normalize();
             File file = filePath.toFile();
@@ -71,7 +71,7 @@ public class ImageController {
 
     // Gera um link para mostrar a imagem em um HTML
     @GetMapping("/ver/{filename}")
-    public ResponseEntity<Resource> viewImage(@PathVariable String filename) {
+    public ResponseEntity<Resource> viewImage(@RequestHeader("Authorization") String token, @PathVariable String filename) {
         try {
             Path filePath = Paths.get(UPLOAD_DIR).resolve(filename).normalize();
             Resource resource = new UrlResource(filePath.toUri());
