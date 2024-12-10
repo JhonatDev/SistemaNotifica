@@ -78,6 +78,14 @@
   align-items: center;
 }
 
+#texto {
+  color: #ffffff;
+}
+
+.ticket-header span {
+  color: #ffffff;
+}
+
 .ticket-header h5 {
   margin: 0;
   font-size: 0.85rem;

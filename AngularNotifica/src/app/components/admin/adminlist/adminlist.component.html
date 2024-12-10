@@ -19,9 +19,9 @@
       <h5>Ticket #{{ ticket.id }}</h5>
       <span class="status">{{ ticket.status }}</span>
     </div>
-    <p class="resumo">{{ ticket.resumoProblema }}</p>
-    <p class="local">Local: {{ ticket.local }}</p>
-    <p class="data">
+    <p id="texto" class="resumo">{{ ticket.resumoProblema }}</p>
+    <p id="texto" class="local">Local: {{ ticket.local }}</p>
+    <p id="texto" class="data">
       {{
         ticket.dataSolucao
           ? 'Resolvido:' + (ticket.dataSolucao | date: 'short')
