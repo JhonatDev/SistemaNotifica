@@ -44,7 +44,7 @@
 
     <!-- Mostrar o campo "Outro Subtipo de Problema" apenas se "subtipoProblema" for "OUTRO" -->
      <div id="title" *ngIf="TicketList.subtipoProblema === 'OUTRO'">
-      <label for="outroSubtipoProblema">Outro Subtipo de Problema:</label>
+      <label id="title" for="outroSubtipoProblema">Outro Subtipo de Problema:</label>
       <input id="outroSubtipoProblema" [(ngModel)]="TicketList.outroSubtipoProblema" name="outroSubtipoProblema" required />
     </div>
 
