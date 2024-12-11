@@ -37,7 +37,7 @@ public class SecurityManager {
                     UsuarioEntity admin = new UsuarioEntity();
                     admin.setUsername("admin");
                     admin.setPassword(passwordEncoder.encode("admin"));  // Codifica a senha
-                    admin.setRole("ROLE_ADMIN");  // Atribui o papel de administrador
+                    admin.setRole("admin");  // Atribui o papel de administrador
                     usuarioRepository.save(admin);  // Salva o usuário no banco de dados
                 }
             );
@@ -49,7 +49,7 @@ public class SecurityManager {
                     UsuarioEntity user = new UsuarioEntity();
                     user.setUsername("user");
                     user.setPassword(passwordEncoder.encode("user"));  // Codifica a senha
-                    user.setRole("ROLE_USER");  // Atribui o papel de usuário
+                    user.setRole("user");  // Atribui o papel de usuário
                     usuarioRepository.save(user);  // Salva o usuário no banco de dados
                 }
             );

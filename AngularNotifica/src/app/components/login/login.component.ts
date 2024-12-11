@@ -38,7 +38,7 @@ export class LoginComponent {
         next: (response) => {
           console.log('Login bem-sucedido:', response);
           this.loginService.addToken(response);
-          let tipoUsuario = this.loginService.jwtDecode()?.sub;
+          let tipoUsuario = this.loginService.jwtDecode()?.role;
           console.log('Tipo de usuário:', tipoUsuario);
 
           if (tipoUsuario === 'admin') {
