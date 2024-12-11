@@ -17,7 +17,7 @@ export class BarramenuComponent {
   showModal: boolean = false; // Variável para controlar o modal
 
   constructor(private loginService: LoginService) {
-    this.tipoDeUsuario = this.loginService.jwtDecode()?.sub || '';
+    this.tipoDeUsuario = this.loginService.jwtDecode()?.role || '';
 
     // Define os links conforme o tipo de usuário
     this.listaLinks = this.tipoDeUsuario === 'admin'

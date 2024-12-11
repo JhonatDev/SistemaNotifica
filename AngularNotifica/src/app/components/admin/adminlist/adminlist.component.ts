@@ -60,7 +60,7 @@ export class AdminlistComponent implements OnInit {
 
   ngOnInit(): void {
     this.login = this.loginService.jwtDecode()?.username || '';
-    this.tipoDeUsuario = this.loginService.jwtDecode()?.sub || '';
+    this.tipoDeUsuario = this.loginService.jwtDecode()?.role || '';
 
     // Verificação se tem token
     if (!this.loginService.jwtDecode()) {
