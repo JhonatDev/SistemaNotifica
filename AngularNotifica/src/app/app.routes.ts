@@ -1,9 +1,6 @@
-
 import { Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { PrincipalComponent } from './components/principal/principal.component';
-import path from 'path';
-import { Component } from '@angular/core';
 import { AdminlistComponent } from './components/admin/adminlist/adminlist.component';
 import { AdmindetalhesComponent } from './components/admin/admindetalhes/admindetalhes.component';
 import { TicketshowComponent } from './components/ticketshow/ticketshow.component';
