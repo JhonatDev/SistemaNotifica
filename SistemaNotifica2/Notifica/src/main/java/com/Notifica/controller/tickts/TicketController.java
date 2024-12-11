@@ -3,6 +3,7 @@ package com.Notifica.controller.tickts;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -61,6 +62,7 @@ public class TicketController {
     }
 
     // Método para deletar um ticket
+    @PreAuthorize("hasRole('admin')")
     @DeleteMapping("/deletar/{id}")
     public ResponseEntity<Map<String, String>> deletarTicket(@Valid @RequestHeader("Authorization") String token, @PathVariable Long id) {
         ticketService.deletarTicket(id);
@@ -74,6 +76,7 @@ public class TicketController {
     }
 
     // Métodos para iniciar, solucionar e cancelar um ticket
+    @PreAuthorize("hasRole('admin')")
     @PutMapping("/iniciar/{funcionarioResponsavel}/{id}")
     public ResponseEntity<Ticket> iniciarTicket(@Valid @RequestHeader("Authorization") String token, @PathVariable Long id, @PathVariable String funcionarioResponsavel) { 
         Ticket ticketIniciado = ticketService.iniciarTicket(id, funcionarioResponsavel);
@@ -82,6 +85,7 @@ public class TicketController {
     }
 
     // Método para voltar um ticket para aberto
+    @PreAuthorize("hasRole('admin')")
     @PutMapping("/voltarAberto/{id}")
     public ResponseEntity<Ticket> voltarAberto(@RequestHeader("Authorization") String token, @PathVariable Long id) {
         Ticket ticketAberto = ticketService.voltarTicketParaAberto(id);
@@ -90,6 +94,7 @@ public class TicketController {
     }
 
     // Método para solucionar um ticket
+    @PreAuthorize("hasRole('admin')")
     @PutMapping("/solucionar/{id}")
     public ResponseEntity<Ticket> solucionarTicket(@Valid @RequestHeader("Authorization") String token, @PathVariable Long id) {
         Ticket ticketSolucionado = ticketService.solucionarTicket(id);
