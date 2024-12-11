@@ -50,7 +50,7 @@
 
     <label id="title" for="FotoInput">Foto:</label>
     <input id="FotoInput" type="file" accept="image/*" (change)="onFileSelected($event)"/>
-    <div class="conteiner-imagem" type="" onclick="document.getElementById('FotoInput').click()">
+    <div class="conteiner-imagem" (click)="triggerFileInput()">
       <img [src]="servidor + '/image/download/' + TicketList.caminhoFoto" alt="Imagem do Ticket" class="ticket-image" />
     </div>
 

@@ -1,4 +1,4 @@
-import { Component, inject, Input, Output, OnInit, TemplateRef, TrackByFunction, ViewChild, EventEmitter } from '@angular/core';
+import { Component, inject, Input, Output, OnInit, TemplateRef, TrackByFunction, ViewChild, EventEmitter, ChangeDetectorRef } from '@angular/core';
 import { Router, RouterLink } from '@angular/router';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -57,6 +57,7 @@ export class AdmindetalhesComponent {
     private subTipoProblemaService: SubTipoProblemaService,
     private imageUploadService: ImageUploadService,
     private loginService: LoginService,
+    private cdr: ChangeDetectorRef,
   ) { }
 
   onError(event: any) {
@@ -111,6 +112,10 @@ export class AdmindetalhesComponent {
                 });
 
                 this.selectedFile = transformedFile;
+
+                // Força a detecção de mudanças para garantir que a imagem seja atualizada
+                this.cdr.detectChanges();
+
                 this.uploadImage(); // Faça o upload aqui
               }
             }, 'image/png');
@@ -128,24 +133,25 @@ export class AdmindetalhesComponent {
 
 
   uploadImage(): void {
-    this.TicketList.caminhoFoto = 'loading-image.gif';
+    this.TicketList.caminhoFoto = 'loading-image.gif'; // Indicador de carregamento
+    this.cdr.detectChanges(); // Forçar a detecção de mudanças
+
     if (this.selectedFile) {
       this.imageUploadService.uploadImage(this.selectedFile).subscribe({
         next: (response) => {
           console.log('Upload bem-sucedido:', response);
+          this.TicketList.caminhoFoto = this.selectedFile?.name ?? '';
         },
         error: (error) => {
           console.error('Erro no upload:', error);
-          return;
+          this.TicketList.caminhoFoto = 'error-image.png'; // Mostra imagem de erro
         }
       });
     }
-    //esperar 3 segundo para a imagem ser carregada
-    setTimeout(() => {
-      // colocar o nome do arquivo no campo caminhoFoto
-      this.TicketList.caminhoFoto = this.selectedFile?.name ?? '';
-      console.log('Caminho da foto:', this.TicketList.caminhoFoto);
-    }, 2000);
+  }
+
+  triggerFileInput(): void {
+    document.getElementById('FotoInput')?.click();
   }
 
   deledarImagen(): void {
