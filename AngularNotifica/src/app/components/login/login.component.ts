@@ -17,6 +17,8 @@ import { Login } from '../../models/login/login';
 export class LoginComponent {
   login = '';
   senha = ''
+  showModal: boolean = false; // Variável para controlar o modal
+  alert!: string;
 
   router = inject(Router);
 
@@ -38,22 +40,28 @@ export class LoginComponent {
         next: (response) => {
           console.log('Login bem-sucedido:', response);
           this.loginService.addToken(response);
-          let tipoUsuario = this.loginService.jwtDecode()?.sub;
+          let tipoUsuario = this.loginService.jwtDecode()?.role;
           console.log('Tipo de usuário:', tipoUsuario);
 
-          if (tipoUsuario === 'admin') {
+          if (tipoUsuario === 'ROLE_admin') {
             this.router.navigate(['admin/principal']);
-          } else if (tipoUsuario === 'user') {
+          } else if (tipoUsuario === 'ROLE_user') {
             this.router.navigate(['aluno/principal']);
           }
 
         },
         error: (error) => {
           console.error('Erro no login:', error);
-          alert('Erro no login: ' + error.message);
+          this.alert = 'Usuário ou senha inválidos!';
+          this.showModal = true;
 
         }
       });
+  }
+
+  // Fecha o modal
+  closeModal(): void {
+    this.showModal = false;
   }
 
 }

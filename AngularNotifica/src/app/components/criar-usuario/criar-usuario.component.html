@@ -1,0 +1,57 @@
+<div class="container">
+  <div class="card">
+    <div class="card-body">
+      <form class="card-form" (ngSubmit)="onCreateUser()">
+        <!-- Usuário -->
+        <div id="div-input" class="form-outline mb-4">
+          <input
+            type="text"
+            id="usuario"
+            class="form-control"
+            [(ngModel)]="usuario"
+            name="usuario"
+            placeholder="Usuário"
+            required />
+          <label class="form-label" for="usuario">Usuário</label>
+        </div>
+
+        <!-- Senha -->
+        <div id="div-input" class="form-outline mb-4">
+          <input
+            type="password"
+            id="senha"
+            class="form-control"
+            [(ngModel)]="senha"
+            name="senha"
+            placeholder="Senha"
+            required />
+          <label class="form-label" for="senha">Senha</label>
+        </div>
+
+        <!-- Tipo de Usuário -->
+        <div class="form-outline mb-4">
+          <div class="switch__container">
+            <input
+              id="switch-shadow"
+              class="switch switch--shadow"
+              type="checkbox"
+              [(ngModel)]="tipoUsuario"
+              [ngModelOptions]="{standalone: true}" />
+            <label for="switch-shadow"></label>
+            <label class="switch-label"
+              for="switch-shadow">Administrador</label>
+          </div>
+        </div>
+
+        <button type="submit" class="btn btn-success btn-block mb-4">Criar Usuário</button>
+      </form>
+    </div>
+  </div>
+</div>
+<div *ngIf="showModal" class="modal-overlay">
+  <div class="modal-content">
+    <p>{{ alert }}</p>
+    <div class="modal-buttons">
+      <button (click)="closeModal()">ok</button>
+    </div>
+  </div>

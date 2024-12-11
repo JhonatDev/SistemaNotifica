@@ -61,8 +61,12 @@ public class UsuarioService {
                         null,
                         usuario,
                         passwordEncoder.encode(password),
-                        (isAdmin?"admin":"user")
+                        (isAdmin?"ROLE_admin":"ROLE_user")
                 )
         );
+    }
+
+    public UsuarioEntity findByUsername(String username) {
+        return repository.findByUsername(username).orElse(null);
     }
 }

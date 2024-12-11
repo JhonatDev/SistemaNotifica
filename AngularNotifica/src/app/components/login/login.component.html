@@ -39,3 +39,10 @@
     </div>
   </div>
 </div>
+<div *ngIf="showModal" class="modal-overlay">
+  <div class="modal-content">
+    <p>{{ alert }}</p>
+    <div class="modal-buttons">
+      <button (click)="closeModal()">ok</button>
+    </div>
+  </div>

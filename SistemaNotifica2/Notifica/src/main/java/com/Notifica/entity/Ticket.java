@@ -21,6 +21,8 @@ public class Ticket {
     @Column(nullable = false)
     private Local local;
 
+    private String outroLocal;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private TipoProblema tipoProblema;

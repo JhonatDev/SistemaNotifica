@@ -9,12 +9,13 @@ import { TicketshowComponent } from '../../ticketshow/ticketshow.component';
 import { LoginService } from '../../../service/login-service.service';
 import { log } from 'console';
 import { environment } from '../../../../environments/environment';
+import { CriarUsuarioComponent } from '../../criar-usuario/criar-usuario.component';
 
 
 @Component({
   selector: 'app-adminlist',
   standalone: true,
-  imports: [RouterLink, CommonModule, MdbModalModule, AdmindetalhesComponent, TicketshowComponent],
+  imports: [RouterLink, CommonModule, MdbModalModule, AdmindetalhesComponent, TicketshowComponent, CriarUsuarioComponent],
   templateUrl: './adminlist.component.html',
   styleUrls: ['./adminlist.component.css']
 })
@@ -26,6 +27,7 @@ export class AdminlistComponent implements OnInit {
   // Referência do template de modal
   @ViewChild('modalTicketDetails', { static: false }) modalTicketDetails!: TemplateRef<any>;
   @ViewChild('modalTicketShow', { static: false }) modalTicketShow!: TemplateRef<any>;
+  @ViewChild('modalCriarUsuario', { static: false }) modalCriarUsuario!: TemplateRef<any>;
 
   //link para o servidor
   servidor = environment.SERVIDOR;
@@ -46,21 +48,23 @@ export class AdminlistComponent implements OnInit {
   funcao!: any;
   constructor(
     private ticktsService: TicktsService,
-    private loginService: LoginService,
-    private modalService: MdbModalService,
-    private router: Router
+  private loginService: LoginService,
+  private modalService: MdbModalService, // Injeção do serviço de modal
+  private router: Router
   ) {}
 
   // Login do usuário e tipo de usuário
   login!: string;
   tipoDeUsuario!: string;
   tipoSite!: string;
+  showModal: boolean = false; // Variável para controlar o modal
+  alert!: string;
 
 
 
   ngOnInit(): void {
     this.login = this.loginService.jwtDecode()?.username || '';
-    this.tipoDeUsuario = this.loginService.jwtDecode()?.sub || '';
+    this.tipoDeUsuario = this.loginService.jwtDecode()?.role || '';
 
     // Verificação se tem token
     if (!this.loginService.jwtDecode()) {
@@ -110,6 +114,11 @@ export class AdminlistComponent implements OnInit {
     (event.target as HTMLImageElement).src = this.servidor + '/image/download/Untitled.png';
   }
 
+  // Fecha o modal
+  closeModal(): void {
+    this.showModal = false;
+  }
+
   // Listar tickets
   onListar() {
     let tipoDeLista;
@@ -134,15 +143,15 @@ export class AdminlistComponent implements OnInit {
     // Escolhe o método de listagem com base no tipo de site
     const status = getStatusByTipoSite(this.tipoSite);
 
-    if (this.tipoDeUsuario === 'admin') {
+    if (this.tipoDeUsuario === 'ROLE_admin') {
         if (status) {
             tipoDeLista = this.ticktsService.listarPorStatus(status);
             console.log(`Listando tickets ${status} para ${this.tipoDeUsuario}`);
         } else {
             tipoDeLista = this.ticktsService.listar();
-            console.log('Listando todos os tickets para Admin');
+            console.log('Listando todos os tickets para ROLE_admin');
         }
-    } else if (this.tipoDeUsuario === 'user') { // Corrigido para fora do bloco ADMIN
+    } else if (this.tipoDeUsuario === 'ROLE_user') { // Corrigido para fora do bloco ADMIN
         if (status) {
             tipoDeLista = this.ticktsService.listarPorUsuarioStatus(this.login, status);
             console.log(`Listando tickets ${status} para ${this.tipoDeUsuario}`);
@@ -177,6 +186,15 @@ export class AdminlistComponent implements OnInit {
     this.funcao = 'Criar';
     this.modalRef = this.modalService.open(this.modalTicketDetails);
 
+  }
+
+  // Abrir modal para criação de um novo usuário
+  onCriarUsuario() {
+    if (this.modalCriarUsuario) {
+      this.modalRef = this.modalService.open(this.modalCriarUsuario);
+    } else {
+      console.error('Template de modal não encontrado!');
+    }
   }
 
   // Fechar modal
@@ -216,12 +234,14 @@ export class AdminlistComponent implements OnInit {
     this.ticktsService.deletar(ticket.id).subscribe({
         next: (response) => {
             console.log('Exclusão bem-sucedida:', response);
-            alert('Ticket excluído com sucesso!');
+            this.alert = 'Ticket excluído com sucesso!';
+            this.showModal = true;
             this.onListar(); // Atualizar lista após exclusão
         },
         error: (error) => {
             console.error('Erro na exclusão:', error);
-            alert('Erro ao excluir ticket! ' + (error.error?.message || error.message));
+            this.alert = 'Erro ao excluir ticket! ' + error.message;
+            this.showModal = true;
         }
     });
   }
@@ -232,12 +252,14 @@ export class AdminlistComponent implements OnInit {
     this.ticktsService.iniciar(ticket.id, this.login).subscribe({
         next: (response) => {
             console.log('Ticket pego com sucesso:', response);
-            alert('Ticket pego com sucesso!');
+            this.alert = 'Ticket pego com sucesso!';
+            this.showModal = true;
             this.onListar(); // Atualizar lista após pegar ticket
         },
         error: (error) => {
             console.error('Erro ao pegar ticket:', error);
-            alert('Erro ao pegar ticket! ' + (error.error?.message || error.message));
+            this.alert = 'Erro ao pegar ticket! ' + (error.error?.message || error.message);
+            this.showModal = true;
         }
     });
   }
@@ -248,12 +270,13 @@ export class AdminlistComponent implements OnInit {
     this.ticktsService.finalizar(ticket.id).subscribe({
         next: (response) => {
             console.log('Ticket finalizado com sucesso:', response);
-            alert('Ticket finalizado com sucesso!');
+            this.alert = 'Ticket finalizado com sucesso!';
+            this.showModal = true;
             this.onListar(); // Atualizar lista após finalizar ticket
         },
         error: (error) => {
             console.error('Erro ao finalizar ticket:', error);
-            alert('Erro ao finalizar ticket! ' + (error.error?.message || error.message));
+            this.alert = 'Erro ao finalizar ticket! ' + (error.error?.message || error.message);
         }
     });
   }
@@ -264,12 +287,14 @@ export class AdminlistComponent implements OnInit {
     this.ticktsService.reabrir(ticket.id).subscribe({
         next: (response) => {
             console.log('Ticket saiu com sucesso:', response);
-            alert('Ticket saiu com sucesso!');
+            this.alert = 'Ticket saiu com sucesso!';
+            this.showModal = true;
             this.onListar(); // Atualizar lista após sair ticket
         },
         error: (error) => {
             console.error('Erro ao sair ticket:', error);
-            alert('Erro ao sair ticket! ' + (error.error?.message || error.message));
+            this.alert = 'Erro ao sair ticket! ' + (error.error?.message || error.message);
+            this.showModal = true;
         }
     });
 
@@ -281,12 +306,14 @@ export class AdminlistComponent implements OnInit {
     this.ticktsService.cancelar(ticket.id).subscribe({
         next: (response) => {
             console.log('Ticket cancelado com sucesso:', response);
-            alert('Ticket cancelado com sucesso!');
+            this.alert = 'Ticket cancelado com sucesso!';
+            this.showModal = true;
             this.onListar(); // Atualizar lista após cancelar ticket
         },
         error: (error) => {
             console.error('Erro ao cancelar ticket:', error);
-            alert('Erro ao cancelar ticket! ' + (error.error?.message || error.message));
+            this.alert = 'Erro ao cancelar ticket! ' + (error.error?.message || error.message);
+            this.showModal = true;
         }
     });
   }

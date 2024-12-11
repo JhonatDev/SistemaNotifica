@@ -6,9 +6,19 @@ export const authRouteGuardGuard: CanActivateFn = (route, state) => {
   let roleUser = inject(LoginService)
   let rota = inject(Router)
 
-  if(roleUser.hasPermission('user') && state.url=="/admin/pessoas/insert/usuario"){
-    rota.navigate(['/admin/pessoas']);
+  if(roleUser.hasPermission('ROLE_user') && state.url=="/admin/principal"){
+    rota.navigate(["/aluno/principal"])
     return false;
   }
+
+  if(roleUser.hasPermission('ROLE_admin') && state.url=="/aluno/principal"){
+    rota.navigate(["/admin/principal"])
+    return false;
+  }
+
+
+
+
+
   return true;
 };

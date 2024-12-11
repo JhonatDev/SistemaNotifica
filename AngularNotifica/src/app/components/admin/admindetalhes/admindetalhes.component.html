@@ -14,7 +14,7 @@
 
     <!-- Mostrar o campo "Outro Local" apenas se "local" for "OUTRO" -->
     <div *ngIf="TicketList.local === 'OUTRO'">
-      <label for="outroLocal">Outro Local:</label>
+      <label id="title" for="outroLocal">Outro Local:</label>
       <input id="outroLocal" [(ngModel)]="TicketList.outroLocal" name="outroLocal" required />
     </div>
 
@@ -60,3 +60,10 @@
     <button *ngIf="funcao === 'Editar'" (click)="atualizarTicket()" type="button" class="btn btn-info btn-rounded ms-2" >Atualizar Ticket</button>
   </form>
 </div>
+<div *ngIf="showModal" class="modal-overlay">
+  <div class="modal-content">
+    <p>{{ alert }}</p>
+    <div class="modal-buttons">
+      <button (click)="closeModal()">ok</button>
+    </div>
+  </div>

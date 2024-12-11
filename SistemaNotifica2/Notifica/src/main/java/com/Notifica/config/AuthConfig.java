@@ -34,8 +34,12 @@ public class AuthConfig {
                 .cors(cors -> cors.disable())  // Cors gerenciado manualmente com o filtro CORS
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/login").permitAll()  // Permite acesso ao login sem autenticação
+                        .requestMatchers("/novo-usuario/save").hasAnyRole("admin")  // Exige autorização de administrador
+                        .requestMatchers("/tickets/deletar/**").hasAnyRole("admin")  // Exige autorização de administrador
+                        .requestMatchers("/tickets/iniciar/**").hasAnyRole("admin")  // Exige autorização de administrador
+                        .requestMatchers("/tickets/finalizar/**").hasAnyRole("admin")  // Exige autorização de administrador
+                        .requestMatchers("/tickets/voltarAberto/**").hasAnyRole("admin")  // Exige autorização de administrador
                         .requestMatchers("/image/download/**").permitAll()  // Permite acesso às imagens sem autenticação
-                        .requestMatchers("/h2-console").permitAll()  // Permite acesso à H2 console
                         .anyRequest().authenticated())  // Exige autenticação para todas as outras requisições
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class)  // Adiciona o filtro JWT antes do filtro padrão

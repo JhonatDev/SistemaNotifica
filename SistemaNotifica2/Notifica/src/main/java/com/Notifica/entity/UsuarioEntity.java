@@ -24,7 +24,9 @@ public class UsuarioEntity implements UserDetails {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column
+    
+    //username unique
+    @Column(unique = true)
     private String username;
     @Column
     private String password;

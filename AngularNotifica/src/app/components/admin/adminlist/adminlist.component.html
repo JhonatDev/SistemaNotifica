@@ -7,6 +7,15 @@
   >
     Criar Ticket
   </button>
+  <button
+    *ngIf="tipoDeUsuario == 'ROLE_admin'"
+    (click)="onCriarUsuario()"
+    type="button"
+    class="btn btn-info btn-rounded"
+    mdbRipple
+  >
+    Criar Usuário
+  </button>
 </div>
 
 <div class="tickets-grid">
@@ -20,7 +29,10 @@
       <span class="status">{{ ticket.status }}</span>
     </div>
     <p id="texto" class="resumo">{{ ticket.resumoProblema }}</p>
-    <p id="texto" class="local">Local: {{ ticket.local }}</p>
+    <p id="texto" class="local">Local: 
+      {{
+        ticket.local === 'OUTRO' ? ticket.outroLocal : ticket.local
+      }}
     <p id="texto" class="data">
       {{
         ticket.dataSolucao
@@ -39,7 +51,7 @@
     </div>
     <div class="actions">
       <button
-        *ngIf="tipoDeUsuario == 'admin' || tipoDeUsuario == 'user' && ticket.status == 'ABERTO'"
+        *ngIf="tipoDeUsuario == 'ROLE_admin' || tipoDeUsuario == 'ROLE_user' && ticket.status == 'ABERTO'"
         class="btn-primary"
         id="botaoEditar"
         (click)="edit(ticket); $event.stopPropagation()"
@@ -47,49 +59,49 @@
         Editar
       </button>
       <button
-        *ngIf="tipoDeUsuario == 'admin' && ticket.status == 'CANCELADO'"
+        *ngIf="tipoDeUsuario == 'ROLE_admin' && ticket.status == 'CANCELADO'"
         class="btn-danger"
         (click)="deletar(ticket); $event.stopPropagation()"
       >
         Excluir
       </button>
       <button
-        *ngIf="tipoDeUsuario == 'admin' && ticket.status == 'ABERTO'"
+        *ngIf="tipoDeUsuario == 'ROLE_admin' && ticket.status == 'ABERTO'"
         class="btn-success"
         (click)="pegarTicket(ticket); $event.stopPropagation()"
       >
         Pegar
       </button>
       <button
-        *ngIf="tipoDeUsuario == 'admin' && ticket.status == 'EM_ANDAMENTO'"
+        *ngIf="tipoDeUsuario == 'ROLE_admin' && ticket.status == 'EM_ANDAMENTO'"
         class="btn-success"
         (click)="finalizarTicket(ticket); $event.stopPropagation()"
       >
         Finalizar
       </button>
       <button
-        *ngIf="tipoDeUsuario == 'admin' && ticket.status == 'EM_ANDAMENTO'"
+        *ngIf="tipoDeUsuario == 'ROLE_admin' && ticket.status == 'EM_ANDAMENTO'"
         class="btn-success"
         (click)="reabrirTicket(ticket); $event.stopPropagation()"
       >
         Sair
       </button>
       <button
-        *ngIf="tipoDeUsuario == 'admin' && (ticket.status == 'CANCELADO' || ticket.status == 'SOLUCIONADO')"
+        *ngIf="tipoDeUsuario == 'ROLE_admin' && (ticket.status == 'CANCELADO' || ticket.status == 'SOLUCIONADO')"
         class="btn-success"
         (click)="reabrirTicket(ticket); $event.stopPropagation()"
       >
         Reabrir
       </button>
       <button
-        *ngIf="tipoDeUsuario == 'admin' && ticket.status != 'CANCELADO'"
+        *ngIf="tipoDeUsuario == 'ROLE_admin' && ticket.status != 'CANCELADO'"
         class="btn-danger"
         (click)="cancelarTicket(ticket); $event.stopPropagation()"
       >
         Cancelar
       </button>
       <button
-        *ngIf="tipoDeUsuario == 'user' && ticket.status == 'ABERTO'"
+        *ngIf="tipoDeUsuario == 'ROLE_user' && ticket.status == 'ABERTO'"
         class="btn-danger"
         (click)="cancelarTicket(ticket); $event.stopPropagation()"
       >
@@ -148,3 +160,29 @@
     ></app-ticketshow>
   </div>
 </ng-template>
+
+<ng-template #modalCriarUsuario>
+  <div class="modal-header">
+    <h5 class="modal-title" id="exampleModalLabel">
+      Criar Conta de Usuário
+    </h5>
+    <button
+      type="button"
+      class="btn-close"
+      aria-label="Close"
+      (click)="onClose()"
+    ></button>
+  </div>
+  <div class="modal-body">
+    <app-criar-usuario (retorno)="retornar($event)"></app-criar-usuario>
+  </div>
+</ng-template>
+<div *ngIf="showModal" class="modal-overlay">
+  <div class="modal-content">
+    <p>{{ alert }}</p>
+    <div class="modal-buttons">
+      <button (click)="closeModal()">ok</button>
+    </div>
+  </div>
+
+

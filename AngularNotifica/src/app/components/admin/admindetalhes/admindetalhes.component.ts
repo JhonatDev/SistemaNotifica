@@ -30,6 +30,11 @@ export class AdmindetalhesComponent {
   @Input() funcao!: any;
   @Output() retorno = new EventEmitter<any>();
 
+  // Variáveis
+  showModal: boolean = false; // Variável para controlar o modal
+  Modalsair: boolean = false; // Variável para controlar o modal
+  alert!: string;
+
   // servidor
   servidor = environment.SERVIDOR;
 
@@ -72,12 +77,55 @@ export class AdmindetalhesComponent {
   onFileSelected(event: Event): void {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
-      this.selectedFile = input.files[0];
+      const file = input.files[0];
+      const reader = new FileReader();
+
+      reader.onload = () => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+
+          if (ctx) {
+            // Define o tamanho desejado para a imagem redimensionada
+            const targetWidth = 300; // Largura desejada
+            const targetHeight = 300; // Altura desejada
+
+            // Ajusta o canvas para o tamanho desejado
+            canvas.width = targetWidth;
+            canvas.height = targetHeight;
+
+            // Redimensiona e desenha a imagem no canvas
+            ctx.drawImage(img, 0, 0, targetWidth, targetHeight);
+
+            // Converte o canvas para um blob PNG
+            canvas.toBlob((blob) => {
+              if (blob) {
+                // Mantém o nome original do arquivo, mas altera a extensão para .png
+                const originalName = file.name.split('.').slice(0, -1).join('.');
+                const newFileName = `${originalName}.png`;
+
+                // Cria um novo arquivo a partir do blob
+                const transformedFile = new File([blob], newFileName, {
+                  type: 'image/png',
+                });
+
+                this.selectedFile = transformedFile;
+                this.uploadImage(); // Faça o upload aqui
+              }
+            }, 'image/png');
+          }
+        };
+
+        if (reader.result) {
+          img.src = reader.result as string;
+        }
+      };
+
+      reader.readAsDataURL(file);
     }
-
-
-    this.uploadImage();
   }
+
 
   uploadImage(): void {
     this.TicketList.caminhoFoto = 'loading-image.gif';
@@ -118,14 +166,16 @@ export class AdmindetalhesComponent {
     this.ticktsService.criar(this.TicketList).subscribe({
       next: (response) => {
         console.log('Criação bem-sucedida:', response);
-        alert('Ticket criado com sucesso!');
+        this.alert = 'Ticket criado com sucesso!';
+        this.showModal = true;
         this.TicketList = new Tickts(); // Limpar o formulário
         //retornar para a lista de tickets
-        this.retorno.emit();
+        this.Modalsair = true;
       },
       error: (error) => {
         console.error('Erro na criação:', error);
-        alert('Erro ao criar ticket! ' + error.message);
+        this.alert = 'Erro ao criar ticket! ' + error.message;
+        this.showModal = true;
       }
     });
   }
@@ -137,14 +187,15 @@ export class AdmindetalhesComponent {
     this.ticktsService.atualizar(this.TicketList.id, this.TicketList).subscribe({
       next: (response) => {
         console.log('Atualização bem-sucedida:', response);
-        alert('Ticket atualizado com sucesso!');
+        this.alert = 'Ticket atualizado com sucesso!';
+        this.showModal = true;
         this.TicketList = new Tickts(); // Limpar o formulário
         //retornar para a lista de tickets
-        this.retorno.emit();
+        this.Modalsair = true;
       },
       error: (error) => {
         console.error('Erro na atualização:', error);
-        alert('Erro ao atualizar ticket! ' + error.message);
+        this.alert = 'Erro ao atualizar ticket! ' + error.message;
       }
     });
   }
@@ -155,12 +206,14 @@ export class AdmindetalhesComponent {
     this.ticktsService.deletar(this.TicketList.id).subscribe({
       next: (response) => {
         console.log('Deleção bem-sucedida:', response);
-        alert('Ticket deletado com sucesso!');
+        this.alert = 'Ticket deletado com sucesso!';
+        this.showModal = true;
         this.TicketList = new Tickts(); // Limpar o formulário
       },
       error: (error) => {
         console.error('Erro na deleção:', error);
-        alert('Erro ao deletar ticket! ' + error.message);
+        this.alert = 'Erro ao deletar ticket! ' + error.message;
+        this.showModal = true;
       }
     });
   }
@@ -180,6 +233,15 @@ export class AdmindetalhesComponent {
         console.error('Erro na listagem:', error);
       }
     });
+  }
+
+  // Fecha o modal
+  closeModal(): void {
+    this.showModal = false;
+    if (this.Modalsair == true) {
+      this.retorno.emit();
+
+    }
   }
 }
 

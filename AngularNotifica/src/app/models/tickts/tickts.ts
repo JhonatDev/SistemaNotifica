@@ -2,6 +2,7 @@ export class Tickts {
   id!: number;
   resumoProblema!: string;
   local!: string;
+  outroLocal!: string;
   tipoProblema!: string;
   outrovtipoProblema!: string;
   subtipoProblema!: string;
@@ -11,6 +12,5 @@ export class Tickts {
   dataSolucao!: string;
   caminhoFoto!: string;
   raAluno!: string;
-  outroLocal: any;
   funcionarioResponsavel!: string;
 }

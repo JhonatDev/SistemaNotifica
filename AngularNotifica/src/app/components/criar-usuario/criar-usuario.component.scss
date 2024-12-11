@@ -4,9 +4,17 @@ $text-color: #ffffff;
 $background-color: #111111;
 
 .container {
-  margin-top: 5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0%;
+  height: 100%;
+  width: 100%;
+  flex-direction: column;
+
 
   .project-title {
+    display: flex;
     font-size: 2rem;
     font-weight: bold;
     color: $primary-color;
@@ -16,20 +24,52 @@ $background-color: #111111;
   }
 
   .card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+
     background-color: $background-color;
     border-radius: 8px;
     box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
 
     .card-body {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      width: 100%;
       padding: 2rem;
 
+      .card-form {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+
+      }
+
+      #div-input {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        width: 100%;
+      }
+
+
       .card-title {
+
         color: $text-color;
         font-size: 1.5rem;
         font-weight: 600;
         margin-bottom: 1.5rem;
         text-align: center;
       }
+
+
 
       .form-outline {
         position: relative;
@@ -103,6 +143,124 @@ $background-color: #111111;
     }
   }
 }
+
+
+
+$primary-color: #4caf50;
+$text-color: #ffffff;
+$background-color: #111111;
+
+.switch__container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0%;
+  height: 100%;
+  width: 100%;
+  flex-direction: row;
+}
+
+.switch {
+  visibility: hidden;
+  position: absolute;
+  margin-left: -9999px;
+}
+
+.switch + label {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  outline: none;
+  user-select: none;
+}
+
+.switch--shadow + label {
+  padding: 1px;
+  width: 60px;
+  height: 30px;
+  background-color: $background-color;  // Cor de fundo ajustada
+  border-radius: 30px;
+}
+
+.switch--shadow + label:before,
+.switch--shadow + label:after {
+  display: block;
+  position: absolute;
+  top: 1px;
+  left: 1px;
+  bottom: 1px;
+  content: "";
+}
+
+.switch--shadow + label:before {
+  right: 1px;
+  background-color: #222222;
+  border-radius: 30px;
+  transition: background 0.4s;
+}
+
+.switch--shadow + label:after {
+  width: 30px;
+  background-color: $text-color;  // Cor do botão ajustada
+  border-radius: 100%;
+  box-shadow: 0 1px 2.5px rgba(0, 0, 0, 0.3);
+  transition: all 0.4s;
+}
+
+.switch--shadow:checked + label:before {
+  background-color: $primary-color;  // Cor de fundo quando ativado
+}
+
+.switch--shadow:checked + label:after {
+  transform: translateX(30px);
+}
+
+/* Estilo Flat */
+.switch--flat + label {
+  padding: 1px;
+  width: 60px;
+  height: 30px;
+  background-color: $background-color;  // Cor de fundo ajustada
+  border-radius: 30px;
+  transition: background 0.4s;
+}
+
+.switch--flat + label:before,
+.switch--flat + label:after {
+  display: block;
+  position: absolute;
+  content: "";
+}
+
+.switch--flat + label:before {
+  top: 1px;
+  left: 1px;
+  bottom: 1px;
+  right: 1px;
+  background-color: $text-color;  // Cor do fundo do botão ajustada
+  border-radius: 30px;
+  transition: background 0.4s;
+}
+
+.switch--flat + label:after {
+  top: 2px;
+  left: 2px;
+  bottom: 2px;
+  width: 28px;
+  background-color: $background-color;  // Cor do botão ajustada
+  border-radius: 28px;
+  transition: margin 0.4s, background 0.4s;
+}
+
+.switch--flat:checked + label {
+  background-color: $primary-color;  // Cor de fundo quando ativado
+}
+
+.switch--flat:checked + label:after {
+  margin-left: 30px;
+  background-color: $primary-color;  // Cor do botão ajustada
+}
+
 
 /* Estilo da Navbar */
 .navbar {

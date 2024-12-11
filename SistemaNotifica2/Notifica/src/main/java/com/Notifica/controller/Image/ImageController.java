@@ -46,8 +46,12 @@ public class ImageController {
             Path path = Paths.get(UPLOAD_DIR + file.getOriginalFilename());
             Files.write(path, file.getBytes());
 
+
+            System.out.println("Upload realizado com sucesso!");
             return ResponseEntity.ok("Upload realizado com sucesso!");
+            
         } catch (IOException e) {
+            System.out.println("Erro ao salvar a imagem");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Erro ao salvar a imagem");
         }
     }

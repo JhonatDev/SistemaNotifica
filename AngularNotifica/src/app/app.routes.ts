@@ -8,20 +8,21 @@ import { AdminlistComponent } from './components/admin/adminlist/adminlist.compo
 import { AdmindetalhesComponent } from './components/admin/admindetalhes/admindetalhes.component';
 import { TicketshowComponent } from './components/ticketshow/ticketshow.component';
 import { tick } from '@angular/core/testing';
+import { authRouteGuardGuard } from './guard/auth-route-guard.guard';
 
 
 export const routes: Routes = [
     {path:"", redirectTo:"login", pathMatch:"full"},
     {path:"login", component:LoginComponent},
     {path:"teste", component:TicketshowComponent},
-    {path:"admin", component:PrincipalComponent, children:[
+    {path:"admin", component:PrincipalComponent, canActivate: [authRouteGuardGuard], children:[
         {path:"principal", component:AdminlistComponent},
         {path:"principal/cancelados", component:AdminlistComponent},
         {path:"principal/pendentes", component:AdminlistComponent},
         {path:"principal/andamento", component:AdminlistComponent},
         {path:"principal/concluidos", component:AdminlistComponent},
     ]},
-    {path:"aluno", component:PrincipalComponent, children:[
+    {path:"aluno", component:PrincipalComponent, canActivate: [authRouteGuardGuard], children:[
         {path:"principal", component:AdminlistComponent},
         {path:"principal/pendentes", component:AdminlistComponent},
         {path:"principal/andamento", component:AdminlistComponent},

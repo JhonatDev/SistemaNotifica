@@ -19,7 +19,7 @@ import { environment } from '../../../environments/environment';
     MdbModalModule,
     FormsModule
   ],
-  styleUrls: ['./ticketshow.component.css']
+  styleUrls: ['./ticketshow.component.scss']
 })
 export class TicketshowComponent implements OnInit {
   @Input() TicketList!: Tickts;
@@ -36,12 +36,15 @@ export class TicketshowComponent implements OnInit {
   modalRef!: MdbModalRef<any>;
   SubTipoProblemalist: any[] = [];
   selectedImage: File | null = null;
+  showModal: boolean = false; // Variável para controlar o modal
+  Modalsair: boolean = false; // Variável para controlar o modal
+  alert!: string;
 
   constructor(
     private ticktsService: TicktsService,
     private subTipoProblemaService: SubTipoProblemaService,
     private imageUploadService: ImageUploadService
-  ) {}
+  ) { }
 
   ngOnInit(): void {
 
@@ -61,12 +64,14 @@ export class TicketshowComponent implements OnInit {
     this.ticktsService.finalizar(ticket.id).subscribe({
       next: (response) => {
         console.log('Ticket finalizado com sucesso:', response);
-        alert('Ticket finalizado com sucesso!');
-        this.retorno.emit();
+        this.alert = 'Ticket finalizado com sucesso!';
+        this.showModal = true;
+        this.Modalsair = true;
       },
       error: (error) => {
         console.error('Erro ao finalizar ticket:', error);
-        alert('Erro ao finalizar ticket! ' + (error.error?.message || error.message));
+        this.alert = 'Erro ao finalizar ticket! ' + (error.error?.message || error.message);
+        this.showModal = true;
       }
     });
   }
@@ -76,12 +81,14 @@ export class TicketshowComponent implements OnInit {
     this.ticktsService.cancelar(ticket.id).subscribe({
       next: (response) => {
         console.log('Ticket cancelado com sucesso:', response);
-        alert('Ticket cancelado com sucesso!');
-        this.retorno.emit();
+        this.alert = 'Ticket cancelado com sucesso!';
+        this.showModal = false;
+        this.Modalsair = true;
       },
       error: (error) => {
         console.error('Erro ao cancelar ticket:', error);
-        alert('Erro ao cancelar ticket! ' + (error.error?.message || error.message));
+        this.alert = 'Erro ao cancelar ticket! ' + (error.error?.message || error.message);
+        this.showModal = true;
       }
     });
   }
@@ -91,12 +98,14 @@ export class TicketshowComponent implements OnInit {
     this.ticktsService.reabrir(ticket.id).subscribe({
       next: (response) => {
         console.log('Ticket reaberto com sucesso:', response);
-        alert('Ticket reaberto com sucesso!');
-        this.retorno.emit();
+        this.alert = 'Ticket reaberto com sucesso!';
+        this.showModal = true;
+        this.Modalsair = true;
       },
       error: (error) => {
         console.error('Erro ao reabrir ticket:', error);
-        alert('Erro ao reabrir ticket! ' + (error.error?.message || error.message));
+        this.alert = 'Erro ao reabrir ticket! ' + (error.error?.message || error.message);
+        this.showModal = true;
       }
     });
   }
@@ -106,12 +115,13 @@ export class TicketshowComponent implements OnInit {
     this.ticktsService.iniciar(ticket.id, this.login).subscribe({
       next: (response) => {
         console.log('Ticket pego com sucesso:', response);
-        alert('Ticket pego com sucesso!');
-        this.retorno.emit();
+        this.alert = 'Ticket pego com sucesso!';
+        this.showModal = true;
+        this.Modalsair = true;
       },
       error: (error) => {
         console.error('Erro ao pegar ticket:', error);
-        alert('Erro ao pegar ticket! ' + (error.error?.message || error.message));
+        this.alert = 'Erro ao pegar ticket! ' + (error.error?.message || error.message);
       }
     });
   }
@@ -121,17 +131,27 @@ export class TicketshowComponent implements OnInit {
     this.ticktsService.deletar(ticket.id).subscribe({
       next: (response) => {
         console.log('Exclusão bem-sucedida:', response);
-        alert('Ticket excluído com sucesso!');
-        this.retorno.emit();
+        this.alert = 'Ticket excluído com sucesso!';
+        this.showModal = true;
+        this.Modalsair = true;
       },
       error: (error) => {
         console.error('Erro na exclusão:', error);
-        alert('Erro ao excluir ticket! ' + (error.error?.message || error.message));
+        this.alert = 'Erro ao excluir ticket! ' + (error.error?.message || error.message);
+        this.showModal = true;
       }
     });
   }
 
   onClose() {
     this.modalRef.close();
+  }
+
+  // Fecha o modal
+  closeModal(): void {
+    this.showModal = false;
+    if (this.Modalsair == true) {
+      this.retorno.emit();
+    }
   }
 }

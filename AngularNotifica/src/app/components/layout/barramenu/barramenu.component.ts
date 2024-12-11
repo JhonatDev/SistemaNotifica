@@ -17,10 +17,10 @@ export class BarramenuComponent {
   showModal: boolean = false; // Variável para controlar o modal
 
   constructor(private loginService: LoginService) {
-    this.tipoDeUsuario = this.loginService.jwtDecode()?.sub || '';
+    this.tipoDeUsuario = this.loginService.jwtDecode()?.role || '';
 
     // Define os links conforme o tipo de usuário
-    this.listaLinks = this.tipoDeUsuario === 'admin'
+    this.listaLinks = this.tipoDeUsuario === 'ROLE_admin'
       ? [
           { texto: 'CANCELADO', href: '/admin/principal/cancelados' },
           { texto: 'PENDENTES', href: '/admin/principal/pendentes' },
@@ -36,7 +36,7 @@ export class BarramenuComponent {
 
   irParaPrincipal(): void {
     // Lógica para redirecionar o usuário
-    const rotaPrincipal = this.tipoDeUsuario === 'admin'
+    const rotaPrincipal = this.tipoDeUsuario === 'ROLE_admin'
       ? '/admin/principal'
       : '/aluno/principal';
     window.location.href = rotaPrincipal;
