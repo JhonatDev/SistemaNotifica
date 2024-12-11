@@ -1,0 +1,124 @@
+/* Variáveis de cores */
+:root {
+    --primary-color: #4caf50; 
+    --secondary-color: #242424;
+    --text-color: #ffffff;
+    --background-color: #ffffff; 
+}
+
+/* Container */
+.container {
+    background-color: var(--background-color);
+    padding: 2rem;
+    border-radius: 8px;
+    margin-top: 5rem;
+}
+
+/* Título */
+.project-title {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+/* Card */
+.card {
+    background-color: var(--secondary-color);
+    border-radius: 8px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+
+.card-body {
+    padding: 2rem;
+}
+
+
+.btn-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background-color: transparent;
+    border: none;
+    color: var(--primary-color);
+    font-size: 1.5rem;
+    cursor: pointer;
+    transition: 0.2s ease all;
+    z-index: 10; 
+}
+
+
+.btn-close:hover {
+    color: var(--secondary-color);
+}
+
+/* Input e select */
+.form-control, .form-select {
+    background-color: #2b2b2b;
+    border: 1px solid var(--primary-color);
+    color: var(--text-color);
+    border-radius: 4px;
+    padding: 0.75rem;
+    width: 100%;
+    margin-bottom: 1.5rem;
+    transition: 0.2s ease all;
+}
+
+/* Foco nos campos */
+.form-control:focus, .form-select:focus {
+    outline: none;
+    border-color: var(--primary-color);
+}
+
+/* Label */
+.form-label {
+    position: absolute;
+    top: 0.75rem;
+    left: 0.75rem;
+    color: var(--primary-color);
+    background-color: #2b2b2b;
+    padding: 0 0.25rem;
+    border-radius: 4px;
+    transition: 0.2s ease all;
+    pointer-events: none;
+}
+
+/* Foco nos campos de input e select */
+.form-control:focus + .form-label, .form-control:not(:placeholder-shown) + .form-label, 
+.form-select:focus + .form-label {
+    transform: translateY(-1.5rem);
+    font-size: 0.875rem;
+    color: var(--primary-color);
+    background-color: #2b2b2b;
+}
+
+/* Botão de submit */
+.btn-success {
+    background-color: var(--primary-color);
+    color: var(--text-color);
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+    font-weight: bold;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    width: 100%;
+    cursor: pointer;
+    transition: 0.2s ease all;
+}
+
+/* Hover no botão de submit */
+.btn-success:hover {
+    background-color: #45a049; /* Um tom mais escuro de verde */
+}
+
+/* Alinhamento e estilo do formulário */
+form {
+    position: relative;
+}
+
+/* Ajuste da margem superior no container */
+.mt-5 {
+    margin-top: 3rem !important;
+}

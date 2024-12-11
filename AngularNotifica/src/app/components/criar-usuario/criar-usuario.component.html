@@ -1,0 +1,60 @@
+<div class="container mt-5" *ngIf="formVisible">
+    <div class="row justify-content-center">
+      <div class="col-md-6">
+        <div class="card">
+          <div class="card-body">
+            <button class="btn-close" (click)="closeForm()" aria-label="Close"></button>
+            <h2 class="project-title text-center">CRIAR USUÁRIO</h2>
+            <form (ngSubmit)="onCreateUser()">
+              <!-- Usuário -->
+              <div class="form-outline mb-4">
+                <input
+                  type="text"
+                  id="usuario"
+                  class="form-control"
+                  [(ngModel)]="usuario"
+                  name="usuario"
+                  placeholder="Usuário"
+                  required
+                />
+                <label class="form-label" for="usuario">Usuário</label>
+              </div>
+  
+              <!-- Senha -->
+              <div class="form-outline mb-4">
+                <input
+                  type="password"
+                  id="senha"
+                  class="form-control"
+                  [(ngModel)]="senha"
+                  name="senha"
+                  placeholder="Senha"
+                  required
+                />
+                <label class="form-label" for="senha">Senha</label>
+              </div>
+  
+              <!-- Tipo de Usuário -->
+              <div class="form-outline mb-4">
+                <select
+                  id="tipoUsuario"
+                  class="form-select"
+                  [(ngModel)]="tipoUsuario"
+                  name="tipoUsuario"
+                  required
+                >
+                  <option value="" disabled selected>Selecione o Tipo de Usuário</option>
+                  <option value="admin">Admin</option>
+                  <option value="aluno">Aluno</option>
+                </select>
+                <label class="form-label" for="tipoUsuario">Tipo de Usuário</label>
+              </div>
+  
+              <button type="submit" class="btn btn-success btn-block mb-4">Criar Usuário</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  

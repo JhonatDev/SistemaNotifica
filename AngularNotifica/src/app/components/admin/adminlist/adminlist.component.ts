@@ -60,7 +60,7 @@ export class AdminlistComponent implements OnInit {
 
   ngOnInit(): void {
     this.login = this.loginService.jwtDecode()?.username || '';
-    this.tipoDeUsuario = this.loginService.jwtDecode()?.sub || '';
+    this.tipoDeUsuario = this.loginService.jwtDecode()?.role || '';
 
     // Verificação se tem token
     if (!this.loginService.jwtDecode()) {
@@ -134,15 +134,15 @@ export class AdminlistComponent implements OnInit {
     // Escolhe o método de listagem com base no tipo de site
     const status = getStatusByTipoSite(this.tipoSite);
 
-    if (this.tipoDeUsuario === 'admin') {
+    if (this.tipoDeUsuario === 'ROLE_admin') {
         if (status) {
             tipoDeLista = this.ticktsService.listarPorStatus(status);
             console.log(`Listando tickets ${status} para ${this.tipoDeUsuario}`);
         } else {
             tipoDeLista = this.ticktsService.listar();
-            console.log('Listando todos os tickets para Admin');
+            console.log('Listando todos os tickets para ROLE_admin');
         }
-    } else if (this.tipoDeUsuario === 'user') { // Corrigido para fora do bloco ADMIN
+    } else if (this.tipoDeUsuario === 'ROLE_user') { // Corrigido para fora do bloco ADMIN
         if (status) {
             tipoDeLista = this.ticktsService.listarPorUsuarioStatus(this.login, status);
             console.log(`Listando tickets ${status} para ${this.tipoDeUsuario}`);
