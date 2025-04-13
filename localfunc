@@ -1,0 +1,59 @@
+#!/bin/sh
+
+REMOTE_FRONT=192.168.3.101
+
+# Função para exibir uso
+show_usage() {
+  echo "Uso:"
+  echo "  localfunc <   backup    | b        > < frontend | backend | database >"
+  echo "  localfunc < pull_backup | pull | p > <   front  |   back  |    db    >"
+  echo "                                       <   f      |   b     |    d     >"
+  echo "  localfunc <  restaurar  |  r >"
+}
+
+# Função para backup
+perform_backup() {
+  local type="$1"
+  echo "Fazendo backup do $type..."
+  SERVERTYPE="$type" REMOTE_FRONT="$REMOTE_FRONT" /usr/local/bin/backup.sh
+}
+
+# Função para pull do backup
+perform_pull_backup() {
+  local type="$1"
+  echo "Fazendo pull do backup do $type..."
+  /opt/backup/restaurar/pull_last_backup.sh "$type"
+}
+
+case "$1" in
+  backup|b)
+    case "$2" in
+      frontend|front|f) perform_backup "frontend" ;;
+      backend|back|b) perform_backup "backend" ;;
+      db|database|d) perform_backup "db" ;;
+      *) 
+        echo "Opção inválida para backup."
+        show_usage
+        ;;
+    esac
+    ;;
+  pull_backup|pull|p)
+    case "$2" in
+      frontend|front|f) perform_pull_backup "frontend" ;;
+      backend|back|b) perform_pull_backup "backend" ;;
+      db|database|d) perform_pull_backup "db" ;;
+      *) 
+        echo "Opção inválida para pull_backup."
+        show_usage
+        ;;
+    esac
+    ;;
+  restaurar|r)
+    echo "Iniciando restauração do backup..."
+    /opt/backup/restaurar/restaurar.sh
+    ;;
+  *)
+    echo "Comando inválido."
+    show_usage
+    ;;
+esac
