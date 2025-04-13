@@ -48,28 +48,45 @@ echo "Tipo de backup identificado: $TYPE"
 # Restauracao conforme o tipo de servidor
 case "$TYPE" in
     frontend)
+        # Verifica se o arquivo frontend_static_*.tgz existe
         mkdir -p /opt/frontend
         if ! tar xzf "$TEMP_DIR/frontend_static_"*.tgz -C /opt/frontend; then
             echo "$(date) - Falha ao restaurar arquivos do frontend" >> "$LOG_ERRO"
             rm -rf "$TEMP_DIR"
             exit 1
         fi
+        # Verifica se o arquivo home_*.tgz existe
+        if ! tar xzf "$TEMP_DIR/home_"*.tgz -C /home; then
+            echo "$(date) - Falha ao restaurar arquivos de /home" >> "$LOG_ERRO"
+            rm -rf "$TEMP_DIR"
+            exit 1
+        fi
+
         cp "$TEMP_DIR/authorized_keys" /root/.ssh/ 2>/dev/null
         cp "$TEMP_DIR/hosts" /etc/ 2>/dev/null
         cp "$TEMP_DIR/hostname" /etc/hostname 2>/dev/null
         ;;
     backend)
         mkdir -p /opt/backend
+        # Verifica se o arquivo backend_files_*.tgz existe
         if ! tar xzf "$TEMP_DIR/backend_files_"*.tgz -C /opt/backend; then
             echo "$(date) - Falha ao restaurar arquivos do backend" >> "$LOG_ERRO"
             rm -rf "$TEMP_DIR"
             exit 1
         fi
+        # Verifica se o arquivo home_*.tgz existe
+        if ! tar xzf "$TEMP_DIR/home_"*.tgz -C /home; then
+            echo "$(date) - Falha ao restaurar arquivos de /home" >> "$LOG_ERRO"
+            rm -rf "$TEMP_DIR"
+            exit 1
+        fi
+        # Verifica se o arquivo locald_*.tgz existe
         if ! tar xzf "$TEMP_DIR/locald_"*.tgz -C /etc/local.d; then
             echo "$(date) - Falha ao restaurar arquivos de /etc/local.d" >> "$LOG_ERRO"
             rm -rf "$TEMP_DIR"
             exit 1
         fi
+        # Verifica se o arquivo images_*.tgz existe
         if ! tar xzf "$TEMP_DIR/images_"*.tgz -C /root/SpringNotifica/Notifica/src/main/resources/static/image/download; then
             echo "$(date) - Falha ao restaurar arquivos de imagens" >> "$LOG_ERRO"
             rm -rf "$TEMP_DIR"
@@ -80,6 +97,7 @@ case "$TYPE" in
         cp "$TEMP_DIR/hostname" /etc/hostname 2>/dev/null
         ;;
     db)
+        # Verifica se o arquivo db_dump_*.tgz existe
         if [ -f "$TEMP_DIR/db_dump_"*.tgz ]; then
             if ! gunzip -c "$TEMP_DIR/db_dump_"*.tgz | mysql; then
                 echo "$(date) - Falha ao restaurar o dump do banco de dados" >> "$LOG_ERRO"
@@ -88,6 +106,12 @@ case "$TYPE" in
             fi
         else
             echo "$(date) - Arquivo de dump do banco de dados n�o encontrado" >> "$LOG_ERRO"
+            rm -rf "$TEMP_DIR"
+            exit 1
+        fi
+        # Verifica se o arquivo home_*.tgz existe
+        if ! tar xzf "$TEMP_DIR/home_"*.tgz -C /home; then
+            echo "$(date) - Falha ao restaurar arquivos de /home" >> "$LOG_ERRO"
             rm -rf "$TEMP_DIR"
             exit 1
         fi

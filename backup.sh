@@ -66,7 +66,17 @@ hostname > "$LOCAL_BACKUP_DIR/hostname"
 log_msg "Salvo hostname"
 echo "Salvo hostname"
 
-# 3. Itens especaficos para cada tipo de servidor
+# 3. Salvar /home
+if [ -d /home ]; then
+    tar czf "$LOCAL_BACKUP_DIR/home_${BACKUP_DATETIME}.tgz" -C /home .
+    log_msg "Arquivos de /home compactados"
+    echo "Arquivos de /home compactados"
+else
+    log_msg "Diretorio /home nao encontrado"
+    echo "Diretorio /home nao encontrado"
+fi
+
+# 4. Itens especaficos para cada tipo de servidor
 case "$SERVERTYPE" in
     frontend)
         if [ -d /opt/frontend ]; then
@@ -117,7 +127,7 @@ case "$SERVERTYPE" in
         ;;
 esac
 
-# 4. Gerar log resumo
+# 5. Gerar log resumo
 {
     echo "========================"
     echo "Resumo do Backup - Data: $(date)"
@@ -127,35 +137,35 @@ esac
     echo
 } >> "$LOCAL_BACKUP_DIR/backup_summary.log"
 
-# 5. Compactar todo o backup em um unico arquivo
+# 6. Compactar todo o backup em um unico arquivo
 FINAL_ARCHIVE="/tmp/${SERVERTYPE}_backup_${BACKUP_DATETIME}.tgz"
 tar czf "$FINAL_ARCHIVE" -C "$LOCAL_BACKUP_DIR" .
 
 log_msg "Backup compactado em ${FINAL_ARCHIVE}"
 echo "Backup compactado em ${FINAL_ARCHIVE}"
 
-# 6. Enviar backup e logs para o servidor front via SSH (anexando os logs)
+# 7. Enviar backup e logs para o servidor front via SSH (anexando os logs)
 ssh backup_sys@"$REMOTE_FRONT" "mkdir -p '$REMOTE_DIR'"
 scp "$FINAL_ARCHIVE" backup_sys@"$REMOTE_FRONT":"$REMOTE_DIR/"
 
-# Anexar logs no destino sem sobrescrever
+# 8. Anexar logs no destino sem sobrescrever
 ssh backup_sys@"$REMOTE_FRONT" "cat >> '$REMOTE_DIR/backup.log'" < "$LOCAL_BACKUP_DIR/backup.log"
 ssh backup_sys@"$REMOTE_FRONT" "cat >> '$REMOTE_DIR/backup_summary.log'" < "$LOCAL_BACKUP_DIR/backup_summary.log"
 
 log_msg "Backup e logs enviados para ${REMOTE_FRONT}:${REMOTE_DIR}"
 echo "Backup e logs enviados para ${REMOTE_FRONT}:${REMOTE_DIR}"
 
-# 7. Registrar o envio no log local
+# 9. Registrar o envio no log local
 echo "$(date): Backup do ${SERVERTYPE} enviado para ${REMOTE_FRONT}:${REMOTE_DIR}" >> /var/log/backup_sys.log
 echo "Backup do ${SERVERTYPE} enviado para ${REMOTE_FRONT}:${REMOTE_DIR}"
 
-# 8 gerar resumo do backup para o console
+# 10. gerar resumo do backup para o console
 echo "========================"
 echo "Resumo do Backup - Data: $(date)"
 echo "Servidor: $SERVERTYPE"
 echo "========================"
 
-# 9. Limpeza dos arquivos tempororios
+# 11. Limpeza dos arquivos tempororios
 rm -rf "$LOCAL_BACKUP_DIR" "$FINAL_ARCHIVE"
 
 exit 0
