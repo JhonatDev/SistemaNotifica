@@ -11,14 +11,15 @@ export const authRouteGuardGuard: CanActivateFn = (route, state) => {
     return false;
   }
 
+  if(roleUser.hasPermission('ROLE_funcionario') && state.url=="/admin/principal"){
+    rota.navigate(["/funcionario/principal"])
+    return false;
+  }
+
   if(roleUser.hasPermission('ROLE_admin') && state.url=="/aluno/principal"){
     rota.navigate(["/admin/principal"])
     return false;
   }
-
-
-
-
 
   return true;
 };

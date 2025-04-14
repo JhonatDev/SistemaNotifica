@@ -5,6 +5,8 @@ import { FormsModule } from '@angular/forms';
 import { MdbModalModule, MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { TicktsService } from '../../service/tickts/tickts.service';
 import { Tickts } from '../../models/tickts/tickts';
+import { TicktspegosService } from '../../service/tickts/ticktspegos.service';
+import { Ticktspegos } from '../../models/tickts/ticktspegos';
 import { SubTipoProblemaService } from '../../service/SubTipoProblema/sub-tipo-problema.service';
 import { ImageUploadService } from '../../service/image-service.service';
 import { environment } from '../../../environments/environment';
@@ -25,6 +27,7 @@ export class TicketshowComponent implements OnInit {
   @Input() TicketList!: Tickts;
   @Input() tipoDeUsuario!: string;
   @Input() login!: string;
+  @Input() idTicket!: number;
   @Output() retorno = new EventEmitter<any>();
 
   //link para o servidor
@@ -40,14 +43,23 @@ export class TicketshowComponent implements OnInit {
   Modalsair: boolean = false; // Variável para controlar o modal
   alert!: string;
 
+  //arrat nomes dos funcionarios pego do ticket pegos
+  funcionariosPego: string[] = [];
+  
+
   constructor(
     private ticktsService: TicktsService,
+    private ticktspegosService: TicktspegosService,
     private subTipoProblemaService: SubTipoProblemaService,
     private imageUploadService: ImageUploadService
   ) { }
 
   ngOnInit(): void {
-
+    //pegar os funcionarios pego do ticket pegos
+    this.ticktspegosService.getById(this.idTicket).subscribe((response) => {
+      const ticketPego: Ticktspegos = response;
+      this.funcionariosPego = ticketPego.nomeUsuario.split(',');
+    });
   }
 
   edit(ticket: Tickts) {

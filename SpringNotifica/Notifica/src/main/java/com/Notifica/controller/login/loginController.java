@@ -30,7 +30,7 @@ public class loginController {
         }
     }
 
-    @PreAuthorize("hasRole('admin')")
+    @PreAuthorize("hasRole('admin', 'funcionario')")
     @PostMapping("novo-usuario/save")
     public ResponseEntity<HttpStatus> saveNewUser(@RequestBody @RequestHeader("Authorization") NewUserRequest request) {
         pessoaService.saveNewUser(request.getUsuario(), request.getPassword(), request.getIsAdmin());

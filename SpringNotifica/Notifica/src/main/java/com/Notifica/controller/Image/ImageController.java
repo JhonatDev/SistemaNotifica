@@ -9,8 +9,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import com.Notifica.service.UsuariosServiceOld;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
@@ -24,9 +22,6 @@ import java.nio.file.Paths;
 public class ImageController {
 
     private static final String UPLOAD_DIR = "SpringNotifica/Notifica/src/main/resources/static/image/download/";
-
-    @Autowired
-    private UsuariosServiceOld usuariosService;
 
     @PostMapping("/upload")
     public ResponseEntity<String> uploadImage(@RequestHeader("Authorization") String token, @RequestParam("image") MultipartFile file) {

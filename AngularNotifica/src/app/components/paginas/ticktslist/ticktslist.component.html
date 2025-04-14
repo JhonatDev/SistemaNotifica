@@ -5,10 +5,10 @@
     class="btn btn-info btn-rounded"
     mdbRipple
   >
-    Criar Ticket
+  Criar Ticket
   </button>
   <button
-    *ngIf="tipoDeUsuario == 'ROLE_admin'"
+    *ngIf="tipoDeUsuario == 'ROLE_funcionario'"
     (click)="onCriarUsuario()"
     type="button"
     class="btn btn-info btn-rounded"
@@ -51,7 +51,7 @@
     </div>
     <div class="actions">
       <button
-        *ngIf="tipoDeUsuario == 'ROLE_admin' || tipoDeUsuario == 'ROLE_user' && ticket.status == 'ABERTO'"
+        *ngIf="tipoDeUsuario == 'ROLE_funcionario' || tipoDeUsuario == 'ROLE_user' && ticket.status == 'ABERTO'"
         class="btn-primary"
         id="botaoEditar"
         (click)="edit(ticket); $event.stopPropagation()"
@@ -59,42 +59,42 @@
         Editar
       </button>
       <button
-        *ngIf="tipoDeUsuario == 'ROLE_admin' && ticket.status == 'CANCELADO'"
+        *ngIf="tipoDeUsuario == 'ROLE_funcionario' && ticket.status == 'CANCELADO'"
         class="btn-danger"
         (click)="deletar(ticket); $event.stopPropagation()"
       >
         Excluir
       </button>
       <button
-        *ngIf="tipoDeUsuario == 'ROLE_admin' && ticket.status == 'ABERTO'"
+        *ngIf="tipoDeUsuario == 'ROLE_funcionario' && ticket.status == 'ABERTO'"
         class="btn-success"
         (click)="pegarTicket(ticket); $event.stopPropagation()"
       >
         Pegar
       </button>
       <button
-        *ngIf="tipoDeUsuario == 'ROLE_admin' && ticket.status == 'EM_ANDAMENTO'"
+        *ngIf="tipoDeUsuario == 'ROLE_funcionario' && ticket.status == 'EM_ANDAMENTO'"
         class="btn-success"
         (click)="finalizarTicket(ticket); $event.stopPropagation()"
       >
         Finalizar
       </button>
       <button
-        *ngIf="tipoDeUsuario == 'ROLE_admin' && ticket.status == 'EM_ANDAMENTO'"
+        *ngIf="tipoDeUsuario == 'ROLE_funcionario' && ticket.status == 'EM_ANDAMENTO'"
         class="btn-success"
         (click)="reabrirTicket(ticket); $event.stopPropagation()"
       >
         Sair
       </button>
       <button
-        *ngIf="tipoDeUsuario == 'ROLE_admin' && (ticket.status == 'CANCELADO' || ticket.status == 'SOLUCIONADO')"
+        *ngIf="tipoDeUsuario == 'ROLE_funcionario' && (ticket.status == 'CANCELADO' || ticket.status == 'SOLUCIONADO')"
         class="btn-success"
         (click)="reabrirTicket(ticket); $event.stopPropagation()"
       >
         Reabrir
       </button>
       <button
-        *ngIf="tipoDeUsuario == 'ROLE_admin' && ticket.status != 'CANCELADO'"
+        *ngIf="tipoDeUsuario == 'ROLE_funcionario' && ticket.status != 'CANCELADO'"
         class="btn-danger"
         (click)="cancelarTicket(ticket); $event.stopPropagation()"
       >
@@ -130,11 +130,11 @@
     ></button>
   </div>
   <div class="modal-body">
-    <app-admindetalhes
+    <app-ticktsdetalhes
       [TicketList]="ticketEdit"
       [funcao]="funcao"
       (retorno)="retornar($event)"
-    ></app-admindetalhes>
+    ></app-ticktsdetalhes>
   </div>
 </ng-template>
 

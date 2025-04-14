@@ -34,11 +34,15 @@ public class AuthConfig {
                 .cors(cors -> cors.disable())  // Cors gerenciado manualmente com o filtro CORS
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/login").permitAll()  // Permite acesso ao login sem autenticação
-                        .requestMatchers("/novo-usuario/save").hasAnyRole("admin")  // Exige autorização de administrador
-                        .requestMatchers("/tickets/deletar/**").hasAnyRole("admin")  // Exige autorização de administrador
-                        .requestMatchers("/tickets/iniciar/**").hasAnyRole("admin")  // Exige autorização de administrador
-                        .requestMatchers("/tickets/finalizar/**").hasAnyRole("admin")  // Exige autorização de administrador
-                        .requestMatchers("/tickets/voltarAberto/**").hasAnyRole("admin")  // Exige autorização de administrador
+                        .requestMatchers("/novo-usuario/save").hasAnyRole("admin", "funcionario")  // Exige autorização de administrador
+                        .requestMatchers("/tickets/deletar/**").hasAnyRole("admin", "funcionario")  // Exige autorização de administrador
+                        .requestMatchers("/tickets/iniciar/**").hasAnyRole("admin", "funcionario")  // Exige autorização de administrador
+                        .requestMatchers("/tickets/finalizar/**").hasAnyRole("admin", "funcionario")  // Exige autorização de administrador
+                        .requestMatchers("/tickets/voltarAberto/**").hasAnyRole("admin", "funcionario")  // Exige autorização de administrador
+                        .requestMatchers("/ticketsPegos/save").hasAnyRole("admin", "funcionario")  // Exige autorização de administrador
+                        .requestMatchers("/ticketsPegos/removeByNomeUsuarioPego/**").hasAnyRole("admin", "funcionario")  // Exige autorização de administrador
+                        .requestMatchers("/ticketsPegos/all").hasAnyRole("admin", "funcionario")  // Exige autorização de administrador
+                        .requestMatchers("/ticketsPegos/findByIdTicket/**").hasAnyRole("admin", "funcionario")  // Exige autorização de administrador
                         .requestMatchers("/image/download/**").permitAll()  // Permite acesso às imagens sem autenticação
                         .anyRequest().authenticated())  // Exige autenticação para todas as outras requisições
                 .authenticationProvider(authenticationProvider)

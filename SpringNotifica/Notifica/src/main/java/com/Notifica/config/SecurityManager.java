@@ -41,6 +41,20 @@ public class SecurityManager {
                     usuarioRepository.save(admin);  // Salva o usuário no banco de dados
                 }
             );
+
+            // verifica se o usuário padrão funcionario já existe
+            loginRepository.findByUsername("funcionario").ifPresentOrElse(
+                user -> {},
+                () -> {
+                    // Se não existir, cria o usuário padrão funcionario
+                    UsuarioEntity funcionario = new UsuarioEntity();
+                    funcionario.setUsername("funcionario");
+                    funcionario.setPassword(passwordEncoder.encode("funcionario"));  // Codifica a senha
+                    funcionario.setRole("ROLE_funcionario");  // Atribui o papel de funcionário
+                    usuarioRepository.save(funcionario);  // Salva o usuário no banco de dados
+                }
+            );
+            
             // Verifica se o usuário padrão já existe
             loginRepository.findByUsername("user").ifPresentOrElse(
                 user -> {},

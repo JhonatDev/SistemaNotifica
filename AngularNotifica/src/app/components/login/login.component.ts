@@ -3,8 +3,8 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { LoginService } from '../../service/login-service.service';
 import { Router } from '@angular/router';
-import { AdminlistComponent } from '../admin/adminlist/adminlist.component';
-import { AdmindetalhesComponent } from '../admin/admindetalhes/admindetalhes.component';
+import { TicktslistComponent } from '../paginas/ticktslist/ticktslist.component';
+import { TicktsdetalhesComponent } from '../paginas/ticktsdetalhes/ticktsdetalhes.component';
 import { Login } from '../../models/login/login';
 
 @Component({
@@ -45,6 +45,8 @@ export class LoginComponent {
 
           if (tipoUsuario === 'ROLE_admin') {
             this.router.navigate(['admin/principal']);
+          } else if (tipoUsuario === 'ROLE_funcionario') {
+            this.router.navigate(['funcionario/principal']);
           } else if (tipoUsuario === 'ROLE_user') {
             this.router.navigate(['aluno/principal']);
           }

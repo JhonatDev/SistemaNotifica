@@ -3,7 +3,12 @@
   <div class="container-fluid">
     <!-- Texto indicando o tipo de usuário -->
     <span class="navbar-text text-white me-auto">
-      USUÁRIO: {{ tipoDeUsuario === 'ROLE_admin' ? 'ADMIN' : 'ALUNO' }}
+      <!-- testar se o tipoDeUsuario é 'ROLE_admin', 'ROLE_funcionario' ou 'ROLE_user' -->
+      <ng-container *ngIf="tipoDeUsuario === 'ROLE_admin'">ADMIN:</ng-container>
+      <ng-container *ngIf="tipoDeUsuario === 'ROLE_funcionario'">FUNCIONÁRIO:</ng-container>
+      <ng-container *ngIf="tipoDeUsuario === 'ROLE_user'">USUÁRIO:</ng-container>
+      <!-- colocar o login aqui -->
+      <ng-container *ngIf="login"> {{ login }} </ng-container>
     </span>
 
     <!-- Botões "Principal" e "Busca Avançada" -->
