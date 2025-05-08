@@ -14,8 +14,8 @@
       <p><strong>Criador:</strong> {{ TicketList.raAluno }}</p>
       <!--mostrar o nome dos funcionários que pegaram o ticket-->
       <p><strong>funcionários:</strong>
-        <span *ngFor="let funcionario of TicketList.funcionario; let last = last">
-          {{ funcionario.nomeFuncionario }}<span *ngIf="!last">, </span>
+        <span *ngFor="let funcionario of TicketList.funcionarioResponsavel; let last = last">
+          
         </span>
       <div class="conteiner-imagem">
         <!--se p src for null, mostrar imagem padrão -->
