@@ -47,7 +47,7 @@ export class AdminlistComponent implements OnInit {
 
   funcao!: any;
   constructor(
-    private ticktsService: TicktsService,
+  private ticktsService: TicktsService,
   private loginService: LoginService,
   private modalService: MdbModalService, // Injeção do serviço de modal
   private router: Router

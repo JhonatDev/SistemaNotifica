@@ -42,6 +42,7 @@ export class LoginComponent {
           this.loginService.addToken(response);
           let tipoUsuario = this.loginService.jwtDecode()?.role;
           console.log('Tipo de usuário:', tipoUsuario);
+          console.log('Token:', this.loginService.jwtDecode());
 
           if (tipoUsuario === 'ROLE_admin') {
             this.router.navigate(['admin/principal']);

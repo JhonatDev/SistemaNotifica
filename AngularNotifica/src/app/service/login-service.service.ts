@@ -51,6 +51,51 @@ export class LoginService {
           username: string;
         }>(token);
 
+        /*
+        {
+    "exp": 1747601157,
+    "iat": 1747600857,
+    "jti": "onrtro:6935890c-6751-4c09-a804-9cef67043150",
+    "iss": "http://localhost:8081/realms/Notifica",
+    "aud": "account",
+    "sub": "b30e8758-43e7-4d74-8e27-deff35b0d867",
+    "typ": "Bearer",
+    "azp": "springboot-client",
+    "sid": "2558096e-f633-41e9-ba4f-121263777f5c",
+    "acr": "1",
+    "allowed-origins": [
+        "http://localhost:8080"
+    ],
+    "realm_access": {
+        "roles": [
+            "offline_access",
+            "default-roles-notifica",
+            "uma_authorization"
+        ]
+    },
+    "resource_access": {
+        "account": {
+            "roles": [
+                "manage-account",
+                "manage-account-links",
+                "view-profile"
+            ]
+        },
+        "springboot-client": {
+            "roles": [
+                "ROLE_user"
+            ]
+        }
+    },
+    "scope": "profile",
+    "name": "user user",
+    "preferred_username": "user",
+    "given_name": "user",
+    "family_name": "user"
+}
+
+        */
+
         if (decodedToken) {
           // Atribuindo os valores a variáveis
           const sub = decodedToken.sub;
