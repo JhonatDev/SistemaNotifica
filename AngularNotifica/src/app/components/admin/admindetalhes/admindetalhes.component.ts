@@ -12,7 +12,7 @@ import { LoginService } from '../../../service/login-service.service';
 import { environment } from '../../../../environments/environment';
 
 @Component({
-  selector: 'app-ticktsdetalhes',
+  selector: 'app-admindetalhes',
   standalone: true,
   imports: [
     RouterLink,
@@ -20,11 +20,11 @@ import { environment } from '../../../../environments/environment';
     MdbModalModule,
     FormsModule
   ],
-  templateUrl: './ticktsdetalhes.component.html',
-  styleUrls: ['./ticktsdetalhes.component.css']
+  templateUrl: './admindetalhes.component.html',
+  styleUrls: ['./admindetalhes.component.css']
 })
 
-export class TicktsdetalhesComponent {
+export class AdmindetalhesComponent {
   // Objeto do novo ticket
   @Input() TicketList!: Tickts;
   @Input() funcao!: any;
@@ -44,7 +44,7 @@ export class TicktsdetalhesComponent {
   modalService = inject(MdbModalService);
 
   // Referência do template da modal no HTML
-  @ViewChild('ticktsdetalhes') ticktsdetalhes!: TemplateRef<any>;
+  @ViewChild('Admindetalhes') Admindetalhes!: TemplateRef<any>;
 
   // Referência da modal para conseguirmos fechar
   modalRef!: MdbModalRef<any>;

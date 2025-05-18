@@ -4,30 +4,34 @@ import { Router } from '@angular/router';
 import { catchError, throwError } from 'rxjs';
 
 export const meuhttpInterceptor: HttpInterceptorFn = (request, next) => {
-  const router = inject(Router);
 
-  const token = localStorage.getItem('token');
-  // Não adicionar token se estiver na página de login
+  let router = inject(Router);
+
+  let token = localStorage.getItem('token');
   if (token && !router.url.includes('/login')) {
     request = request.clone({
-      setHeaders: { Authorization: `Bearer ${token}` },
+      setHeaders: { Authorization: 'Bearer ' + token },
     });
   }
 
   return next(request).pipe(
     catchError((err: any) => {
       if (err instanceof HttpErrorResponse) {
+	  
+	  
         if (err.status === 401) {
-          alert('Sessão expirada ou não autorizado. Faça login novamente.');
+          alert('401 - tratar aqui');
           router.navigate(['/login']);
         } else if (err.status === 403) {
-          alert('Acesso negado. Você não tem permissão para acessar este recurso.');
-          router.navigate(['/login']);
+          alert('403 - tratar aqui');
+		  router.navigate(['/login']);
         } else {
-          console.error('Erro HTTP:', err);
+          console.error('HTTP error:', err);
         }
+		
+		
       } else {
-        console.error('Erro inesperado:', err);
+        console.error('An error occurred:', err);
       }
 
       return throwError(() => err);

@@ -1,37 +1,29 @@
 import { Routes } from '@angular/router';
 import { LoginComponent } from './components/login/login.component';
 import { PrincipalComponent } from './components/principal/principal.component';
-import { TicktslistComponent } from './components/paginas/ticktslist/ticktslist.component';
-import { TicktsdetalhesComponent } from './components/paginas/ticktsdetalhes/ticktsdetalhes.component';
+import { AdminlistComponent } from './components/admin/adminlist/adminlist.component';
+import { AdmindetalhesComponent } from './components/admin/admindetalhes/admindetalhes.component';
 import { TicketshowComponent } from './components/ticketshow/ticketshow.component';
 import { tick } from '@angular/core/testing';
-import { AuthRouteGuard } from './guard/auth-route-guard.guard';
-import path from 'node:path';
+import { authRouteGuardGuard } from './guard/auth-route-guard.guard';
 
 
 export const routes: Routes = [
     {path:"", redirectTo:"login", pathMatch:"full"},
     {path:"login", component:LoginComponent},
     {path:"teste", component:TicketshowComponent},
-    {path:"admin", component:PrincipalComponent, canActivate: [AuthRouteGuard], children:[
-        {path:"principal", component:TicktslistComponent},
-        {path:"principal/cancelados", component:TicktslistComponent},
-        {path:"principal/pendentes", component:TicktslistComponent},
-        {path:"principal/andamento", component:TicktslistComponent},
-        {path:"principal/concluidos", component:TicktslistComponent},
+    {path:"admin", component:PrincipalComponent, canActivate: [authRouteGuardGuard], children:[
+        {path:"principal", component:AdminlistComponent},
+        {path:"principal/cancelados", component:AdminlistComponent},
+        {path:"principal/pendentes", component:AdminlistComponent},
+        {path:"principal/andamento", component:AdminlistComponent},
+        {path:"principal/concluidos", component:AdminlistComponent},
     ]},
-    {path: "funcionario", component: PrincipalComponent, canActivate: [AuthRouteGuard], children:[
-        {path:"principal", component:TicktslistComponent},
-        {path:"principal/cancelados", component:TicktslistComponent},
-        {path:"principal/pendentes", component:TicktslistComponent},
-        {path:"principal/andamento", component:TicktslistComponent},
-        {path:"principal/concluidos", component:TicktslistComponent},
-    ]},
-    {path:"aluno", component:PrincipalComponent, canActivate: [AuthRouteGuard], children:[
-        {path:"principal", component:TicktslistComponent},
-        {path:"principal/pendentes", component:TicktslistComponent},
-        {path:"principal/andamento", component:TicktslistComponent},
-        {path:"principal/concluidos", component:TicktslistComponent},
+    {path:"aluno", component:PrincipalComponent, canActivate: [authRouteGuardGuard], children:[
+        {path:"principal", component:AdminlistComponent},
+        {path:"principal/pendentes", component:AdminlistComponent},
+        {path:"principal/andamento", component:AdminlistComponent},
+        {path:"principal/concluidos", component:AdminlistComponent},
     ]},
 
 ];

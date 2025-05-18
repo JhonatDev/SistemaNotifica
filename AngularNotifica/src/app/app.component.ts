@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 @Component({
@@ -8,13 +8,6 @@ import { RouterOutlet } from '@angular/router';
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
-export class AppComponent implements OnInit {
+export class AppComponent {
   title = 'cadastro-pessoas';
-
-  ngOnInit() {
-    // Remove o hash "#iss=..." da URL caso esteja presente
-    if (window.location.hash.includes('iss=')) {
-      window.history.replaceState(null, '', window.location.pathname);
-    }
-  }
 }

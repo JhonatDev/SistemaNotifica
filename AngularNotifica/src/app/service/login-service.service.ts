@@ -1,60 +1,82 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Router } from '@angular/router';
+import { Injectable, inject } from '@angular/core';
 import { Observable } from 'rxjs';
-import jwtDecode from 'jwt-decode';
+import jwtDecode, { JwtPayload } from 'jwt-decode';
+import { Login } from '../models/login/login';
+import { Usuario } from '../models/login/usuario';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LoginService {
-  private readonly tokenKey = 'token';
 
-  constructor(private http: HttpClient, private router: Router) {}
+  http = inject(HttpClient);
+  API = environment.SERVIDOR + "/login";
 
-  login(username: string, password: string): Observable<any> {
-    const body = new URLSearchParams();
-    body.set('client_id', 'angular');
-    body.set('grant_type', 'password');
-    body.set('username', username);
-    body.set('password', password);
+  constructor() { }
 
-    const headers = { 'Content-Type': 'application/x-www-form-urlencoded' };
-
-    return this.http.post('http://localhost:8080/realms/seu-realm/protocol/openid-connect/token', body.toString(), { headers });
+  logar(login: Login): Observable<string> {
+    return this.http.post<string>(this.API, login, { responseType: 'text' as 'json' });
   }
 
-  saveToken(token: string) {
-    localStorage.setItem(this.tokenKey, token);
+  addToken(token: string) {
+    if (typeof window !== 'undefined' && localStorage) {
+      localStorage.setItem('token', token);
+    }
   }
 
-  getToken(): string | null {
-    return localStorage.getItem(this.tokenKey);
+  removerToken() {
+    if (typeof window !== 'undefined' && localStorage) {
+      localStorage.removeItem('token');
+    }
   }
 
-  decodeToken(): any | null {
-    const token = this.getToken();
-    if (token) {
-      return jwtDecode(token);
+  getToken() {
+    if (typeof window !== 'undefined' && localStorage) {
+      return localStorage.getItem('token');
     }
     return null;
   }
 
-  hasValidToken(): boolean {
+  jwtDecode() {
     const token = this.getToken();
-    if (!token) return false;
+    if (token) {
+      try {
+        const decodedToken = jwtDecode<JwtPayload & {
+          sub: string;
+          role: string;
+          outracoisa: string;
+          id: string;
+          username: string;
+        }>(token);
 
-    try {
-      const decoded: any = jwtDecode(token);
-      const now = Math.floor(Date.now() / 1000);
-      return decoded.exp > now;
-    } catch {
-      return false;
+        if (decodedToken) {
+          // Atribuindo os valores a variáveis
+          const sub = decodedToken.sub;
+          const role = decodedToken.role;
+          const outracoisa = decodedToken.outracoisa;
+          const id = decodedToken.id;
+          const exp = decodedToken.exp;
+          const iat = decodedToken.iat;
+          const username = decodedToken.username;
+
+          return decodedToken; // Retornando o token completo se necessário
+        }
+      } catch (error) {
+        console.error("Erro ao decodificar o token:", error);
+      }
     }
+    return null;
   }
 
-  logout() {
-    localStorage.removeItem(this.tokenKey);
-    this.router.navigate(['/login']);
+
+
+  hasPermission(role: string): boolean {
+    const user = this.jwtDecode() as Usuario | null;
+    if (user && user.role === role) {
+      return true;
+    }
+    return false;
   }
 }

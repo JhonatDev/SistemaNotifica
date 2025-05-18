@@ -1,36 +1,69 @@
-import { Component } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 import { LoginService } from '../../service/login-service.service';
 import { Router } from '@angular/router';
+import { AdminlistComponent } from '../admin/adminlist/adminlist.component';
+import { AdmindetalhesComponent } from '../admin/admindetalhes/admindetalhes.component';
+import { Login } from '../../models/login/login';
 
 @Component({
   selector: 'app-login',
+  standalone: true,
+  imports: [CommonModule, FormsModule],
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.css']
+  styleUrls: ['./login.component.scss']
 })
 export class LoginComponent {
-  username: string = '';
-  password: string = '';
+  login = '';
+  senha = ''
+  showModal: boolean = false; // Variável para controlar o modal
+  alert!: string;
 
-  constructor(private loginService: LoginService, private router: Router) {}
+  router = inject(Router);
 
-  login(): void {
-    if (!this.username || !this.password) {
-      alert('Preencha os campos de usuário e senha!');
-      return;
-    }
+  constructor(private loginService: LoginService) {}
 
-    this.loginService.login(this.username, this.password).subscribe({
-      next: (response: any) => {
-        const token = response.access_token;
-        this.loginService.saveToken(token);
-        const decodedToken = this.loginService.decodeToken();
-        console.log('Usuário logado:', decodedToken);
-        this.router.navigate(['/admin/principal']);
-      },
-      error: (error: any) => {
-        console.error('Erro de autenticação:', error);
-        alert('Usuário ou senha inválidos.');
-      }
-    });
+  ngOnInit(): void {
+    document.documentElement.style.setProperty('--mdb-body-bg', '#00000000');//muda a cor do fundo
+    document.documentElement.style.setProperty(
+      'background',
+       'url(https://svanegas-one.blackboard.com/bbcswebdav/xid-212801_1) no-repeat center center fixed'
+    );//muda a imagem de fundo
+    document.documentElement.style.setProperty('background-size', 'cover');//ajusta a imagem de fundo
+
   }
+
+  onLogin() {
+    this.loginService.logar({ login: this.login, senha: this.senha })
+      .subscribe({
+        next: (response) => {
+          console.log('Login bem-sucedido:', response);
+          this.loginService.addToken(response);
+          let tipoUsuario = this.loginService.jwtDecode()?.role;
+          console.log('Tipo de usuário:', tipoUsuario);
+
+          if (tipoUsuario === 'ROLE_admin') {
+            this.router.navigate(['admin/principal']);
+          } else if (tipoUsuario === 'ROLE_user') {
+            this.router.navigate(['aluno/principal']);
+          }
+
+        },
+        error: (error) => {
+          console.error('Erro no login:', error);
+          this.alert = 'Usuário ou senha inválidos!';
+          this.showModal = true;
+
+        }
+      });
+  }
+
+  // Fecha o modal
+  closeModal(): void {
+    this.showModal = false;
+  }
+
 }
+
+

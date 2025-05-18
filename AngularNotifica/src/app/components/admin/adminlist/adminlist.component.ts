@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 import { MdbModalModule, MdbModalRef, MdbModalService } from 'mdb-angular-ui-kit/modal';
 import { TicktsService } from '../../../service/tickts/tickts.service';
 import { Tickts } from '../../../models/tickts/tickts';
-import { TicktsdetalhesComponent } from '../ticktsdetalhes/ticktsdetalhes.component';
+import { AdmindetalhesComponent } from '../admindetalhes/admindetalhes.component';
 import { TicketshowComponent } from '../../ticketshow/ticketshow.component';
 import { LoginService } from '../../../service/login-service.service';
 import { log } from 'console';
@@ -13,13 +13,13 @@ import { CriarUsuarioComponent } from '../../criar-usuario/criar-usuario.compone
 
 
 @Component({
-  selector: 'app-ticktslist',
+  selector: 'app-adminlist',
   standalone: true,
-  imports: [RouterLink, CommonModule, MdbModalModule, TicktsdetalhesComponent, TicketshowComponent, CriarUsuarioComponent],
-  templateUrl: './ticktslist.component.html',
-  styleUrls: ['./ticktslist.component.css']
+  imports: [RouterLink, CommonModule, MdbModalModule, AdmindetalhesComponent, TicketshowComponent, CriarUsuarioComponent],
+  templateUrl: './adminlist.component.html',
+  styleUrls: ['./adminlist.component.css']
 })
-export class TicktslistComponent implements OnInit {
+export class AdminlistComponent implements OnInit {
 
   // Serviço de modal injetado
   //modalService = inject(MdbModalService);
@@ -143,13 +143,13 @@ export class TicktslistComponent implements OnInit {
     // Escolhe o método de listagem com base no tipo de site
     const status = getStatusByTipoSite(this.tipoSite);
 
-    if (this.tipoDeUsuario === 'ROLE_funcionario') {
+    if (this.tipoDeUsuario === 'ROLE_admin') {
         if (status) {
             tipoDeLista = this.ticktsService.listarPorStatus(status);
             console.log(`Listando tickets ${status} para ${this.tipoDeUsuario}`);
         } else {
             tipoDeLista = this.ticktsService.listar();
-            console.log('Listando todos os tickets para ROLE_funcionario');
+            console.log('Listando todos os tickets para ROLE_admin');
         }
     } else if (this.tipoDeUsuario === 'ROLE_user') { // Corrigido para fora do bloco ADMIN
         if (status) {

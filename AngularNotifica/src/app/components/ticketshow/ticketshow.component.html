@@ -12,11 +12,7 @@
       <p><strong>SubTipo de Problema:</strong> {{ TicketList.subtipoProblema }}</p>
       <p><strong>Outros SubTipos de Problema:</strong> {{ TicketList.outroSubtipoProblema }}</p>
       <p><strong>Criador:</strong> {{ TicketList.raAluno }}</p>
-      <!--mostrar o nome dos funcionários que pegaram o ticket-->
-      <p><strong>funcionários:</strong>
-        <span *ngFor="let funcionario of TicketList.funcionarioResponsavel; let last = last">
-          
-        </span>
+      <p><strong>Funcionário:</strong> {{ TicketList.funcionarioResponsavel }}</p>
       <div class="conteiner-imagem">
         <!--se p src for null, mostrar imagem padrão -->
 
@@ -35,38 +31,38 @@
               onclick="document.getElementById('botaoEditar').click()">
         Editar
       </button>
-      <button *ngIf="tipoDeUsuario == 'ROLE_admin' || tipoDeUsuario == 'ROLE_funcionario' && TicketList.status == 'CANCELADO'"
+      <button *ngIf="tipoDeUsuario == 'ROLE_admin' && TicketList.status == 'CANCELADO'"
               class="btn btn-danger"
               (click)="deletar(TicketList); $event.stopPropagation()">
         Excluir
       </button>
-      <button *ngIf="tipoDeUsuario == 'ROLE_admin' || tipoDeUsuario == 'ROLE_funcionario' && TicketList.status == 'ABERTO'"
+      <button *ngIf="tipoDeUsuario == 'ROLE_admin' && TicketList.status == 'ABERTO'"
               class="btn btn-success"
               (click)="pegarTicket(TicketList); $event.stopPropagation()">
         Pegar
       </button>
-      <button *ngIf="tipoDeUsuario == 'ROLE_admin' || tipoDeUsuario == 'ROLE_funcionario' && TicketList.status == 'EM_ANDAMENTO'"
+      <button *ngIf="tipoDeUsuario == 'ROLE_admin' && TicketList.status == 'EM_ANDAMENTO'"
               class="btn btn-success"
               (click)="finalizarTicket(TicketList); $event.stopPropagation()">
         Finalizar
       </button>
 
-      <button *ngIf="tipoDeUsuario == 'ROLE_admin' || tipoDeUsuario == 'ROLE_funcionario' && (TicketList.status == 'CANCELADO' || TicketList.status == 'SOLUCIONADO')"
+      <button *ngIf="tipoDeUsuario == 'ROLE_admin' && (TicketList.status == 'CANCELADO' || TicketList.status == 'SOLUCIONADO')"
               class="btn btn-success"
               (click)="reabrirTicket(TicketList); $event.stopPropagation()">
         Reabrir
       </button>
-      <button *ngIf="tipoDeUsuario == 'ROLE_admin' || tipoDeUsuario == 'ROLE_funcionario' && TicketList.status != 'CANCELADO'"
+      <button *ngIf="tipoDeUsuario == 'ROLE_admin' && TicketList.status != 'CANCELADO'"
               class="btn btn-danger"
               (click)="cancelarTicket(TicketList); $event.stopPropagation()">
         Cancelar
       </button>
-      <button *ngIf="tipoDeUsuario == 'ROLE_admin' || tipoDeUsuario == 'ROLE_funcionario' && TicketList.status == 'ABERTO'"
+      <button *ngIf="tipoDeUsuario == 'ROLE_user' && TicketList.status == 'ABERTO'"
               class="btn btn-danger"
               (click)="cancelarTicket(TicketList); $event.stopPropagation()">
         Cancelar
       </button>
-      <button *ngIf="tipoDeUsuario == 'ROLE_admin' || tipoDeUsuario == 'ROLE_funcionario' && TicketList.status == 'EM_ANDAMENTO'"
+      <button *ngIf="tipoDeUsuario == 'ROLE_admin' && TicketList.status == 'EM_ANDAMENTO'"
               class="btn btn-success"
               (click)="reabrirTicket(TicketList); $event.stopPropagation()">
         Sair
