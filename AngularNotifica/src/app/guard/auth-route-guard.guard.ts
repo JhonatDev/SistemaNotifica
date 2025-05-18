@@ -1,25 +1,20 @@
-import { inject } from '@angular/core';
-import { CanActivateFn, Router } from '@angular/router';
+import { Injectable } from '@angular/core';
+import { CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, Router } from '@angular/router';
 import { LoginService } from '../service/login-service.service';
 
-export const authRouteGuardGuard: CanActivateFn = (route, state) => {
-  let roleUser = inject(LoginService)
-  let rota = inject(Router)
+@Injectable({
+  providedIn: 'root'
+})
+export class AuthRouteGuard implements CanActivate {
 
-  if(roleUser.hasPermission('ROLE_user') && state.url=="/admin/principal"){
-    rota.navigate(["/aluno/principal"])
-    return false;
+  constructor(private loginService: LoginService, private router: Router) {}
+
+  canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): boolean {
+    if (this.loginService.hasValidToken()) {
+      return true;
+    } else {
+      this.router.navigate(['/login']);
+      return false;
+    }
   }
-
-  if(roleUser.hasPermission('ROLE_funcionario') && state.url=="/admin/principal"){
-    rota.navigate(["/funcionario/principal"])
-    return false;
-  }
-
-  if(roleUser.hasPermission('ROLE_admin') && state.url=="/aluno/principal"){
-    rota.navigate(["/admin/principal"])
-    return false;
-  }
-
-  return true;
-};
+}

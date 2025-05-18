@@ -5,7 +5,7 @@ import { TicktslistComponent } from './components/paginas/ticktslist/ticktslist.
 import { TicktsdetalhesComponent } from './components/paginas/ticktsdetalhes/ticktsdetalhes.component';
 import { TicketshowComponent } from './components/ticketshow/ticketshow.component';
 import { tick } from '@angular/core/testing';
-import { authRouteGuardGuard } from './guard/auth-route-guard.guard';
+import { AuthRouteGuard } from './guard/auth-route-guard.guard';
 import path from 'node:path';
 
 
@@ -13,21 +13,21 @@ export const routes: Routes = [
     {path:"", redirectTo:"login", pathMatch:"full"},
     {path:"login", component:LoginComponent},
     {path:"teste", component:TicketshowComponent},
-    {path:"admin", component:PrincipalComponent, canActivate: [authRouteGuardGuard], children:[
+    {path:"admin", component:PrincipalComponent, canActivate: [AuthRouteGuard], children:[
         {path:"principal", component:TicktslistComponent},
         {path:"principal/cancelados", component:TicktslistComponent},
         {path:"principal/pendentes", component:TicktslistComponent},
         {path:"principal/andamento", component:TicktslistComponent},
         {path:"principal/concluidos", component:TicktslistComponent},
     ]},
-    {path: "funcionario", component: PrincipalComponent, canActivate: [authRouteGuardGuard], children:[
+    {path: "funcionario", component: PrincipalComponent, canActivate: [AuthRouteGuard], children:[
         {path:"principal", component:TicktslistComponent},
         {path:"principal/cancelados", component:TicktslistComponent},
         {path:"principal/pendentes", component:TicktslistComponent},
         {path:"principal/andamento", component:TicktslistComponent},
         {path:"principal/concluidos", component:TicktslistComponent},
     ]},
-    {path:"aluno", component:PrincipalComponent, canActivate: [authRouteGuardGuard], children:[
+    {path:"aluno", component:PrincipalComponent, canActivate: [AuthRouteGuard], children:[
         {path:"principal", component:TicktslistComponent},
         {path:"principal/pendentes", component:TicktslistComponent},
         {path:"principal/andamento", component:TicktslistComponent},

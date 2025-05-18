@@ -29,6 +29,7 @@ public class TicketController {
     private TicketService ticketService;
 
     // Método para criar um ticket
+    @PreAuthorize("hasAnyRole('admin', 'funcionario', 'aluno')")
     @PostMapping("/criar")
     public ResponseEntity<Ticket> criarTicket(@Valid @RequestHeader("Authorization") String token, @RequestBody Ticket ticket) {
         Ticket ticketCriado = ticketService.criarTicket(ticket);
@@ -36,6 +37,7 @@ public class TicketController {
     }
 
     // Método para listar todos os tickets
+    @PreAuthorize("hasAnyRole('admin', 'funcionario', 'aluno')")
     @GetMapping("/listar")
     public ResponseEntity<List<Ticket>> listarTickets(@RequestHeader("Authorization") String token) {
         List<Ticket> tickets = ticketService.listarTickets();
@@ -54,6 +56,7 @@ public class TicketController {
     }
 
     // Método para atualizar um ticket
+    @PreAuthorize("hasAnyRole('admin', 'funcionario', 'aluno')")
     @PutMapping("/atualizar/{id}")
     public ResponseEntity<Ticket> atualizarTicket(@Valid @RequestHeader("Authorization") String token, @PathVariable Long id, @RequestBody Ticket ticket) {
         Ticket ticketAtualizado = ticketService.atualizarTicket(id, ticket);
@@ -62,7 +65,7 @@ public class TicketController {
     }
 
     // Método para deletar um ticket
-    @PreAuthorize("hasRole('admin', 'funcionario')")
+    @PreAuthorize("hasAnyRole('admin', 'funcionario')")
     @DeleteMapping("/deletar/{id}")
     public ResponseEntity<Map<String, String>> deletarTicket(@Valid @RequestHeader("Authorization") String token, @PathVariable Long id) {
         ticketService.deletarTicket(id);
@@ -76,7 +79,7 @@ public class TicketController {
     }
 
     // Métodos para iniciar, solucionar e cancelar um ticket
-    @PreAuthorize("hasRole('admin', 'funcionario')")
+    @PreAuthorize("hasAnyRole('admin', 'funcionario')")
     @PutMapping("/iniciar/{funcionarioResponsavel}/{id}")
     public ResponseEntity<Ticket> iniciarTicket(@Valid @RequestHeader("Authorization") String token, @PathVariable Long id, @PathVariable String funcionarioResponsavel) { 
         Ticket ticketIniciado = ticketService.iniciarTicket(id, funcionarioResponsavel);
@@ -85,7 +88,7 @@ public class TicketController {
     }
 
     // Método para voltar um ticket para aberto
-    @PreAuthorize("hasRole('admin', 'funcionario')")
+    @PreAuthorize("hasAnyRole('admin', 'funcionario')")
     @PutMapping("/voltarAberto/{id}")
     public ResponseEntity<Ticket> voltarAberto(@RequestHeader("Authorization") String token, @PathVariable Long id) {
         Ticket ticketAberto = ticketService.voltarTicketParaAberto(id);
@@ -94,7 +97,7 @@ public class TicketController {
     }
 
     // Método para solucionar um ticket
-    @PreAuthorize("hasRole('admin', 'funcionario')")
+    @PreAuthorize("hasAnyRole('admin', 'funcionario')")
     @PutMapping("/solucionar/{id}")
     public ResponseEntity<Ticket> solucionarTicket(@Valid @RequestHeader("Authorization") String token, @PathVariable Long id) {
         Ticket ticketSolucionado = ticketService.solucionarTicket(id);
@@ -102,6 +105,7 @@ public class TicketController {
     }
 
     // Método para cancelar um ticket
+    @PreAuthorize("hasAnyRole('aluno', 'admin', 'funcionario')")
     @PutMapping("/cancelar/{id}")
     public ResponseEntity<Ticket> cancelarTicket(@Valid @RequestHeader("Authorization") String token, @PathVariable Long id) {
         Ticket ticketCancelado = ticketService.cancelarTicket(id);
@@ -109,6 +113,7 @@ public class TicketController {
     }
 
     // Método para listar tickets por status
+    @PreAuthorize("hasAnyRole('admin', 'funcionario', 'aluno')")
     @GetMapping("/listarPorStatus/{status}")
     public ResponseEntity<List<Ticket>> listarTicketsPorStatus(@Valid @RequestHeader("Authorization") String token, @PathVariable Ticket.Status status) {
         List<Ticket> ticketsPorStatus = ticketService.listarTicketsPorStatus(status);
@@ -116,6 +121,7 @@ public class TicketController {
     }
 
     // Método para buscar tickets por RA e status
+    @PreAuthorize("hasAnyRole('admin', 'funcionario', 'aluno')")
     @GetMapping("/buscarPorRaEStatus/{raAluno}/{status}")
     public ResponseEntity<List<Ticket>> buscarTicketsPorRaEStatus(@Valid @RequestHeader("Authorization") String token, @PathVariable String raAluno, @Valid @PathVariable Ticket.Status status) {
         List<Ticket> ticketsPorRaEStatus = ticketService.buscarTicketsPorRaEStatus(raAluno, status);
@@ -123,6 +129,7 @@ public class TicketController {
     }
 
     // Método para buscar tickets por RA
+    @PreAuthorize("hasAnyRole('admin', 'funcionario', 'aluno')")
     @GetMapping("/buscarPorRa/{raAluno}")
     public ResponseEntity<List<Ticket>> buscarTicketsPorRa(@Valid @RequestHeader("Authorization") String token, @PathVariable String raAluno) {
         List<Ticket> ticketsPorRa = ticketService.buscarTicketsPorRa(raAluno);
@@ -130,6 +137,7 @@ public class TicketController {
     }
 
     // Método para buscar tickets por ra e status sem cancelados
+    @PreAuthorize("hasAnyRole('admin', 'funcionario', 'aluno')")
     @GetMapping("/buscarPorRaEStatusSemCancelados/{raAluno}/{status}")
     public ResponseEntity<List<Ticket>> buscarTicketsPorRaEStatusSemCancelados(@Valid @RequestHeader("Authorization") String token, @PathVariable String raAluno, @Valid @PathVariable Ticket.Status status) {
         List<Ticket> ticketsPorRaEStatusSemCancelados = ticketService.buscarTicketsPorRaEStatusSemCancelados(raAluno, status);
@@ -137,6 +145,7 @@ public class TicketController {
     }
 
     // Método para buscar tickets por ra sem cancelados
+    @PreAuthorize("hasAnyRole('admin', 'funcionario', 'aluno')")
     @GetMapping("/buscarPorRaSemCancelados/{raAluno}")
     public ResponseEntity<List<Ticket>> buscarTicketsPorRaSemCancelados(@Valid @RequestHeader("Authorization") String token, @PathVariable String raAluno) {
         List<Ticket> ticketsPorRaSemCancelados = ticketService.buscarTicketsPorRaSemCancelados(raAluno);
