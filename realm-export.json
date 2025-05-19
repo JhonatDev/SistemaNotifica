@@ -883,6 +883,7 @@
         "post.logout.redirect.uris": "http://localhost:8080",
         "frontchannel.logout.session.required": "true",
         "oauth2.device.authorization.grant.enabled": "false",
+        "use.jwks.url": "false",
         "backchannel.logout.revoke.offline.tokens": "false",
         "use.refresh.tokens": "true",
         "realm_client": "false",
