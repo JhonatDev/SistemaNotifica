@@ -93,10 +93,12 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(Arrays.asList(
-            "http://localhost:4200",
-            "http://192.168.3.101"
-        ));
+config.setAllowedOrigins(Arrays.asList(
+        "http://localhost:4200",
+        "http://192.168.3.101",
+        "https://192.168.3.101"
+));
+
         config.setAllowedMethods(Arrays.asList(
             "GET", "POST", "PUT", "DELETE", "OPTIONS"
         ));
