@@ -85,18 +85,18 @@ public class SecurityConfig {
         return converter;
     }
 
-    /**
-     * Configuração global de CORS:
-     * - libera localhost:4200 e 192.168.3.101 para chamadas AJAX
-     * - permite métodos comuns e headers de autenticação
-     */
+    
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(Arrays.asList(
-            "http://localhost:4200",
-            "http://192.168.3.101"
-        ));
+config.setAllowedOrigins(Arrays.asList(
+        "http://localhost:4200",
+        "http://192.168.3.101",
+        "https://192.168.3.101",
+        "https://notifica.net"
+        
+));
+
         config.setAllowedMethods(Arrays.asList(
             "GET", "POST", "PUT", "DELETE", "OPTIONS"
         ));

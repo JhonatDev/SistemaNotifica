@@ -1,0 +1,227 @@
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+# Native memory allocation (malloc) failed to allocate 1048576 bytes. Error detail: AllocateHeap
+# Possible reasons:
+#   The system is out of physical RAM or swap space
+#   This process is running with CompressedOops enabled, and the Java Heap may be blocking the growth of the native heap
+# Possible solutions:
+#   Reduce memory load on the system
+#   Increase physical memory or swap space
+#   Check if swap backing store is full
+#   Decrease Java heap size (-Xmx/-Xms)
+#   Decrease number of Java threads
+#   Decrease Java thread stack sizes (-Xss)
+#   Set larger code cache with -XX:ReservedCodeCacheSize=
+#   JVM is running with Unscaled Compressed Oops mode in which the Java heap is
+#     placed in the first 4GB address space. The Java Heap base address is the
+#     maximum limit for the native heap growth. Please use -XX:HeapBaseMinAddress
+#     to set the Java Heap base and to place the Java Heap above 4GB virtual address.
+# This output file may be truncated or incomplete.
+#
+#  Out of Memory Error (allocation.cpp:44), pid=7308, tid=8616
+#
+# JRE version:  (21.0.7+6) (build )
+# Java VM: OpenJDK 64-Bit Server VM (21.0.7+6-LTS, mixed mode, sharing, tiered, compressed oops, compressed class ptrs, g1 gc, windows-amd64)
+# No core dump will be written. Minidumps are not enabled by default on client versions of Windows
+#
+
+---------------  S U M M A R Y ------------
+
+Command Line: -Dapplication.home=c:\Users\duduh\.vscode\extensions\redhat.java-1.42.0-win32-x64\jre\21.0.7-win32-x86_64 -Xms8m -Djdk.module.main=jdk.jcmd jdk.jcmd/sun.tools.jcmd.JCmd 8860 VM.uptime
+
+Host: Intel(R) Core(TM) i3-10110U CPU @ 2.10GHz, 4 cores, 7G,  Windows 10 , 64 bit Build 19041 (10.0.19041.5678)
+Time: Wed May 21 17:20:20 2025 Hora oficial do Brasil elapsed time: 0.048475 seconds (0d 0h 0m 0s)
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00000224b0c03710):  JavaThread "Unknown thread" [_thread_in_vm, id=8616, stack(0x000000addc200000,0x000000addc300000) (1024K)]
+
+Stack: [0x000000addc200000,0x000000addc300000]
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x6ce119]
+V  [jvm.dll+0x8a84a1]
+V  [jvm.dll+0x8aa9ce]
+V  [jvm.dll+0x8ab0b3]
+V  [jvm.dll+0x27f8a6]
+V  [jvm.dll+0xbfba7]
+V  [jvm.dll+0x327ed5]
+V  [jvm.dll+0x8716dd]
+V  [jvm.dll+0x3bc501]
+V  [jvm.dll+0x85a743]
+V  [jvm.dll+0x45080e]
+V  [jvm.dll+0x452451]
+C  [jli.dll+0x5278]
+C  [ucrtbase.dll+0x21bb2]
+C  [KERNEL32.DLL+0x17374]
+C  [ntdll.dll+0x4cc91]
+
+
+---------------  P R O C E S S  ---------------
+
+Threads class SMR info:
+_java_thread_list=0x00007ff986d9a0c8, length=0, elements={
+}
+
+Java Threads: ( => current thread )
+Total: 0
+
+Other Threads:
+
+=>0x00000224b0c03710 (exited) JavaThread "Unknown thread"    [_thread_in_vm, id=8616, stack(0x000000addc200000,0x000000addc300000) (1024K)]
+Total: 1
+
+Threads with active compile tasks:
+Total: 0
+
+VM state: not at safepoint (not fully initialized)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+Heap address: 0x0000000000000000, size: 0 MB, Compressed Oops mode: 32-bit
+
+CDS archive(s) mapped at: [0x0000000000000000-0x0000000000000000-0x0000000000000000), size 0, SharedBaseAddress: 0x0000000800000000, ArchiveRelocationMode: 1.
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 0, Narrow klass range: 0x0
+
+GC Precious Log:
+ CardTable entry size: 512
+ Card Set container configuration: InlinePtr #cards 5 size 8 Array Of Cards #cards 12 size 40 Howl #buckets 4 coarsen threshold 1843 Howl Bitmap #cards 512 size 80 coarsen threshold 460 Card regions per heap region 1 cards per card region 2048
+
+GC Heap History (0 events):
+No events
+
+Dll operation events (1 events):
+Event: 0.043 Loaded shared library c:\Users\duduh\.vscode\extensions\redhat.java-1.42.0-win32-x64\jre\21.0.7-win32-x86_64\bin\java.dll
+
+Deoptimization events (0 events):
+No events
+
+Classes loaded (0 events):
+No events
+
+Classes unloaded (0 events):
+No events
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (0 events):
+No events
+
+ZGC Phase Switch (0 events):
+No events
+
+VM Operations (0 events):
+No events
+
+Memory protections (0 events):
+No events
+
+Nmethod flushes (0 events):
+No events
+
+Events (0 events):
+No events
+
+
+Dynamic libraries:
+0x00007ff6760d0000 - 0x00007ff6760d8000 	c:\Users\duduh\.vscode\extensions\redhat.java-1.42.0-win32-x64\jre\21.0.7-win32-x86_64\bin\jcmd.exe
+0x00007ffa2c550000 - 0x00007ffa2c748000 	C:\WINDOWS\SYSTEM32\ntdll.dll
+0x00007ffa2afa0000 - 0x00007ffa2b062000 	C:\WINDOWS\System32\KERNEL32.DLL
+0x00007ffa29fd0000 - 0x00007ffa2a2c6000 	C:\WINDOWS\System32\KERNELBASE.dll
+0x00007ffa29be0000 - 0x00007ffa29ce0000 	C:\WINDOWS\System32\ucrtbase.dll
+0x00007ff9f8af0000 - 0x00007ff9f8b08000 	c:\Users\duduh\.vscode\extensions\redhat.java-1.42.0-win32-x64\jre\21.0.7-win32-x86_64\bin\jli.dll
+0x00007ffa2b930000 - 0x00007ffa2bacd000 	C:\WINDOWS\System32\USER32.dll
+0x00007ffa2a3b0000 - 0x00007ffa2a3d2000 	C:\WINDOWS\System32\win32u.dll
+0x00007ffa2ae30000 - 0x00007ffa2ae5b000 	C:\WINDOWS\System32\GDI32.dll
+0x00007ffa29e00000 - 0x00007ffa29f1a000 	C:\WINDOWS\System32\gdi32full.dll
+0x00007ffa29d60000 - 0x00007ffa29dfd000 	C:\WINDOWS\System32\msvcp_win.dll
+0x00007ff9f68a0000 - 0x00007ff9f68be000 	c:\Users\duduh\.vscode\extensions\redhat.java-1.42.0-win32-x64\jre\21.0.7-win32-x86_64\bin\VCRUNTIME140.dll
+0x00007ffa0fe40000 - 0x00007ffa100da000 	C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.19041.4355_none_60b8b9eb71f62e16\COMCTL32.dll
+0x00007ffa2abf0000 - 0x00007ffa2ac8e000 	C:\WINDOWS\System32\msvcrt.dll
+0x00007ffa2aa10000 - 0x00007ffa2aa3f000 	C:\WINDOWS\System32\IMM32.DLL
+0x00007ffa1fc30000 - 0x00007ffa1fc3c000 	c:\Users\duduh\.vscode\extensions\redhat.java-1.42.0-win32-x64\jre\21.0.7-win32-x86_64\bin\vcruntime140_1.dll
+0x00007ff9e0fe0000 - 0x00007ff9e106d000 	c:\Users\duduh\.vscode\extensions\redhat.java-1.42.0-win32-x64\jre\21.0.7-win32-x86_64\bin\msvcp140.dll
+0x00007ff986160000 - 0x00007ff986ef0000 	c:\Users\duduh\.vscode\extensions\redhat.java-1.42.0-win32-x64\jre\21.0.7-win32-x86_64\bin\server\jvm.dll
+0x00007ffa2c3d0000 - 0x00007ffa2c47f000 	C:\WINDOWS\System32\ADVAPI32.dll
+0x00007ffa2b080000 - 0x00007ffa2b11f000 	C:\WINDOWS\System32\sechost.dll
+0x00007ffa2c2a0000 - 0x00007ffa2c3c3000 	C:\WINDOWS\System32\RPCRT4.dll
+0x00007ffa2a3e0000 - 0x00007ffa2a407000 	C:\WINDOWS\System32\bcrypt.dll
+0x00007ffa2ac90000 - 0x00007ffa2acfb000 	C:\WINDOWS\System32\WS2_32.dll
+0x00007ffa29990000 - 0x00007ffa299db000 	C:\WINDOWS\SYSTEM32\POWRPROF.dll
+0x00007ffa236a0000 - 0x00007ffa236c7000 	C:\WINDOWS\SYSTEM32\WINMM.dll
+0x00007ffa18cb0000 - 0x00007ffa18cba000 	C:\WINDOWS\SYSTEM32\VERSION.dll
+0x00007ffa29960000 - 0x00007ffa29972000 	C:\WINDOWS\SYSTEM32\UMPDC.dll
+0x00007ffa283c0000 - 0x00007ffa283d2000 	C:\WINDOWS\SYSTEM32\kernel.appcore.dll
+0x00007ffa1f7f0000 - 0x00007ffa1f7fa000 	c:\Users\duduh\.vscode\extensions\redhat.java-1.42.0-win32-x64\jre\21.0.7-win32-x86_64\bin\jimage.dll
+0x00007ffa275c0000 - 0x00007ffa277a4000 	C:\WINDOWS\SYSTEM32\DBGHELP.DLL
+0x00007ffa09e10000 - 0x00007ffa09e44000 	C:\WINDOWS\SYSTEM32\dbgcore.DLL
+0x00007ffa2a320000 - 0x00007ffa2a3a2000 	C:\WINDOWS\System32\bcryptPrimitives.dll
+0x00007ff9ebf70000 - 0x00007ff9ebf8f000 	c:\Users\duduh\.vscode\extensions\redhat.java-1.42.0-win32-x64\jre\21.0.7-win32-x86_64\bin\java.dll
+
+dbghelp: loaded successfully - version: 4.0.5 - missing functions: none
+symbol engine: initialized successfully - sym options: 0x614 - pdb path: .;c:\Users\duduh\.vscode\extensions\redhat.java-1.42.0-win32-x64\jre\21.0.7-win32-x86_64\bin;C:\WINDOWS\SYSTEM32;C:\WINDOWS\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.19041.4355_none_60b8b9eb71f62e16;c:\Users\duduh\.vscode\extensions\redhat.java-1.42.0-win32-x64\jre\21.0.7-win32-x86_64\bin\server
+
+VM Arguments:
+jvm_args: -Dapplication.home=c:\Users\duduh\.vscode\extensions\redhat.java-1.42.0-win32-x64\jre\21.0.7-win32-x86_64 -Xms8m -Djdk.module.main=jdk.jcmd 
+java_command: jdk.jcmd/sun.tools.jcmd.JCmd 8860 VM.uptime
+java_class_path (initial): <not set>
+Launcher Type: SUN_STANDARD
+
+[Global flags]
+     intx CICompilerCount                          = 3                                         {product} {ergonomic}
+     uint ConcGCThreads                            = 1                                         {product} {ergonomic}
+     uint G1ConcRefinementThreads                  = 4                                         {product} {ergonomic}
+   size_t G1HeapRegionSize                         = 1048576                                   {product} {ergonomic}
+    uintx GCDrainStackTargetSize                   = 64                                        {product} {ergonomic}
+   size_t InitialHeapSize                          = 8388608                                   {product} {command line}
+   size_t MarkStackSize                            = 4194304                                   {product} {ergonomic}
+   size_t MaxHeapSize                              = 2105540608                                {product} {ergonomic}
+   size_t MinHeapDeltaBytes                        = 1048576                                   {product} {ergonomic}
+   size_t MinHeapSize                              = 8388608                                   {product} {command line}
+    uintx NonNMethodCodeHeapSize                   = 5832780                                {pd product} {ergonomic}
+    uintx NonProfiledCodeHeapSize                  = 122912730                              {pd product} {ergonomic}
+    uintx ProfiledCodeHeapSize                     = 122912730                              {pd product} {ergonomic}
+    uintx ReservedCodeCacheSize                    = 251658240                              {pd product} {ergonomic}
+     bool SegmentedCodeCache                       = true                                      {product} {ergonomic}
+   size_t SoftMaxHeapSize                          = 2105540608                             {manageable} {ergonomic}
+     bool UseCompressedOops                        = true                           {product lp64_product} {ergonomic}
+     bool UseG1GC                                  = true                                      {product} {ergonomic}
+     bool UseLargePagesIndividualAllocation        = false                                  {pd product} {ergonomic}
+
+Logging:
+Log output configuration:
+ #0: stdout all=warning uptime,level,tags foldmultilines=false
+ #1: stderr all=off uptime,level,tags foldmultilines=false
+
+Environment Variables:
+PATH=C:\Program Files\Python313\Scripts\;C:\Program Files\Python313\;C:\Program Files\Eclipse Adoptium\jdk-21.0.5.11-hotspot\bin;C:\Program Files\Eclipse Adoptium\jre-21.0.5.11-hotspot\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\WINDOWS\System32\OpenSSH\;C:\Program Files\dotnet\;C:\Program Files\Git\cmd;C:\Program Files (x86)\ZeroTier\One\;C:\Program Files\GitHub CLI\;C:\Program Files\nodejs\;C:\Program Files\Docker\Docker\resources\bin;C:\Program Files\MySQL\MySQL Shell 8.0\bin\;C:\Users\duduh\AppData\Local\Microsoft\WindowsApps;C:\Users\duduh\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\duduh\AppData\Local\GitHubDesktop\bin;C:\Users\duduh\AppData\Roaming\npm
+USERNAME=duduh
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 142 Stepping 12, GenuineIntel
+TMP=C:\Users\duduh\AppData\Local\Temp
+TEMP=C:\Users\duduh\AppData\Local\Temp
+
+
+
+
+Periodic native trim disabled
+
+---------------  S Y S T E M  ---------------
+
+OS:
+ Windows 10 , 64 bit Build 19041 (10.0.19041.5678)
+OS uptime: 6 days 23:21 hours
+Hyper-V role detected
+
+CPU: total 4 (initial active 4) (2 cores per cpu, 2 threads per core) family 6 model 142 stepping 12 microcode 0xde, cx8, cmov, fxsr, ht, mmx, 3dnowpref, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, lzcnt, tsc, tscinvbit, avx, avx2, aes, erms, clmul, bmi1, bmi2, adx, fma, vzeroupper, clflush, clflushopt, hv, rdtscp, f16c
+Processor Information for the first 4 processors :
+  Max Mhz: 2592, Current Mhz: 2592, Mhz Limit: 2073
+
+Memory: 4k page, system-wide physical 8025M (67M free)
+TotalPageFile size 32601M (AvailPageFile size 0M)
+current process WorkingSet (physical memory assigned to process): 10M, peak: 10M
+current process commit charge ("private bytes"): 12M, peak: 13M
+
+vm_info: OpenJDK 64-Bit Server VM (21.0.7+6-LTS) for windows-amd64 JRE (21.0.7+6-LTS), built on 2025-04-15T00:00:00Z by "admin" with MS VC++ 17.7 (VS2022)
+
+END.

@@ -34,7 +34,7 @@
   "loginWithEmailAllowed": false,
   "duplicateEmailsAllowed": false,
   "resetPasswordAllowed": false,
-  "editUsernameAllowed": false,
+  "editUsernameAllowed": true,
   "bruteForceProtected": false,
   "permanentLockout": false,
   "maxTemporaryLockouts": 0,
@@ -48,9 +48,36 @@
   "roles": {
     "realm": [
       {
+        "id": "95b81087-3ffe-4773-bcf7-b21a1f21ed2b",
+        "name": "Unifit",
+        "description": "",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "1a6e7568-a63d-45cb-a7f0-b0c9c8b3cb62",
+        "attributes": {}
+      },
+      {
         "id": "d1705c88-eef2-49b0-919c-28d1464d220c",
         "name": "offline_access",
         "description": "${role_offline-access}",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "1a6e7568-a63d-45cb-a7f0-b0c9c8b3cb62",
+        "attributes": {}
+      },
+      {
+        "id": "86f0efd6-3e3f-4ec0-936b-f323aa55492a",
+        "name": "Colaborador",
+        "description": "",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "1a6e7568-a63d-45cb-a7f0-b0c9c8b3cb62",
+        "attributes": {}
+      },
+      {
+        "id": "b9cdcf43-e1b0-4ef8-8a1e-bfe4a0db19ed",
+        "name": "default-roles-realm_unifit_api",
+        "description": "",
         "composite": false,
         "clientRole": false,
         "containerId": "1a6e7568-a63d-45cb-a7f0-b0c9c8b3cb62",
@@ -81,6 +108,15 @@
         "id": "76c80099-8df6-4c97-9b20-60eb6fa78d46",
         "name": "uma_authorization",
         "description": "${role_uma_authorization}",
+        "composite": false,
+        "clientRole": false,
+        "containerId": "1a6e7568-a63d-45cb-a7f0-b0c9c8b3cb62",
+        "attributes": {}
+      },
+      {
+        "id": "77703d61-9cb3-4b5f-93e9-d9a53b47a55d",
+        "name": "Admin",
+        "description": "",
         "composite": false,
         "clientRole": false,
         "containerId": "1a6e7568-a63d-45cb-a7f0-b0c9c8b3cb62",
@@ -300,8 +336,10 @@
           "attributes": {}
         }
       ],
+      "CLIENT_UNIFIT": [],
       "angular-client": [],
       "security-admin-console": [],
+      "app‑academy": [],
       "admin-cli": [],
       "account-console": [],
       "broker": [
@@ -315,6 +353,7 @@
           "attributes": {}
         }
       ],
+      "internal_support": [],
       "account": [
         {
           "id": "539e1c33-4b76-482c-bc88-8092bf56d57a",
@@ -498,6 +537,66 @@
     ]
   },
   "clients": [
+    {
+      "id": "159a623c-18e1-4c9f-a6c3-e102105b28b0",
+      "clientId": "CLIENT_UNIFIT",
+      "name": "CLIENT_UNIFIT",
+      "description": "",
+      "rootUrl": "http://localhost:8080",
+      "adminUrl": "http://localhost:8080",
+      "baseUrl": "http://localhost:8080",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "**********",
+      "redirectUris": [
+        "http://localhost:8080"
+      ],
+      "webOrigins": [
+        "http://localhost:8080"
+      ],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": true,
+      "serviceAccountsEnabled": false,
+      "publicClient": false,
+      "frontchannelLogout": true,
+      "protocol": "openid-connect",
+      "attributes": {
+        "realm_client": "false",
+        "oidc.ciba.grant.enabled": "false",
+        "client.secret.creation.time": "1747854083",
+        "backchannel.logout.session.required": "true",
+        "standard.token.exchange.enabled": "false",
+        "frontchannel.logout.session.required": "true",
+        "post.logout.redirect.uris": "http://localhost:8080",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "display.on.consent.screen": "false",
+        "backchannel.logout.revoke.offline.tokens": "false"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": true,
+      "nodeReRegistrationTimeout": -1,
+      "defaultClientScopes": [
+        "web-origins",
+        "acr",
+        "profile",
+        "roles",
+        "basic",
+        "app-claims"
+      ],
+      "optionalClientScopes": [
+        "address",
+        "phone",
+        "offline_access",
+        "organization",
+        "microprofile-jwt"
+      ]
+    },
     {
       "id": "36653a4a-dbf5-4b74-9a6a-fb9c741dac82",
       "clientId": "account",
@@ -699,6 +798,64 @@
       ]
     },
     {
+      "id": "6f1ca973-b6ac-4a37-a249-a117f250613b",
+      "clientId": "app‑academy",
+      "name": "app‑academy",
+      "description": "",
+      "rootUrl": "http://localhost:8082",
+      "adminUrl": "http://localhost:8082",
+      "baseUrl": "http://localhost:8082",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "**********",
+      "redirectUris": [
+        "http://localhost:8082"
+      ],
+      "webOrigins": [
+        "http://localhost:8082"
+      ],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": true,
+      "serviceAccountsEnabled": false,
+      "publicClient": false,
+      "frontchannelLogout": true,
+      "protocol": "openid-connect",
+      "attributes": {
+        "realm_client": "false",
+        "oidc.ciba.grant.enabled": "false",
+        "client.secret.creation.time": "1747853565",
+        "backchannel.logout.session.required": "true",
+        "standard.token.exchange.enabled": "false",
+        "post.logout.redirect.uris": "http://localhost:8082",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "backchannel.logout.revoke.offline.tokens": "false"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": true,
+      "nodeReRegistrationTimeout": -1,
+      "defaultClientScopes": [
+        "web-origins",
+        "acr",
+        "profile",
+        "roles",
+        "basic",
+        "app-claims"
+      ],
+      "optionalClientScopes": [
+        "address",
+        "phone",
+        "offline_access",
+        "organization",
+        "microprofile-jwt"
+      ]
+    },
+    {
       "id": "d710bb91-8c78-4199-815e-d180253e9481",
       "clientId": "broker",
       "name": "${client_broker}",
@@ -729,6 +886,66 @@
         "profile",
         "roles",
         "basic"
+      ],
+      "optionalClientScopes": [
+        "address",
+        "phone",
+        "offline_access",
+        "organization",
+        "microprofile-jwt"
+      ]
+    },
+    {
+      "id": "9583b2b6-2451-4d36-8547-354131f5312c",
+      "clientId": "internal_support",
+      "name": "internal_support",
+      "description": "",
+      "rootUrl": "",
+      "adminUrl": "",
+      "baseUrl": "",
+      "surrogateAuthRequired": false,
+      "enabled": true,
+      "alwaysDisplayInConsole": false,
+      "clientAuthenticatorType": "client-secret",
+      "secret": "**********",
+      "redirectUris": [
+        "/*"
+      ],
+      "webOrigins": [
+        "/*"
+      ],
+      "notBefore": 0,
+      "bearerOnly": false,
+      "consentRequired": false,
+      "standardFlowEnabled": true,
+      "implicitFlowEnabled": false,
+      "directAccessGrantsEnabled": true,
+      "serviceAccountsEnabled": false,
+      "publicClient": false,
+      "frontchannelLogout": true,
+      "protocol": "openid-connect",
+      "attributes": {
+        "realm_client": "false",
+        "oidc.ciba.grant.enabled": "false",
+        "client.secret.creation.time": "1747850665",
+        "backchannel.logout.session.required": "true",
+        "standard.token.exchange.enabled": "false",
+        "frontchannel.logout.session.required": "true",
+        "oauth2.device.authorization.grant.enabled": "false",
+        "display.on.consent.screen": "false",
+        "use.jwks.url": "false",
+        "backchannel.logout.revoke.offline.tokens": "false"
+      },
+      "authenticationFlowBindingOverrides": {},
+      "fullScopeAllowed": true,
+      "nodeReRegistrationTimeout": -1,
+      "defaultClientScopes": [
+        "web-origins",
+        "acr",
+        "profile",
+        "roles",
+        "basic",
+        "app-claims"
       ],
       "optionalClientScopes": [
         "address",
