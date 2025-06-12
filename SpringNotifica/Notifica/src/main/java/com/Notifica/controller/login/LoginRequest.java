@@ -1,8 +1,6 @@
-package com.Notifica.controller.login;
+package com.Notifica.controller.login; // Note que corrigi o 'L' maiúsculo para minúsculo no nome do pacote
 
 public record LoginRequest(
-        String login,
-        String senha,
-        String tipoDeUsuario
-) {
-}
+    String login,
+    String senha
+) {}

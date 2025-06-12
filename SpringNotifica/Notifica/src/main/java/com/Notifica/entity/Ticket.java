@@ -7,7 +7,7 @@ import java.time.LocalDateTime;
 
 @Entity
 @Data
-public class Ticket {
+public class Ticket extends Auditable { // 1. Herda de Auditable
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -38,7 +38,7 @@ public class Ticket {
     @Enumerated(EnumType.STRING)
     private Status status = Status.ABERTO;
 
-    private LocalDateTime dataCriacao = LocalDateTime.now();
+    // private LocalDateTime dataCriacao = LocalDateTime.now(); // 2. Removido (agora é 'createdDate' em Auditable)
 
     private LocalDateTime dataSolucao;
 
@@ -62,5 +62,4 @@ public class Ticket {
     public enum TipoProblema {
         OUTRO, ELETRICO, INFRAESTRUTURA, MOBILIARIO, REDE, TECNOLOGIA
     }
-    
 }
