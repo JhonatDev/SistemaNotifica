@@ -1,153 +1,166 @@
 package com.Notifica.controller.tickts;
 
+import com.Notifica.entity.Ticket;
+import com.Notifica.service.TicketService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import com.Notifica.entity.Ticket;
-import com.Notifica.service.TicketService;
-
 import jakarta.validation.Valid;
-import lombok.val;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.NoSuchElementException;
 import java.util.Optional;
-import java.util.Objects;
 
 @RestController
 @RequestMapping("/tickets")
-@CrossOrigin(origins = "*")
+@CrossOrigin(origins = "*") // Em produção, é recomendado especificar as origens ex: "http://localhost:4200"
 public class TicketController {
 
     @Autowired
     private TicketService ticketService;
 
-    // Método para criar um ticket
+    /**
+     * Cria um novo ticket.
+     * Acessível por admin, funcionário e aluno.
+     */
     @PreAuthorize("hasAnyRole('admin', 'funcionario', 'aluno')")
     @PostMapping("/criar")
-    public ResponseEntity<Ticket> criarTicket(@Valid @RequestHeader("Authorization") String token, @RequestBody Ticket ticket) {
+    public ResponseEntity<Ticket> criarTicket(@Valid @RequestBody Ticket ticket) {
         Ticket ticketCriado = ticketService.criarTicket(ticket);
         return new ResponseEntity<>(ticketCriado, HttpStatus.CREATED);
     }
 
-    // Método para listar todos os tickets
+    /**
+     * Lista todos os tickets em ordem decrescente de data de criação.
+     * Acessível por admin, funcionário e aluno.
+     */
     @PreAuthorize("hasAnyRole('admin', 'funcionario', 'aluno')")
     @GetMapping("/listar")
-    public ResponseEntity<List<Ticket>> listarTickets(@RequestHeader("Authorization") String token) {
+    public ResponseEntity<List<Ticket>> listarTickets() {
         List<Ticket> tickets = ticketService.listarTickets();
         return new ResponseEntity<>(tickets, HttpStatus.OK);
     }
 
-    // Método para buscar um ticket
+    /**
+     * Busca um ticket específico pelo seu ID.
+     */
+    @PreAuthorize("hasAnyRole('admin', 'funcionario', 'aluno')")
     @GetMapping("/buscarID/{id}")
-    public ResponseEntity<Ticket> buscarTicket(@RequestHeader("Authorization") String token, @PathVariable Long id) {
-        try {
-            Optional<Ticket> ticket = ticketService.buscarTicket(id);
-            return new ResponseEntity<>(ticket.get(), HttpStatus.OK);
-        } catch (NoSuchElementException e) {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<Ticket> buscarTicket(@PathVariable Long id) {
+        Optional<Ticket> ticket = ticketService.buscarTicket(id);
+        
+        return ticket.map(t -> new ResponseEntity<>(t, HttpStatus.OK))
+                     .orElse(new ResponseEntity<>(HttpStatus.NOT_FOUND));
     }
 
-    // Método para atualizar um ticket
+    /**
+     * Atualiza um ticket existente.
+     * Acessível por admin, funcionário e aluno.
+     */
     @PreAuthorize("hasAnyRole('admin', 'funcionario', 'aluno')")
     @PutMapping("/atualizar/{id}")
-    public ResponseEntity<Ticket> atualizarTicket(@Valid @RequestHeader("Authorization") String token, @PathVariable Long id, @RequestBody Ticket ticket) {
+    public ResponseEntity<Ticket> atualizarTicket(@PathVariable Long id, @Valid @RequestBody Ticket ticket) {
         Ticket ticketAtualizado = ticketService.atualizarTicket(id, ticket);
         return new ResponseEntity<>(ticketAtualizado, HttpStatus.OK);
-        
     }
 
-    // Método para deletar um ticket
+    /**
+     * Deleta um ticket.
+     * Acessível por admin e funcionário.
+     */
     @PreAuthorize("hasAnyRole('admin', 'funcionario')")
     @DeleteMapping("/deletar/{id}")
-    public ResponseEntity<Map<String, String>> deletarTicket(@Valid @RequestHeader("Authorization") String token, @PathVariable Long id) {
+    public ResponseEntity<Map<String, String>> deletarTicket(@PathVariable Long id) {
         ticketService.deletarTicket(id);
-    
-        // Criar um objeto JSON como resposta
         Map<String, String> response = new HashMap<>();
         response.put("message", "Ticket deletado com sucesso");
-
-        // Retornar a resposta como JSON
         return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
-    // Métodos para iniciar, solucionar e cancelar um ticket
+    /**
+     * Marca um ticket como "EM_ANDAMENTO".
+     * Acessível por admin e funcionário.
+     */
     @PreAuthorize("hasAnyRole('admin', 'funcionario')")
-    @PutMapping("/iniciar/{funcionarioResponsavel}/{id}")
-    public ResponseEntity<Ticket> iniciarTicket(@Valid @RequestHeader("Authorization") String token, @PathVariable Long id, @PathVariable String funcionarioResponsavel) { 
+    @PutMapping("/iniciar/{id}/{funcionarioResponsavel}")
+    public ResponseEntity<Ticket> iniciarTicket(@PathVariable Long id, @PathVariable String funcionarioResponsavel) {
         Ticket ticketIniciado = ticketService.iniciarTicket(id, funcionarioResponsavel);
-         return new ResponseEntity<>(ticketIniciado, HttpStatus.OK);
-        
+        return new ResponseEntity<>(ticketIniciado, HttpStatus.OK);
     }
 
-    // Método para voltar um ticket para aberto
+    /**
+     * Reverte um ticket para o status "ABERTO".
+     * Acessível por admin e funcionário.
+     */
     @PreAuthorize("hasAnyRole('admin', 'funcionario')")
     @PutMapping("/voltarAberto/{id}")
-    public ResponseEntity<Ticket> voltarAberto(@RequestHeader("Authorization") String token, @PathVariable Long id) {
+    public ResponseEntity<Ticket> voltarAberto(@PathVariable Long id) {
         Ticket ticketAberto = ticketService.voltarTicketParaAberto(id);
         return new ResponseEntity<>(ticketAberto, HttpStatus.OK);
-        
     }
 
-    // Método para solucionar um ticket
+    /**
+     * Marca um ticket como "SOLUCIONADO".
+     * Acessível por admin e funcionário.
+     */
     @PreAuthorize("hasAnyRole('admin', 'funcionario')")
     @PutMapping("/solucionar/{id}")
-    public ResponseEntity<Ticket> solucionarTicket(@Valid @RequestHeader("Authorization") String token, @PathVariable Long id) {
+    public ResponseEntity<Ticket> solucionarTicket(@PathVariable Long id) {
         Ticket ticketSolucionado = ticketService.solucionarTicket(id);
         return new ResponseEntity<>(ticketSolucionado, HttpStatus.OK);
     }
 
-    // Método para cancelar um ticket
+    /**
+     * Marca um ticket como "CANCELADO".
+     * Acessível por admin, funcionário e aluno.
+     */
     @PreAuthorize("hasAnyRole('aluno', 'admin', 'funcionario')")
     @PutMapping("/cancelar/{id}")
-    public ResponseEntity<Ticket> cancelarTicket(@Valid @RequestHeader("Authorization") String token, @PathVariable Long id) {
+    public ResponseEntity<Ticket> cancelarTicket(@PathVariable Long id) {
         Ticket ticketCancelado = ticketService.cancelarTicket(id);
         return new ResponseEntity<>(ticketCancelado, HttpStatus.OK);
     }
 
-    // Método para listar tickets por status
+    /**
+     * Lista todos os tickets que correspondem a um status específico.
+     */
     @PreAuthorize("hasAnyRole('admin', 'funcionario', 'aluno')")
     @GetMapping("/listarPorStatus/{status}")
-    public ResponseEntity<List<Ticket>> listarTicketsPorStatus(@Valid @RequestHeader("Authorization") String token, @PathVariable Ticket.Status status) {
+    public ResponseEntity<List<Ticket>> listarTicketsPorStatus(@PathVariable Ticket.Status status) {
         List<Ticket> ticketsPorStatus = ticketService.listarTicketsPorStatus(status);
         return new ResponseEntity<>(ticketsPorStatus, HttpStatus.OK);
     }
 
-    // Método para buscar tickets por RA e status
+    /**
+     * Busca tickets por RA e Status.
+     */
     @PreAuthorize("hasAnyRole('admin', 'funcionario', 'aluno')")
     @GetMapping("/buscarPorRaEStatus/{raAluno}/{status}")
-    public ResponseEntity<List<Ticket>> buscarTicketsPorRaEStatus(@Valid @RequestHeader("Authorization") String token, @PathVariable String raAluno, @Valid @PathVariable Ticket.Status status) {
+    public ResponseEntity<List<Ticket>> buscarTicketsPorRaEStatus(@PathVariable String raAluno, @PathVariable Ticket.Status status) {
         List<Ticket> ticketsPorRaEStatus = ticketService.buscarTicketsPorRaEStatus(raAluno, status);
         return new ResponseEntity<>(ticketsPorRaEStatus, HttpStatus.OK);
     }
 
-    // Método para buscar tickets por RA
+    /**
+     * Busca todos os tickets de um aluno específico pelo RA.
+     */
     @PreAuthorize("hasAnyRole('admin', 'funcionario', 'aluno')")
     @GetMapping("/buscarPorRa/{raAluno}")
-    public ResponseEntity<List<Ticket>> buscarTicketsPorRa(@Valid @RequestHeader("Authorization") String token, @PathVariable String raAluno) {
+    public ResponseEntity<List<Ticket>> buscarTicketsPorRa(@PathVariable String raAluno) {
         List<Ticket> ticketsPorRa = ticketService.buscarTicketsPorRa(raAluno);
         return new ResponseEntity<>(ticketsPorRa, HttpStatus.OK);
     }
 
-    // Método para buscar tickets por ra e status sem cancelados
-    @PreAuthorize("hasAnyRole('admin', 'funcionario', 'aluno')")
-    @GetMapping("/buscarPorRaEStatusSemCancelados/{raAluno}/{status}")
-    public ResponseEntity<List<Ticket>> buscarTicketsPorRaEStatusSemCancelados(@Valid @RequestHeader("Authorization") String token, @PathVariable String raAluno, @Valid @PathVariable Ticket.Status status) {
-        List<Ticket> ticketsPorRaEStatusSemCancelados = ticketService.buscarTicketsPorRaEStatusSemCancelados(raAluno, status);
-        return new ResponseEntity<>(ticketsPorRaEStatusSemCancelados, HttpStatus.OK);
-    }
-
-    // Método para buscar tickets por ra sem cancelados
+    /**
+     * Busca todos os tickets de um aluno, exceto os cancelados.
+     */
     @PreAuthorize("hasAnyRole('admin', 'funcionario', 'aluno')")
     @GetMapping("/buscarPorRaSemCancelados/{raAluno}")
-    public ResponseEntity<List<Ticket>> buscarTicketsPorRaSemCancelados(@Valid @RequestHeader("Authorization") String token, @PathVariable String raAluno) {
+    public ResponseEntity<List<Ticket>> buscarTicketsPorRaSemCancelados(@PathVariable String raAluno) {
         List<Ticket> ticketsPorRaSemCancelados = ticketService.buscarTicketsPorRaSemCancelados(raAluno);
         return new ResponseEntity<>(ticketsPorRaSemCancelados, HttpStatus.OK);
     }
