@@ -102,11 +102,11 @@
     <artifactId>mysql-connector-j</artifactId>
     <scope>runtime</scope>
 </dependency>
-       <!-- <dependency>
+       <dependency>
             <groupId>org.mariadb.jdbc</groupId>
             <artifactId>mariadb-java-client</artifactId>
             <version>3.1.4</version>
-        </dependency>  -->
+        </dependency>
 
         <!-- Jakarta Validation API -->
         <dependency>
