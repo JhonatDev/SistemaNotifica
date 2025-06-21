@@ -1,0 +1,17 @@
+# 1. Instalação
+apk update
+apk add docker sudo
+
+# 2. Service
+rc-update add docker boot
+service docker start
+
+# 3. Grupo (se necessário)
+addgroup docker
+
+# 4. Usuário
+adduser -D -g 'Docker User' dockeruser
+addgroup dockeruser docker
+echo "dockeruser ALL=(ALL) NOPASSWD: /usr/bin/docker" \
+  > /etc/sudoers.d/dockeruser
+chmod 440 /etc/sudoers.d/dockeruser

@@ -1,0 +1,13 @@
+docker run -d --name frontend-notifica \
+  --restart unless-stopped \
+  -p 127.0.0.1:8080:80 \
+  -v /opt/frontend-notifica/notifica/browser:/opt/frontend-notifica/notifica/browser:ro \
+  -v /opt/frontend-notifica/logs:/opt/frontend-notifica/logs \
+  frontend-notifica
+
+docker run -d --name frontend-unifit \
+  --restart unless-stopped \
+  -p 127.0.0.1:8081:80 \
+  -v /opt/frontend-unifit/unifit/browser:/opt/frontend-unifit/unifit/browser:ro \
+  -v /opt/frontend-unifit/logs:/opt/frontend-unifit/logs \
+  frontend-unifit

@@ -1,0 +1,17 @@
+# Crie os diretórios onde os certificados vão morar
+sudo mkdir -p /opt/frontend-notifica/ssl_certificate
+sudo mkdir -p /opt/frontend-unifit/ssl_certificate
+
+# Notifica (CN=notifica.net)
+sudo openssl req -newkey rsa:2048 -nodes \
+  -keyout /opt/frontend-notifica/ssl_certificate/notifica.key \
+  -x509 -days 365 \
+  -out /opt/frontend-notifica/ssl_certificate/notifica.crt \
+  -subj "/C=BR/ST=São Paulo/L=São Paulo/O=Notifica/OU=TI/CN=notifica.net"
+
+# Unifit (CN=unifit)
+sudo openssl req -newkey rsa:2048 -nodes \
+  -keyout /opt/frontend-unifit/ssl_certificate/unifit.key \
+  -x509 -days 365 \
+  -out /opt/frontend-unifit/ssl_certificate/unifit.crt \
+  -subj "/C=BR/ST=São Paulo/L=São Paulo/O=Unifit/OU=TI/CN=unifit"

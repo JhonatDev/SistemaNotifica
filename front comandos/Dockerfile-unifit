@@ -1,0 +1,30 @@
+# Dockerfile-unifit
+FROM alpine:latest
+
+# 1) Atualiza repositórios e instala Nginx, OpenSSL e Nano
+RUN apk update && apk add --no-cache nginx openssl nano
+
+# 2) Cria diretórios para o site e configuração do Nginx
+RUN mkdir -p /opt/frontend-unifit \
+             /etc/nginx/http.d
+
+# 3) Copia todo o conteúdo do contexto de build para dentro do container
+#    (certifique-se de executar o build no diretório que contém este Dockerfile,
+#     o default-unifit.conf e sua pasta 'unifit/browser')
+COPY . /opt/frontend-unifit
+
+# 4) Configura o Nginx: remove a configuração default e aplica seu bloco customizado
+RUN rm -f /etc/nginx/http.d/default.conf && \
+    cp /opt/frontend-unifit/default-unifit.conf /etc/nginx/http.d/default.conf
+
+# 5) Define volumes para persistência de site, certificados e logs
+VOLUME [ "/opt/frontend-unifit", "/etc/nginx/http.d" ]
+
+# 6) Expõe as portas HTTP e HTTPS
+EXPOSE 80 443
+
+# 7) Ajusta permissões para o usuário nginx
+RUN chown -R nginx:nginx /opt/frontend-unifit
+
+# 8) Inicia o Nginx em primeiro plano
+CMD ["nginx", "-g", "daemon off;"]
