@@ -1,0 +1,47 @@
+#!/usr/bin/env bash
+set -e
+
+if [[ $# -ne 1 ]]; then
+  echo "Uso: redeploy {notifica|unifit}"
+  exit 1
+fi
+
+NAME=$1
+
+# Mapeamentos por container
+if [[ "$NAME" == "notifica" ]]; then
+  DIR="/opt/frontend-notifica"
+  IMAGE="frontend-notifica"
+  CONTAINER="frontend-notifica"
+  PORTS="-p 127.0.0.1:8080:80 -p 127.0.0.1:8443:443"
+  VOLUMES="-v $DIR/notifica/browser:$DIR/notifica/browser:ro \
+           -v $DIR/ssl_certificate:$DIR/ssl_certificate:ro \
+           -v $DIR/logs:$DIR/logs"
+elif [[ "$NAME" == "unifit" ]]; then
+  DIR="/opt/frontend-unifit"
+  IMAGE="frontend-unifit"
+  CONTAINER="frontend-unifit"
+  PORTS="-p 127.0.0.1:8081:80 -p 127.0.0.1:8444:443"
+  VOLUMES="-v $DIR/unifit/browser:$DIR/unifit/browser:ro \
+           -v $DIR/ssl_certificate:$DIR/ssl_certificate:ro \
+           -v $DIR/logs:$DIR/logs"
+else
+  echo "Parâmetro inválido: use 'notifica' ou 'unifit'"
+  exit 1
+fi
+
+echo ">>> Parando e removendo container antigo…"
+docker rm -f $CONTAINER 2>/dev/null || true
+
+echo ">>> Removendo imagem antiga…"
+docker rmi -f $IMAGE    2>/dev/null || true
+
+echo ">>> Construindo nova imagem em $DIR…"
+cd $DIR
+docker build -t $IMAGE -f Dockerfile-$NAME .
+
+echo ">>> Iniciando novo container…"
+docker run -d --name $CONTAINER --restart unless-stopped \
+  $PORTS $VOLUMES $IMAGE
+
+echo "✅ Redeploy de '$NAME' concluído!"
