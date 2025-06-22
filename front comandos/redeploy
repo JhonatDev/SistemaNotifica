@@ -34,10 +34,15 @@ echo ">>> Parando e removendo container antigo…"
 docker rm -f $CONTAINER 2>/dev/null || true
 
 echo ">>> Removendo imagem antiga…"
-docker rmi -f $IMAGE    2>/dev/null || true
+docker rmi -f $IMAGE 2>/dev/null || true
+
+echo ">>> Ajustando permissões e propriedade em $DIR…"
+# dar rwx para user e group; garantir root:root
+chmod -R ug+rwx "$DIR"
+chown -R root:root  "$DIR"
 
 echo ">>> Construindo nova imagem em $DIR…"
-cd $DIR
+cd "$DIR"
 docker build -t $IMAGE -f Dockerfile-$NAME .
 
 echo ">>> Iniciando novo container…"

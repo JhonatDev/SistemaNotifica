@@ -11,3 +11,14 @@ docker run -d --name frontend-unifit \
   -v /opt/frontend-unifit/unifit/browser:/opt/frontend-unifit/unifit/browser:ro \
   -v /opt/frontend-unifit/logs:/opt/frontend-unifit/logs \
   frontend-unifit
+
+# ve se esta rodando
+docker ps
+
+
+
+# entrar no container frontend-notifica
+docker exec -it frontend-notifica sh
+
+# entrar no container frontend-unifit
+docker exec -it frontend-unifit sh
