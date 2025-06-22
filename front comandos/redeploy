@@ -39,6 +39,8 @@ docker rmi -f $IMAGE 2>/dev/null || true
 echo ">>> Ajustando permissões e propriedade em $DIR…"
 # dar rwx para user e group; garantir root:root
 chmod -R ug+rwx "$DIR"
+# Dá permissão de leitura e execução para outros
+chmod -R o+rx "$DIR"
 chown -R root:root  "$DIR"
 
 echo ">>> Construindo nova imagem em $DIR…"
