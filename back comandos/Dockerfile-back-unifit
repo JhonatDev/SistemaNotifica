@@ -1,16 +1,13 @@
-# Usa imagem base Tomcat 10.1
-FROM tomcat:10.1-jdk17
+# Dockerfile-notifica
+FROM alpine:latest
 
-# istala o nano
-RUN apt-get update && apt-get install -y nano
+# 1) Instala Nginx
+RUN apk update
+RUN apk add nginx
+RUN apk add openssl
+RUN apk add nano
 
-# Remove aplicações padrão do Tomcat (opcional, mas recomendado para produção)
-RUN rm -rf /usr/local/tomcat/webapps/*
+EXPOSE 80 443
 
-# Expõe as portas HTTP e HTTPS
-EXPOSE 8181 8444
-
-# Inicia o Tomcat e mudar o dono e as permissões da pasta do Tomcat
-CMD ["sh", "-c", "chmod -R 775 /usr/local/tomcat && catalina.sh run"]
-
-
+# 8) Comando de inicializa  o
+CMD ["sh", "-c", "chmod -R 775 /opt/frontend-notifica && nginx -g 'daemon off;'"]

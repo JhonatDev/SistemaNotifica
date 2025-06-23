@@ -1,9 +1,0 @@
-/opt/frontend-notifica/
-  ├── notifica/browser/      ← seu build estático (index.html + assets)
-  ├── ssl_certificate/       ← notifica.crt / notifica.key
-  └── logs/
-
-/opt/frontend-unifit/
-  ├── unifit/browser/
-  ├── ssl_certificate/       ← unifit.crt / unifit.key
-  └── logs/

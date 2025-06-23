@@ -7,25 +7,7 @@ RUN apk add nginx
 RUN apk add openssl
 RUN apk add nano
 
-
-# 2) Cria diret rios (e ponto de mount)
-RUN mkdir -p /opt/frontend-notifica \
-             /etc/nginx/http.d
-
-# 3) Copia diretorio frontend e configura  o do Nginx
-COPY / /opt/frontend-notifica
-RUN rm -rf /etc/nginx/http.d/default.conf
-RUN cp /opt/frontend-notifica/default-notifica.conf /etc/nginx/http.d/default.conf
-
-# 4) Define volumes para persistir
-VOLUME [ "/opt/frontend-notifica", \
-          "/etc/nginx/http.d" ]
-
-# 5) Exp e portas HTTP/HTTPS
 EXPOSE 80 443
 
-# 6) Ajusta permiss es (opcional)
-RUN chown -R nginx:nginx /opt/frontend-notifica
-
 # 8) Comando de inicializa  o
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["sh", "-c", "chmod -R 775 /opt/frontend-notifica && nginx -g 'daemon off;'"]

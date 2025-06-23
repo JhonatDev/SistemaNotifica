@@ -1,7 +1,0 @@
-cd /opt/frontend-notifica
-docker build -t frontend-notifica -f Dockerfile-notifica .
-
-cd /opt/frontend-unifit
-docker build -t frontend-unifit -f Dockerfile-unifit .
-
-
