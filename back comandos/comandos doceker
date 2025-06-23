@@ -1,0 +1,35 @@
+# back-notifica
+
+# re criao imagens docker
+cd /opt/back_notifica
+docker build -t back-notifica -f Dockerfile-back-notifica .
+
+# remover container antigo, se existir e criar novo container
+docker rm -f back-notifica 2>/dev/null || true
+docker run -d --name back-notifica --restart unless-stopped \
+  -p 8080:8080 -p 8443:8443 \
+  -v /opt/back_notifica/logs:/usr/local/tomcat/logs \
+  -v /opt/back_notifica/tomcat:/usr/local/tomcat \
+  -v /opt/back_notifica/image:/usr/local/tomcat/SpringNotifica/Notifica/src/main/resources/static/image/download \
+  back-notifica
+
+# Acessar o container do back-notifica
+docker exec -it back-notifica bash
+
+
+# Back Unifit
+
+# re criao imagens docker
+cd /opt/back_unifit
+docker build -t back-unifit -f Dockerfile-back-unifit .
+
+# remover container antigo, se existir e criar novo container
+docker rm -f back-unifit 2>/dev/null || true
+docker run -d --name back-unifit --restart unless-stopped \
+  -p 8083:8080 -p 8444:8443 \
+  -v /opt/back_unifit/logs:/usr/local/tomcat/logs \
+  -v /opt/back_unifit/tomcat:/usr/local/tomcat \
+  back-unifit
+
+# Acessar o container do back-unifit
+docker exec -it back-unifit bash

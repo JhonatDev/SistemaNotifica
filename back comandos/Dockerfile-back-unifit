@@ -1,0 +1,16 @@
+# Usa imagem base Tomcat 10.1
+FROM tomcat:10.1-jdk17
+
+# istala o nano
+RUN apt-get update && apt-get install -y nano
+
+# Remove aplicações padrão do Tomcat (opcional, mas recomendado para produção)
+RUN rm -rf /usr/local/tomcat/webapps/*
+
+# Expõe as portas HTTP e HTTPS
+EXPOSE 8181 8444
+
+# Inicia o Tomcat e mudar o dono e as permissões da pasta do Tomcat
+CMD ["sh", "-c", "chmod -R 775 /usr/local/tomcat && catalina.sh run"]
+
+
