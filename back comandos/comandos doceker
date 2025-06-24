@@ -11,6 +11,8 @@ docker run -d --name back-notifica --restart unless-stopped \
   -v /opt/back_notifica/logs:/usr/local/tomcat/logs \
   -v /opt/back_notifica/tomcat:/usr/local/tomcat \
   -v /opt/back_notifica/image:/usr/local/tomcat/SpringNotifica/Notifica/src/main/resources/static/image/download \
+  -v /etc/localtime:/etc/localtime:ro \
+  -v /etc/timezone:/etc/timezone:ro \
   back-notifica
 
 # Acessar o container do back-notifica
@@ -29,6 +31,8 @@ docker run -d --name back-unifit --restart unless-stopped \
   -p 8083:8080 -p 8444:8443 \
   -v /opt/back_unifit/logs:/usr/local/tomcat/logs \
   -v /opt/back_unifit/tomcat:/usr/local/tomcat \
+  -v /etc/localtime:/etc/localtime:ro \
+  -v /etc/timezone:/etc/timezone:ro \
   back-unifit
 
 # Acessar o container do back-unifit
