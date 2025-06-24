@@ -3,7 +3,7 @@
     <div>
       <p><strong>Descrição:</strong> {{ TicketList.resumoProblema }}</p>
       <p><strong>Status:</strong> {{ TicketList.status }}</p>
-      <p><strong>Data de Criação:</strong> {{ TicketList.dataCriacao | date:'dd/MM/yyyy HH:mm' }}</p>
+      <p><strong>Data de Criação:</strong> {{ TicketList.createdDate | date:'dd/MM/yyyy HH:mm' }}</p>
       <p><strong>Data de Solução:</strong> {{ TicketList.dataSolucao | date:'dd/MM/yyyy HH:mm' }}</p>
       <p><strong>Local:</strong> {{ TicketList.local }}</p>
       <p><strong>Outro Local:</strong> {{ TicketList.outroLocal }}</p>
