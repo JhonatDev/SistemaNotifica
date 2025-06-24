@@ -86,7 +86,7 @@ public class TicketController {
      * Acessível por admin e funcionário.
      */
     @PreAuthorize("hasAnyRole('admin', 'funcionario')")
-    @PutMapping("/iniciar/{id}/{funcionarioResponsavel}")
+    @PutMapping("/iniciar/{funcionarioResponsavel}/{id}")
     public ResponseEntity<Ticket> iniciarTicket(@PathVariable Long id, @PathVariable String funcionarioResponsavel) {
         Ticket ticketIniciado = ticketService.iniciarTicket(id, funcionarioResponsavel);
         return new ResponseEntity<>(ticketIniciado, HttpStatus.OK);

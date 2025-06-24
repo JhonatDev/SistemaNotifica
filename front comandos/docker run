@@ -10,7 +10,7 @@ docker run -d --name frontend-notifica \
   -p 127.0.0.1:8080:80 \
   -v /opt/frontend-notifica/notifica/browser:/opt/frontend-notifica/notifica/browser \
   -v /opt/frontend-notifica/default-notifica.conf:/etc/nginx/http.d/default.conf \
-  -v /opt/frontend-notifica/logs:/opt/frontend-notifica/logs \
+  -v /opt/frontend-notifica/logs:/var/log/nginx \
   frontend-notifica
 
 
@@ -26,7 +26,7 @@ docker run -d --name frontend-unifit \
   -p 127.0.0.1:8081:80 \
   -v /opt/frontend-unifit/unifit/browser:/opt/frontend-unifit/unifit/browser \
   -v /opt/frontend-unifit/default-unifit.conf:/etc/nginx/http.d/default.conf \
-  -v /opt/frontend-unifit/logs:/opt/frontend-unifit/logs \
+  -v /opt/frontend-unifit/logs:/var/log/nginx \
   frontend-unifit
 
 # ve se esta rodando

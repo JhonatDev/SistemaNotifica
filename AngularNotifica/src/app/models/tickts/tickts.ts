@@ -8,7 +8,7 @@ export class Tickts {
   subtipoProblema!: string;
   outroSubtipoProblema!: string;
   status!: string;
-  dataCriacao!: string;
+  createdDate!: string;
   dataSolucao!: string;
   caminhoFoto!: string;
   raAluno!: string;

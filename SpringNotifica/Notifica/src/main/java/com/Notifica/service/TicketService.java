@@ -86,24 +86,67 @@ public class TicketService {
         ticketRepository.deleteById(id);
     }
 
-    // Métodos de mudança de status (sem alterações, a auditoria funcionará automaticamente)
+    // Métodos para iniciar, solucionar e cancelar tickets  
     public Ticket iniciarTicket(Long id, String funcionarioResponsavel) {
-        //...
-        return null; // Implementação original omitida por brevidade
-    }
-    public Ticket voltarTicketParaAberto(Long id) {
-        //...
-        return null; // Implementação original omitida por brevidade
-    }
-    public Ticket solucionarTicket(Long id) {
-        //...
-        return null; // Implementação original omitida por brevidade
-    }
-    public Ticket cancelarTicket(Long id) {
-        //...
-        return null; // Implementação original omitida por brevidade
+        Ticket ticket = ticketRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Ticket não encontrado"));
+
+        if (ticket.getStatus() == Ticket.Status.EM_ANDAMENTO) {
+            throw new IllegalArgumentException("Ticket já está em andamento");
+        } else if (ticket.getStatus() == Ticket.Status.SOLUCIONADO) {
+            throw new IllegalArgumentException("Ticket já foi solucionado");
+        } else if (ticket.getStatus() == Ticket.Status.CANCELADO) {
+            throw new IllegalArgumentException("Ticket já foi cancelado");
+        } else if (funcionarioResponsavel == null || funcionarioResponsavel.isEmpty()) {
+            throw new IllegalArgumentException("Funcionário responsável é obrigatório");
+        }
+        ticket.setStatus(Ticket.Status.EM_ANDAMENTO);
+        ticket.setFuncionarioResponsavel(funcionarioResponsavel);
+        return ticketRepository.save(ticket);
     }
 
+    //função para voltar um ticket para aberto
+    public Ticket voltarTicketParaAberto(Long id) {
+        Ticket ticket = ticketRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Ticket não encontrado"));
+        if (ticket.getStatus() == Ticket.Status.ABERTO) {
+            throw new IllegalArgumentException("Ticket já está aberto");
+        }
+        ticket.setStatus(Ticket.Status.ABERTO);
+        ticket.setFuncionarioResponsavel(null);
+        ticket.setDataSolucao(null);
+        return ticketRepository.save(ticket);
+    }
+
+    // Método para solucionar um ticket
+    public Ticket solucionarTicket(Long id) {
+        Ticket ticket = ticketRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Ticket não encontrado"));
+        if (ticket.getStatus() == Ticket.Status.ABERTO) {
+            throw new IllegalArgumentException("Ticket ainda não foi iniciado");
+        } else if (ticket.getStatus() == Ticket.Status.SOLUCIONADO) {
+            throw new IllegalArgumentException("Ticket já foi solucionado");
+        } else if (ticket.getStatus() == Ticket.Status.CANCELADO) {
+            throw new IllegalArgumentException("Ticket já foi cancelado");
+        }
+        ticket.setStatus(Ticket.Status.SOLUCIONADO);
+        ticket.setDataSolucao(LocalDateTime.now());
+        return ticketRepository.save(ticket);
+    }
+
+    // Método para cancelar um ticket
+    public Ticket cancelarTicket(Long id) {
+        Ticket ticket = ticketRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Ticket não encontrado"));
+        if (ticket.getStatus() == Ticket.Status.CANCELADO) {
+            throw new IllegalArgumentException("Ticket já foi cancelado");
+        }
+        ticket.setStatus(Ticket.Status.CANCELADO);
+        ticket.setDataSolucao(LocalDateTime.now());
+        ticket.setFuncionarioResponsavel(null);
+        return ticketRepository.save(ticket);
+    }
+    
     // Método para listar tickets por status em ordem do mais novo para o mais antigo
     public List<Ticket> listarTicketsPorStatus(Ticket.Status status) {
         if (status == null) {

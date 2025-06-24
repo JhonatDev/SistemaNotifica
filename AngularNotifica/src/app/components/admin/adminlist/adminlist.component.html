@@ -29,7 +29,7 @@
       <span class="status">{{ ticket.status }}</span>
     </div>
     <p id="texto" class="resumo">{{ ticket.resumoProblema }}</p>
-    <p id="texto" class="local">Local: 
+    <p id="texto" class="local">Local:
       {{
         ticket.local === 'OUTRO' ? ticket.outroLocal : ticket.local
       }}
@@ -37,7 +37,7 @@
       {{
         ticket.dataSolucao
           ? 'Resolvido:' + (ticket.dataSolucao | date: 'short')
-          : 'Criado:' + (ticket.dataCriacao | date: 'short')
+          : 'Criado:' + (ticket.createdDate | date: 'short')
       }}
     </p>
     <div class="conteiner-imagem">
