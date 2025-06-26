@@ -7,7 +7,7 @@ docker build -t frontend-notifica -f Dockerfile-notifica .
 docker rm -f frontend-notifica 2>/dev/null || true
 docker run -d --name frontend-notifica \
   --restart unless-stopped \
-  -p 127.0.0.1:8080:80 \
+  -p 8080:80 \
   -v /opt/frontend-notifica/notifica/browser:/opt/frontend-notifica/notifica/browser \
   -v /opt/frontend-notifica/default-notifica.conf:/etc/nginx/http.d/default.conf \
   -v /opt/frontend-notifica/logs:/var/log/nginx \
@@ -25,7 +25,7 @@ docker build -t frontend-unifit -f Dockerfile-unifit .
 docker rm -f frontend-unifit 2>/dev/null || true
 docker run -d --name frontend-unifit \
   --restart unless-stopped \
-  -p 127.0.0.1:8081:80 \
+  -p 8081:80 \
   -v /opt/frontend-unifit/unifit/browser:/opt/frontend-unifit/unifit/browser \
   -v /opt/frontend-unifit/default-unifit.conf:/etc/nginx/http.d/default.conf \
   -v /opt/frontend-unifit/logs:/var/log/nginx \

@@ -1,0 +1,55 @@
+#!/sbin/openrc-run
+
+name="filebeat"
+description="Filebeat Log Collector"
+command="/opt/filebeat-8.11.0-linux-x86_64/filebeat"
+command_args="-c /opt/filebeat-8.11.0-linux-x86_64/filebeat.yml --strict.perms=false"
+pidfile="/run/filebeat.pid"
+user="root"
+
+depend() {
+    need net
+    use dns
+}
+
+start_pre() {
+    checkpath --directory --mode 0755 /run
+}
+
+start() {
+    if [ -f "${pidfile}" ]; then
+        pid=$(cat "${pidfile}")
+        if ! kill -0 "$pid" 2>/dev/null; then
+            rm -f "${pidfile}"
+        else
+            eerror "${name} já está rodando!"
+            return 1
+        fi
+    fi
+    ebegin "Starting ${name}"
+    start-stop-daemon --start \
+        --background \
+        --pidfile "${pidfile}" \
+        --make-pidfile \
+        --chuid "${user}" \
+        --exec "${command}" -- ${command_args}
+    eend $?
+}
+
+stop() {
+    ebegin "Stopping ${name}"
+    start-stop-daemon --stop --pidfile "${pidfile}" --retry 5
+    eend $?
+}
+
+status() {
+    if [ -f "${pidfile}" ]; then
+        pid=$(cat "${pidfile}")
+        if [ -n "$pid" ] && kill -0 "$pid" 2>/dev/null; then
+            echo "${name} is running (pid $pid)"
+            return 0
+        fi
+    fi
+    echo "${name} is not running"
+    return 1
+}
